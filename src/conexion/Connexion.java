@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Conexion {
-	Connection cx=null;
+public class Connexion {
+	private Connection cx;
 	
-	public Connection conectar() {
+	public Connection connect() {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			cx = DriverManager.getConnection("jdbc:sqlite:inventory.db");

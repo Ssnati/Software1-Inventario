@@ -6,20 +6,20 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import conexion.Conexion;
+import conexion.Connexion;
 import model.Product;
 
 public class DaoSoldProduct {
-Conexion cx;
+Connexion cx;
 	
 	public DaoSoldProduct() {
-		cx= new Conexion();
+		cx= new Connexion();
 	}
 	
 	public boolean insertProduct(Product product, int quantity){
 		PreparedStatement ps = null;
 		try {
-			ps=cx.conectar().prepareStatement("INSERT INTO SoldProducts VALUES(null,?,?,?,?,?,?,?,?,?)");
+			ps=cx.connect().prepareStatement("INSERT INTO SoldProducts VALUES(null,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, product.getId());
 			ps.setString(2, product.getName());
 			ps.setString(3, ""+product.getProfitPercentage());
@@ -43,7 +43,7 @@ Conexion cx;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			ps = cx.conectar().prepareStatement("SELECT * FROM SoldProducts");
+			ps = cx.connect().prepareStatement("SELECT * FROM SoldProducts");
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				Product product = new Product(rs.getString("id"), rs.getString("name"), rs.getInt("profitPercentage"), 
