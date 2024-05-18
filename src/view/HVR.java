@@ -97,14 +97,22 @@ public class HVR extends JFrame {
 		btnCrearProducto_Menu.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnCrearProducto_Menu.setBackground(Color.WHITE);
 		panelMenu.add(btnCrearProducto_Menu, "cell 1 6,grow");
-		
+
+		JButton btnCambiarDatosUsuario = new JButton("CAMBIAR CONTRASEÑA");
+		btnCambiarDatosUsuario.addActionListener(listener);
+		btnCambiarDatosUsuario.setActionCommand("cambiar_contrasena");
+		btnCambiarDatosUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnCambiarDatosUsuario.setBackground(Color.WHITE);
+		btnCambiarDatosUsuario.setPreferredSize(new Dimension(200, 55));
+		panelMenu.add(btnCambiarDatosUsuario, "cell 1 8,aligny bottom");
+
 		JButton btnCerrarSesion = new JButton("CERRAR SESION");
 		btnCerrarSesion.addActionListener(listener);
 		btnCerrarSesion.setActionCommand("menu_cerrar");
 		btnCerrarSesion.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnCerrarSesion.setBackground(Color.WHITE);
 		panelMenu.add(btnCerrarSesion, "cell 1 9,grow");
-		
+
 		panelCentral = new JPanel();
 		contentPane.add(panelCentral, BorderLayout.CENTER);
 		panelCentral.setLayout(new BorderLayout(0, 0));

@@ -1,51 +1,40 @@
 package controller;
 
+import dao.DaoProduct;
+import dao.DaoSoldProduct;
+import dao.DaoUser;
+import model.Product;
+import model.Stationery;
+import model.User;
+import view.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
-import model.Product;
-import model.Stationery;
-import model.User;
-import dao.DaoProduct;
-import dao.DaoSoldProduct;
-import dao.DaoUser;
-import view.AddProduct;
-import view.Create;
-import view.HVR;
-import view.Login;
-import view.Login2;
-import view.Modify;
-import view.ProductList;
-import view.Vender;
-import view.Ver;
-import view.jOptionPane;
-
-import java.util.Locale;
+import java.util.List;
 
 public class Controller implements ActionListener, WindowListener {
 
-    private ProductList lp;
-    private HVR hv;
+    private final ProductList lp;
+    private final HVR hv;
     private Ver vr;
     private Vender vnd;
     private Modify md;
-    private Login logIn;
-    private Login2 logIn2;
+    private final Login logIn;
+    private final Login2 logIn2;
     private User generalUser;
     private Create cr;
-    private Stationery pape;
-    private AddProduct addP;
+    private final Stationery pape;
+    private final AddProduct addP;
     private String id_buy;
-    private DaoProduct daoProd;
-    private DaoSoldProduct daoSold;
-    private DaoUser daoUser;
-    private jOptionPane jp;
+    private final DaoProduct daoProd;
+    private final DaoSoldProduct daoSold;
+    private final DaoUser daoUser;
+    private final jOptionPane jp;
 
 
     public Controller() {
@@ -77,135 +66,123 @@ public class Controller implements ActionListener, WindowListener {
     private void init() {
         if (generalUser.isEnableRegister()) {
             logIn.setVisible(true);
-        } else
-            logIn2.setVisible(true);
+        } else logIn2.setVisible(true);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
-        String actionCommand = e.getActionCommand();
-
-        switch (actionCommand) {
-            case "_TableSell":
-                vnd = new Vender(lp, true, this);
-                seeSellProduct(actionCommand);
-                break;
-            case "_confirmSellProduct":
-                sellProduct(actionCommand);
-                break;
-            case "cancelSellProduct":
-                vnd.setVisible(false);
-                break;
-            case "_TableSee":
-                vr = new Ver(lp, true, this);
-                seeProduct(actionCommand);
-                break;
-            case "cancelSeeModify":
-                vr.setVisible(false);
-                break;
-            case "_deleteProduct":
-                deleteProduct(actionCommand);
-                break;
-            case "_modifyProduct":
-                md = new Modify(lp, true, this);
-                seeModify(actionCommand);
-                break;
-            case "_saveModification":
-                modifyProduct(actionCommand);
-                break;
-            case "cancelarModificar":
-                md.setVisible(false);
-                break;
-            case "logAccept":
-                addUser();
-                break;
-            case "Ingresar":
-                checkCredentials();
-                break;
-            case "CancelCreate":
-                cr.setVisible(false);
-                break;
-            case "CreateProduct":
-                createProduct();
-                break;
-            case "BuscarProdInvent":
-                lp.updateTable(this, pape.getProductFiltered(lp.getTextFromTextField()));
-                break;
-            case "_TableBuy":
-                id_buy = actionCommand.split("_")[0];
-                showBuyProduct(actionCommand);
-                break;
-            case "menu_inventario":
-                if (!lp.isActive()) {
-                    hv.setVisible(false);
-                    lp.setVisible(true);
-                }
-                break;
-            case "menu_historial":
-                if (!hv.isActive()) {
-                    lp.setVisible(false);
-                    hv.setVisible(true);
-                }
-                break;
-            case "menu_crear":
-                if (hv.isActive()) {
-                    cr = new Create(hv, true, this);
-                    cr.setVisible(true);
-                } else if (lp.isActive()) {
-                    cr = new Create(lp, true, this);
-                    cr.setVisible(true);
-                }
-                break;
-            case "menu_cerrar":
-                if (hv.isActive()) {
-                    logIn2.setVisible(true);
-                    hv.setVisible(false);
-                } else if (lp.isActive()) {
-                    logIn2.setVisible(true);
-                    lp.setVisible(false);
-                }
-                break;
-            case "CloseProgram":
-                System.exit(0);
-                break;
-            case "buyProduct":
-                buyProduct(id_buy);
-                break;
-            case "CancelBuy":
-                addP.setVisible(false);
-                addP.setAddProd_txt_cant("");
-                addP.setAddProd_txt_Price("");
-                break;
-            case "FiltrarPorFecha":
-                try {
-                    SimpleDateFormat sdf = new SimpleDateFormat(hv.getFechaFormatFinString());
-                    sdf.parse(hv.getFechaIniString());
-                    new SimpleDateFormat(hv.getFechaFormatFinString());
-                    sdf.parse(hv.getFechaIniString());
-                    ArrayList<Product> products = pape.getProductsWithinDate(hv.getFechaIni(), hv.getFechaFin());
-                    hv.updateTable(this, pape.getProductsWithinDateMatrix(products), "" + pape.calculateUtility(products), "" + pape.calculateTotalSold(products));
-                } catch (Exception z) {
-                    jp.showErrorMessage("Formato de fecha no válido. ");
-                }
-                break;
-            default:
-                System.out.println("ActionCommand no encontrado\n" +
-                        "ActionCommand: " + actionCommand);
-                break;
+        if (e.getActionCommand().contains("_TableSell")) {
+            vnd = new Vender(lp, true, this);
+            seeSellProduct(e.getActionCommand());
         }
-    }
-
-    public LocalDate convertirCadenaAFecha(String cadenaFecha) {
-        try {
-            // Definir el formato de la cadena
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.ENGLISH);
-
-            // Parsear la cadena a LocalDate
-            return LocalDate.parse(cadenaFecha, formatter);
-        } catch (Exception e) {
-            // Manejar la excepción en caso de que la cadena no pueda ser convertida
-            e.printStackTrace(); // Puedes cambiar esto según tus necesidades
-            return null;
+        if (e.getActionCommand().contains("_confirmSellProduct")) {
+            sellProduct(e.getActionCommand());
         }
+        if (e.getActionCommand().contains("cancelSellProduct")) {
+            vnd.setVisible(false);
+        }
+        if (e.getActionCommand().contains("_TableSee")) {
+            vr = new Ver(lp, true, this);
+            seeProduct(e.getActionCommand());
+        }
+        if (e.getActionCommand().contains("cancelSeeModify")) {
+            vr.setVisible(false);
+        }
+        if (e.getActionCommand().contains("_deleteProduct")) {
+            deleteProduct(e.getActionCommand());
+        }
+        if (e.getActionCommand().contains("_modifyProduct")) {
+            md = new Modify(lp, true, this);
+            seeModify(e.getActionCommand());
+        }
+        if (e.getActionCommand().contains("_saveModification")) {
+            modifyProduct(e.getActionCommand());
+        }
+        if (e.getActionCommand().contains("cancelarModificar")) {
+            md.setVisible(false);
+        }
+        if (e.getActionCommand().contains("logAccept")) {
+            addUser();
+        }
+        if (e.getActionCommand().contains("Ingresar")) {
+            checkCredentials();
+        }
+        if (e.getActionCommand().equals("CancelCreate")) {
+            cr.setVisible(false);
+        }
+        if (e.getActionCommand().equals("CreateProduct")) {
+            createProduct();
+        }
+        if (e.getActionCommand().equals("BuscarProdInvent")) {
+            lp.updateTable(this, pape.getProductFiltered(lp.getTextFromTextField()));
+        }
+        if (e.getActionCommand().contains("_TableBuy")) {
+            id_buy = e.getActionCommand().split("_")[0];
+            showBuyProduct(e.getActionCommand());
+        }
+        if (e.getActionCommand().contains("menu_inventario")) {
+            if (!lp.isActive()) {
+                hv.setVisible(false);
+                lp.setVisible(true);
+            }
+        }
+        if (e.getActionCommand().contains("menu_historial")) {
+            if (!hv.isActive()) {
+                lp.setVisible(false);
+                hv.setVisible(true);
+            }
+        }
+        if (e.getActionCommand().contains("menu_crear")) {
+            if (hv.isActive()) {
+                cr = new Create(hv, true, this);
+                cr.setVisible(true);
+            } else if (lp.isActive()) {
+                cr = new Create(lp, true, this);
+                cr.setVisible(true);
+            }
+        }
+        if (e.getActionCommand().contains("cambiar_contrasena")) {
+            if (hv.isActive()) {
+                logIn.setVisible(true);
+                hv.setVisible(false);
+            } else if (lp.isActive()) {
+                logIn.setVisible(true);
+                lp.setVisible(false);
+            }
+        }
+        if (e.getActionCommand().contains("menu_cerrar")) {
+            if (hv.isActive()) {
+                logIn2.setVisible(true);
+                hv.setVisible(false);
+            } else if (lp.isActive()) {
+                logIn2.setVisible(true);
+                lp.setVisible(false);
+            }
+        }
+        if (e.getActionCommand().equals("CloseProgram")) {
+            System.exit(0);
+        }
+        if (e.getActionCommand().contains("buyProduct")) {
+            buyProduct(id_buy);
+        }
+        if (e.getActionCommand().contains("CancelBuy")) {
+            addP.setVisible(false);
+            addP.setAddProd_txt_cant("");
+            addP.setAddProd_txt_Price("");
+        }
+        if (e.getActionCommand().contains("FiltrarPorFecha")) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat(hv.getFechaFormatFinString());
+                sdf.parse(hv.getFechaIniString());
+                new SimpleDateFormat(hv.getFechaFormatFinString());
+                sdf.parse(hv.getFechaIniString());
+                ArrayList<Product> products = pape.getProductsWithinDate(hv.getFechaIni(), hv.getFechaFin());
+                hv.updateTable(this, pape.getProductsWithinDateMatrix(products), "" + pape.calculateUtility(products), "" + pape.calculateTotalSold(products));
+            } catch (Exception z) {
+                jp.showErrorMessage("Formato de fecha no válido. ");
+            }
+        }
+        System.out.println("ActionCommand: " + e.getActionCommand());
     }
 
     private void deleteProduct(String id) {
@@ -221,7 +198,7 @@ public class Controller implements ActionListener, WindowListener {
         }
     }
 
-    private boolean executeDelete(Product pd, ArrayList<Product> auxList) {
+    private boolean executeDelete(Product pd, List<Product> auxList) {
         boolean output = false;
         for (int i = 0; i < auxList.size(); i++)
             if (auxList.get(i).getId().equals(pd.getId())) {
@@ -345,9 +322,7 @@ public class Controller implements ActionListener, WindowListener {
             if (p.getId().equals(pd.getId())) {
                 p.setQuantity(p.getQuantity() - quantity);
                 p.setSaleDate(LocalDate.now());
-                pape.addSoldProduct(new Product(p.getId(), p.getName(), p.getProfitPercentage(),
-                        p.getBrand(), p.getDescription(), quantity, p.getSaleDate(),
-                        p.getSalePrice(), p.getPurchasePrice()));
+                pape.addSoldProduct(new Product(p.getId(), p.getName(), p.getProfitPercentage(), p.getBrand(), p.getDescription(), quantity, p.getSaleDate(), p.getSalePrice(), p.getPurchasePrice()));
                 output = true;
                 daoProd.actualizarSellProduct(p.getId(), p.getQuantity(), p.getSaleDate().toString());
                 daoSold.insertProduct(p, quantity);
@@ -382,8 +357,7 @@ public class Controller implements ActionListener, WindowListener {
         Product myProduct = null;
         ArrayList<Product> products = pape.getStockProductList();
         for (Product pd : products)
-            if (pd.getId().equals(idProduct))
-                myProduct = pd;
+            if (pd.getId().equals(idProduct)) myProduct = pd;
         return myProduct;
     }
 
@@ -417,11 +391,10 @@ public class Controller implements ActionListener, WindowListener {
                 jp.showErrorMessage("Los valores ingresados son demasiado altos.");
             } else if (!isDoublePositive(precio)) {
                 jp.showErrorMessage("Precio debe ser un valor numerico mayor a cero.");
-            } else if (!isIntPositive(cantidad)) {
+            } else if (isPositiveInteger(cantidad)) {
                 jp.showErrorMessage("Cantidad debe ser un numero entero positivo.");
             } else {
                 double p = Integer.parseInt(precio) / Integer.parseInt(cantidad);
-                //double per = percentage/100.0;
                 pape.buyProd(id, cantidad, "" + (Integer.parseInt(precio) / Integer.parseInt(cantidad)), precio, percentage);
                 addP.setVisible(true);
                 addP.setAddProd_txt_cant("");
@@ -433,7 +406,7 @@ public class Controller implements ActionListener, WindowListener {
                 jp.showMessage("Compra registrada.");
                 addP.setVisible(false);
             }
-        } catch (NumberFormatException excepcion) {
+        } catch (NumberFormatException exception) {
             jp.showErrorMessage("Los valores ingresados no son validos.");
         }
     }
@@ -454,56 +427,69 @@ public class Controller implements ActionListener, WindowListener {
         String profitPercentage = cr.getTextFieldUtil().getText();
         String brand = cr.getTextFieldMarca().getText();
         String description = cr.getTxtrADesc().getText();
-        if (name.isBlank()) {
-            jp.showErrorMessage("Por favor rellene todos los campos marcados con (*)");
-        } else if (!codigo.isBlank() && !isIntPositive(codigo)) {
-            jp.showErrorMessage("El codigo debe ser un entero positivo");
-        } else if (!profitPercentage.isBlank() && !isIntPositive(profitPercentage)) {
-            jp.showErrorMessage("El porcentaje de utilidad debe ser un entero Positivo");
-        } else if (pape.searchProduct(codigo) != -1) {
-            jp.showErrorMessage("Este codigo ya se encuentra registrado");
-        } else {
-            int i = 1;
-            while (codigo.isBlank()) {
-                if (pape.searchProduct("" + i) != -1)
-                    i++;
-                else
-                    codigo = "" + i;
-            }
-            if (profitPercentage.isBlank())
-                profitPercentage = "" + 25;
-            Product product = new Product(codigo, name, Integer.parseInt(profitPercentage), brand, description, 0, LocalDate.of(2000, 1, 1), 0.0, 0.0);
-            pape.getStockProductList().add(product);
-            lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
-            cr.setVisible(false);
 
-            daoProd.insertProduct(product);
-            jp.showMessage("El producto " + name + ", con codigo " + codigo + " fue creado correctamente.");
+        if (!isValidProduct(codigo, name, profitPercentage)) {
+            return;
         }
+
+        codigo = generateProductCode(codigo);
+        profitPercentage = profitPercentage.isBlank() ? "25" : profitPercentage;
+
+        Product product = new Product(codigo, name, Integer.parseInt(profitPercentage), brand, description, 0, LocalDate.of(2000, 1, 1), 0.0, 0.0);
+        addProductToList(product);
     }
 
-    public boolean isIntPositive(String cadena) {
-        boolean resultado = false;
-        try {
-            if (Integer.parseInt(cadena) > 0) {
-                resultado = true;
-            }
-        } catch (NumberFormatException excepcion) {
-            resultado = false;
+    private boolean isValidProduct(String codigo, String name, String profitPercentage) {
+        if (name.isBlank()) {
+            jp.showErrorMessage("Por favor rellene todos los campos marcados con (*)");
+            return false;
+        } else if (!codigo.isBlank() && isPositiveInteger(codigo)) {
+            jp.showErrorMessage("El codigo debe ser un entero positivo");
+            return false;
+        } else if (!profitPercentage.isBlank() && isPositiveInteger(profitPercentage)) {
+            jp.showErrorMessage("El porcentaje de utilidad debe ser un entero Positivo");
+            return false;
+        } else if (pape.searchProduct(codigo) != -1) {
+            jp.showErrorMessage("Este codigo ya se encuentra registrado");
+            return false;
         }
-        return resultado;
+        return true;
+    }
+
+    private String generateProductCode(String codigo) {
+        if (codigo.isBlank()) {
+            int i = 1;
+            while (pape.searchProduct("" + i) != -1) {
+                i++;
+            }
+            codigo = "" + i;
+        }
+        return codigo;
+    }
+
+    private void addProductToList(Product product) {
+        pape.getStockProductList().add(product);
+        lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
+        cr.setVisible(false);
+
+        daoProd.insertProduct(product);
+        jp.showMessage("El producto " + product.getName() + ", con codigo " + product.getId() + " fue creado correctamente.");
+    }
+
+    public boolean isPositiveInteger(String cadena) {
+        try {
+            return Integer.parseInt(cadena) <= 0;
+        } catch (NumberFormatException ignored) {
+            return true;
+        }
     }
 
     public boolean isDoublePositive(String cadena) {
-        boolean resultado = false;
         try {
-            if (Double.parseDouble(cadena) > 0) {
-                resultado = true;
-            }
-        } catch (NumberFormatException excepcion) {
-            resultado = false;
+            return Double.parseDouble(cadena) > 0;
+        } catch (NumberFormatException ignored) {
+            return false;
         }
-        return resultado;
     }
 
     private void checkCredentials() {
@@ -520,7 +506,7 @@ public class Controller implements ActionListener, WindowListener {
 
     private void addUser() {
         String username = logIn.getTxtUserName().getText();
-        String password = logIn.getTextField_Contraseña().getText();
+        String password = logIn.getTextFieldContraseña().getText();
         String confPass = logIn.getTextField_Confirmar().getText();
         String securityQuestion = logIn.getTextField_Pregunta().getText();
         String answerQuestion = logIn.getTextField_Respuesta().getText();

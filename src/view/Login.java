@@ -68,7 +68,6 @@ public class Login extends JFrame {
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setBorder(new RoundBorder(new Color(64, 64, 64), 2, true,30,30));
 		contentPane.add(panel, "cell 1 2,grow");
-		//new MigLayout("", "["+(ancho*0.4)*0.2+"]["+(ancho*0.4)*0.6+"]["+(ancho*0.4)*0.2+"]", "[][][][46.00][64.00][27.00][64.00][64.00][27.00][][][][46.00][64.00][64.00][][][][56.00]"));
 		panel.setLayout(new MigLayout("", "["+(ancho*0.4)*0.2+"]["+(ancho*0.4)*0.6+",grow]["+(ancho*0.4)*0.2+"]", "[][][][46.00][64.00][27.00][64.00][64.00][30.00][][][][46.00][64.00][64.00][][30.00][][56.00]"));
 		
 		JLabel Titulo1 = new JLabel("BIENVENIDO");
@@ -165,7 +164,7 @@ public class Login extends JFrame {
 		this.txtUserName.setText(txtUserName);
 	}
 
-	public JTextField getTextField_Contraseña() {
+	public JTextField getTextFieldContraseña() {
 		return textField_Contraseña;
 	}
 
