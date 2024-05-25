@@ -153,12 +153,12 @@ public class ProductList extends JFrame {
         searchProduct.setBackground(Color.WHITE);
         panel_2.add(searchProduct, "cell 2 3,grow");
 
-        stockMin = new JButton("Filtrar por stock stock Mínimo");
+        stockMin = new JButton("Ver productos con stock bajo");
         stockMin.setFont(new Font("Tahoma", Font.PLAIN, 20));
         stockMin.addActionListener(listener);
         stockMin.setActionCommand("filtroStock");
         stockMin.setBackground(Color.WHITE);
-        panel_2.add(stockMin, "cell 2 3,grow");
+        panel_2.add(stockMin, "cell 3 3,grow");
 
         JPanel panel_3 = new JPanel();
         panel_1.add(panel_3, BorderLayout.WEST);
