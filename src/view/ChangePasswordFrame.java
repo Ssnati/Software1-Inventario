@@ -24,13 +24,9 @@ public class ChangePasswordFrame extends JFrame {
 
     private JPanel contentPane;
     private Dimension dim;
-    private JTextField txtOldPassword;
-    private JTextField txtNewPassword;
-    private JTextField txtConfirmPassword;
-    private JButton btnAcceptChangePassword;
-    private JLabel lblValidateFieldInfo;
-    private JLabel lblFieldsUncompletedInfo;
-    private JButton btnClosePanel;
+    private JTextField txtOldPassword, txtNewPassword, txtConfirmPassword;
+    private JButton btnAcceptChangePassword, btnClosePanel;
+    private JLabel lblValidateFieldInfo, lblFieldsUncompletedInfo;
 
     public ChangePasswordFrame(ActionListener listener) {
         setUndecorated(true);
@@ -92,7 +88,7 @@ public class ChangePasswordFrame extends JFrame {
         txtConfirmPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
         txtConfirmPassword.setToolTipText("Vuelva a ingresar la contraseña");
         txtConfirmPassword.setColumns(10);
-        txtConfirmPassword.setBorder(new TitledBorder(null, "Confime la contraseña", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, new Font("Tahoma", Font.PLAIN, 18), null));
+        txtConfirmPassword.setBorder(new TitledBorder(null, "Confirme la contraseña", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, new Font("Tahoma", Font.PLAIN, 18), null));
         panel.add(txtConfirmPassword, "cell 1 7,grow");
 
         lblValidateFieldInfo = new JLabel("");
