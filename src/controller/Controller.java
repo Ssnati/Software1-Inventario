@@ -24,7 +24,7 @@ public class Controller implements ActionListener, WindowListener {
     private Ver vr;
     private Vender vnd;
     private Modify md;
-    private final CambiarContrasena cambiarContrasena;
+    private final ChangePasswordFrame changePasswordFrame;
     private final Login2 logIn2;
     private User generalUser;
     private Create cr;
@@ -52,7 +52,7 @@ public class Controller implements ActionListener, WindowListener {
         }
         lp = new ProductList(this, pape.getMatrix(pape.getStockProductList()));
         hv = new HVR(this, pape.getProductsWithinDateMatrix(pape.getProductsWithinDate(LocalDate.now(), LocalDate.now())), "" + pape.calculateUtility(pape.getProductsWithinDate(LocalDate.now(), LocalDate.now())), "" + pape.calculateTotalSold(pape.getProductsWithinDate(LocalDate.now(), LocalDate.now())));
-        cambiarContrasena = new CambiarContrasena(this);
+        changePasswordFrame = new ChangePasswordFrame(this);
         logIn2 = new Login2(this);
         addP = new AddProduct(lp, true, this);
         id_buy = "";
@@ -65,7 +65,7 @@ public class Controller implements ActionListener, WindowListener {
 
     private void init() {
         if (generalUser.isEnableRegister()) {
-            cambiarContrasena.setVisible(true);
+            changePasswordFrame.setVisible(true);
         } else logIn2.setVisible(true);
     }
 
@@ -144,10 +144,10 @@ public class Controller implements ActionListener, WindowListener {
         }
         if (e.getActionCommand().contains("cambiar_contrasena")) {
             if (hv.isActive()) {
-                cambiarContrasena.setVisible(true);
+                changePasswordFrame.setVisible(true);
                 hv.setVisible(false);
             } else if (lp.isActive()) {
-                cambiarContrasena.setVisible(true);
+                changePasswordFrame.setVisible(true);
                 lp.setVisible(false);
             }
         }
@@ -190,26 +190,26 @@ public class Controller implements ActionListener, WindowListener {
     }
 
     private void changePassword() {
-        String oldPassword = cambiarContrasena.getTxtOldPassword().getText();
-        String newPassword = cambiarContrasena.getTextFiel_password().getText();
-        String confirmPassword = cambiarContrasena.getTextField_Confirmar().getText();
+        String oldPassword = changePasswordFrame.getTxtOldPassword().getText();
+        String newPassword = changePasswordFrame.getTextFiel_password().getText();
+        String confirmPassword = changePasswordFrame.getTxtConfirmPassword().getText();
         if (oldPassword.isBlank() || newPassword.isBlank() || confirmPassword.isBlank()) {
-            cambiarContrasena.setLblBtnConfirm("Por favor, complete todos los campos");
+            changePasswordFrame.setLblFieldsUncompletedInfo("Por favor, complete todos los campos");
         } else {
             if (!oldPassword.equals(generalUser.getPassword())) {
-                cambiarContrasena.setLblConfirmacionContra("La contraseña actual es incorrecta");
+                changePasswordFrame.setLblValidateFieldInfo("La contraseña actual es incorrecta");
             } else {
                 if (!newPassword.equals(confirmPassword)) {
-                    cambiarContrasena.setLblConfirmacionContra("Las contraseñas no coinciden");
+                    changePasswordFrame.setLblValidateFieldInfo("Las contraseñas no coinciden");
                 } else {
                     if (newPassword.length() < 5) {
-                        cambiarContrasena.setLblConfirmacionContra("La contraseña debe ser minimo de 5 caracteres");
+                        changePasswordFrame.setLblValidateFieldInfo("La contraseña debe ser minimo de 5 caracteres");
                     } else {
                         generalUser.setPassword(newPassword);
                         daoUser.updateUser(generalUser);
                         jp.showMessage("Contraseña cambiada correctamente\n\nPor favor, vuelva a iniciar sesion.");
-                        cambiarContrasena.resetPanel();
-                        cambiarContrasena.setVisible(false);
+                        changePasswordFrame.resetPanel();
+                        changePasswordFrame.setVisible(false);
                         logIn2.setVisible(true);
                     }
                 }
@@ -537,26 +537,26 @@ public class Controller implements ActionListener, WindowListener {
     }
 
     private void addUser() {
-        String username = cambiarContrasena.getTxtOldPassword().getText();
-        String password = cambiarContrasena.getTextFiel_password().getText();
-        String confPass = cambiarContrasena.getTextField_Confirmar().getText();
+        String username = changePasswordFrame.getTxtOldPassword().getText();
+        String password = changePasswordFrame.getTextFiel_password().getText();
+        String confPass = changePasswordFrame.getTxtConfirmPassword().getText();
 
         if (username.isBlank() || password.isBlank() || confPass.isBlank()) {
-            cambiarContrasena.setLblBtnConfirm("Por favor, complete todos los campos");
+            changePasswordFrame.setLblFieldsUncompletedInfo("Por favor, complete todos los campos");
         } else {
-            cambiarContrasena.setLblBtnConfirm("");
+            changePasswordFrame.setLblFieldsUncompletedInfo("");
             if (!password.equals(confPass)) {
-                cambiarContrasena.setLblConfirmacionContra("Las contraseñas no coinciden");
+                changePasswordFrame.setLblValidateFieldInfo("Las contraseñas no coinciden");
             } else {
                 if (password.length() < 5) {
-                    cambiarContrasena.setLblConfirmacionContra("La contraseña debe ser minimo de 5 caracteres");
+                    changePasswordFrame.setLblValidateFieldInfo("La contraseña debe ser minimo de 5 caracteres");
                 } else {
                     generalUser.setEnableRegister(false);
                     generalUser.setUsername(username);
                     generalUser.setPassword(password);
-                    cambiarContrasena.resetPanel();
+                    changePasswordFrame.resetPanel();
                     daoUser.updateUser(generalUser);
-                    cambiarContrasena.setVisible(false);
+                    changePasswordFrame.setVisible(false);
                     logIn2.setVisible(true);
                 }
             }
