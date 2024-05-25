@@ -33,9 +33,10 @@ public class Modify extends JDialog{
 	private JPanel modifyPane;
 	private JTextField textFieldNombreModify;
 	private JTextField textFieldCodigoModify;
-	private JTextField textFieldProfit;
+	private JTextField textFieldProfitModify;
 	private JTextField textFieldCantidadModify;
 	private JTextField textFieldMarcaModify;
+	private JTextField textFieldRangoModify;
 	private JTextArea txtDescripcionModify;
 	private JLabel lblAvisoModify;
 	private JButton btnAccept;
@@ -72,52 +73,53 @@ public class Modify extends JDialog{
 		
 		JPanel panelInferior = new JPanel();
 		modifyPane.add(panelInferior, BorderLayout.SOUTH);
-		//new MigLayout("", "["+(ancho*0.5-445)+"][210][210][25.00]", "[57px][15.00]"));
 		panelInferior.setLayout(new MigLayout("", "["+(ancho*0.25-210)+"][210][210]["+(ancho*0.25-210)+"]", "[57px][15.00]"));
 		
 		JPanel panelCentral = new JPanel();
 		modifyPane.add(panelCentral, BorderLayout.CENTER);
-		//new MigLayout("", "[40.00]["+((ancho*0.5/2)-70)+"][50.00]["+((ancho*0.5/2)-70)+"][40.00]", "[][][][][40.00][][][40.00][][][fill]"));
 		panelCentral.setLayout(new MigLayout("", "[20.00][271.5,grow][50.00][271.5,grow][20.00]", "[][][40.00][][][40.00][][][fill]"));
-		
+
 		lblAvisoModify = new JLabel("");
 		lblAvisoModify.setForeground(new Color(204, 0, 0));
 		lblAvisoModify.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblAvisoModify.setHorizontalAlignment(SwingConstants.CENTER);
 		panelCentral.add(lblAvisoModify, "cell 1 0 3 1,alignx center");
-		
-		JLabel lblNewLabel = new JLabel("Código");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panelCentral.add(lblNewLabel, "cell 1 1");
-		
-		textFieldCodigoModify = new JTextField();
-		textFieldCodigoModify.setEditable(false);
-		textFieldCodigoModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldCodigoModify.setToolTipText("");
-		panelCentral.add(textFieldCodigoModify, "cell 1 2,grow");
-		textFieldCodigoModify.setColumns(10);
-		
+
 		JLabel lblNewLabelAviso2 = new JLabel("");
 		lblNewLabelAviso2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabelAviso2.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelCentral.add(lblNewLabelAviso2, "cell 1 3 3 1,alignx center");
 		
+		JLabel lblNewLabel = new JLabel("Código");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panelCentral.add(lblNewLabel, "cell 1 1");
+
+
+		textFieldCodigoModify = new JTextField();
+		textFieldCodigoModify.setEditable(false);
+		textFieldCodigoModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textFieldCodigoModify.setToolTipText("El código no puede ser cambiado.");
+		panelCentral.add(textFieldCodigoModify, "cell 1 2,grow");
+		textFieldCodigoModify.setColumns(10);
+		
+
 		JLabel lblNewLabel_1_2 = new JLabel("Nombre*");
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelCentral.add(lblNewLabel_1_2, "cell 1 4");
-		
-		JLabel lblNewLabel_1 = new JLabel("Porcentaje de Utilidad (%)");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panelCentral.add(lblNewLabel_1, "cell 3 4");
-		
+
 		textFieldNombreModify = new JTextField();
-		textFieldNombreModify.setToolTipText("");
+		textFieldNombreModify.setToolTipText("Ingrese el nombre del producto. Este campo debe ser rellenado obligatoriamente");
 		textFieldNombreModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldNombreModify.setColumns(10);
 		panelCentral.add(textFieldNombreModify, "cell 1 5,grow");
 		
-		textFieldProfit = new JTextField();
-		textFieldProfit.addKeyListener(new KeyAdapter() {
+		JLabel lblNewLabel_1 = new JLabel("Porcentaje de Utilidad (%)");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panelCentral.add(lblNewLabel_1, "cell 3 4");
+
+		
+		textFieldProfitModify = new JTextField();
+		textFieldProfitModify.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char validar = e.getKeyChar();
@@ -127,10 +129,10 @@ public class Modify extends JDialog{
 				}
 			}
 		});
-		textFieldProfit.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldProfit.setToolTipText("Ingresa el valor númerico del procentaje de utilidad. No es necesario digitar el símbolo (%). Si no asignas un valor de utilidad. Nosotros asignaremos un procentaje por defecto de 25%");
-		panelCentral.add(textFieldProfit, "cell 3 5,grow");
-		textFieldProfit.setColumns(10);
+		textFieldProfitModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textFieldProfitModify.setToolTipText("Ingresa el valor númerico del procentaje de utilidad. No es necesario digitar el símbolo (%). Si no asignas un valor de utilidad. Nosotros asignaremos un procentaje por defecto de 25%");
+		panelCentral.add(textFieldProfitModify, "cell 3 5,grow");
+		textFieldProfitModify.setColumns(10);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Cantidad*");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -138,7 +140,10 @@ public class Modify extends JDialog{
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Marca");
 		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panelCentral.add(lblNewLabel_1_1_1, "cell 3 7");
+		panelCentral.add(lblNewLabel_1_1_1, "cell 3 6");
+		JLabel lblNewLabel_rango = new JLabel("                Stock mínimo");
+		lblNewLabel_rango.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panelCentral.add(lblNewLabel_rango, "cell  3 6");
 		
 		textFieldCantidadModify = new JTextField();
 		textFieldCantidadModify.addKeyListener(new KeyAdapter() {
@@ -160,7 +165,13 @@ public class Modify extends JDialog{
 		textFieldMarcaModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldMarcaModify.setToolTipText("");
 		textFieldMarcaModify.setColumns(10);
-		panelCentral.add(textFieldMarcaModify, "cell 3 8,grow");
+		panelCentral.add(textFieldMarcaModify, "cell 3 7,grow");
+
+		textFieldRangoModify = new JTextField();
+		textFieldRangoModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textFieldRangoModify.setToolTipText("En caso de no escribirlo el sistema asignará un rango de stock mínimo de 5.");
+		textFieldRangoModify.setColumns(10);
+		panelCentral.add(textFieldRangoModify, "cell 3 7,grow");
 		
 		JLabel lblNewLabel_1_1_2 = new JLabel("Descripción del producto");
 		lblNewLabel_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -260,12 +271,18 @@ public class Modify extends JDialog{
 	public void setLblAvisoModify(String lblAvisoModify) {
 		this.lblAvisoModify.setText(lblAvisoModify);
 	}
+	public JTextField getTextFieldRangoModify() {
+		return textFieldRangoModify;
+	}
 
+	public void setTextFieldRangoModify(String textFieldRango) {
+		this.textFieldRangoModify.setText(textFieldRango);
+	}
 	public JTextField getTextFieldProfit() {
-		return textFieldProfit;
+		return textFieldProfitModify;
 	}
 
 	public void setTextFieldProfit(String textFieldProfit) {
-		this.textFieldProfit.setText(textFieldProfit);
+		this.textFieldProfitModify.setText(textFieldProfit);
 	}
 }

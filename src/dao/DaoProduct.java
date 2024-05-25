@@ -19,7 +19,7 @@ public class DaoProduct {
 	public boolean insertProduct(Product product){
 		PreparedStatement ps = null;
 		try {
-			ps=cx.conectar().prepareStatement("INSERT INTO Products VALUES(?,?,?,?,?,?,?,?,?)");
+			ps=cx.conectar().prepareStatement("INSERT INTO Products VALUES(?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, product.getId());
 			ps.setString(2, product.getName());
 			ps.setString(3, ""+product.getProfitPercentage());
@@ -29,6 +29,7 @@ public class DaoProduct {
 			ps.setString(7, ""+product.getSaleDate());
 			ps.setString(8, ""+product.getSalePrice());
 			ps.setString(9, ""+product.getPurchasePrice());
+			ps.setString(10, ""+product.getRangoStock());
 			ps.executeUpdate();
 			cx.desconectar();
 			return true;
@@ -41,7 +42,7 @@ public class DaoProduct {
 	public boolean actualizarProduct(Product product){
 		PreparedStatement ps = null;
 		try {
-			ps=cx.conectar().prepareStatement("UPDATE Products SET 	id=?, name=?, profitPercentage=?, brand=?, description=?, quantity=?, saleDate=?, salePrice=?, purchasePrice=? WHERE id=?");
+			ps=cx.conectar().prepareStatement("UPDATE Products SET 	id=?, name=?, profitPercentage=?, brand=?, description=?, quantity=?, saleDate=?, salePrice=?, purchasePrice=?, rangoStock=? WHERE id=?");
 			ps.setString(1, product.getId());
 			ps.setString(2, product.getName());
 			ps.setString(3, ""+product.getProfitPercentage());
@@ -51,7 +52,8 @@ public class DaoProduct {
 			ps.setString(7, ""+product.getSaleDate());
 			ps.setString(8, ""+product.getSalePrice());
 			ps.setString(9, ""+product.getPurchasePrice());
-			ps.setString(10, ""+product.getId());
+			ps.setString(10, ""+product.getRangoStock());
+			ps.setString(11, ""+product.getId());
 			ps.executeUpdate();
 			cx.desconectar();
 			return true;
@@ -119,7 +121,7 @@ public class DaoProduct {
 			while(rs.next()) {
 				Product product = new Product(rs.getString("id"), rs.getString("name"), rs.getInt("profitPercentage"), 
 						rs.getString("brand"), rs.getString("description"), rs.getInt("quantity"), 
-						LocalDate.parse(rs.getString("saleDate")), rs.getDouble("salePrice"), rs.getDouble("purchasePrice"));
+						LocalDate.parse(rs.getString("saleDate")), rs.getDouble("salePrice"), rs.getDouble("purchasePrice"),rs.getInt("rangoStock"));
 				list.add(product);
 			}
 		} catch (SQLException e) {

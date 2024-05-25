@@ -12,9 +12,10 @@ public class Product {
 	private LocalDate saleDate;
 	private double salePrice;
 	private double purchasePrice;
+	private int rangoStock;
 	
 	public Product(String id, String name,int profitPercentage, String brand, String description,int quantity, LocalDate saleDate,
-			double salePrice, double purchasePrice) {
+			double salePrice, double purchasePrice, int rangoStock) {
 		this.id = id;
 		this.name = name;
 		this.profitPercentage = profitPercentage;
@@ -24,6 +25,7 @@ public class Product {
 		this.saleDate = saleDate;
 		this.salePrice = salePrice;
 		this.purchasePrice = purchasePrice;
+		this.rangoStock = rangoStock;
 	}
 	
 	public String getId() {
@@ -80,12 +82,18 @@ public class Product {
 	public void setPurchasePrice(double purchasePrice) {
 		this.purchasePrice = purchasePrice;
 	}
-	
+	public int getRangoStock() {
+		return rangoStock;
+	}
+
+	public void setRangoStock(int rangoStock) {
+		this.rangoStock = rangoStock;
+	}
 	@Override
 	public String toString() {
 		return "Producto [Código=" + id + ", Nombre=" + name + ", Cantidad=" + quantity + ", Marca=" + brand
 				+ ", Porcentaje de Utilidad=" + profitPercentage + ", Precio de Venta=" + salePrice 
-				+ ", Descripcion=" + description + "]";
+				+ ", Descripcion=" + description + "Rango de stock= "+rangoStock + "]";
 	}
 
 }

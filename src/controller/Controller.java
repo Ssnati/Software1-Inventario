@@ -210,48 +210,47 @@ public class Controller implements ActionListener, WindowListener{
 	}
 
 	private void modifyProduct(String id) {
+
 		Product pd = searchProductStock(id);
 		String name = md.getTextFieldNombreModify().getText();
 		String brand = md.getTextFieldMarcaModify().getText();
 		String quantity = md.getTextFieldCantidadModify().getText();
 		String description = md.getTxtDescripcionModify().getText();
 		String profit = md.getTextFieldProfit().getText();
+		String rango = md.getTextFieldRangoModify().getText();
 		if(name.isBlank() || quantity.isBlank()) {
-			md.setLblAvisoModify("Por favor rellene todos los campos marcados con (*)");
-		} else {
-			md.setLblAvisoModify("");
-			if(pd.getSalePrice() == 0) {
-				md.setLblAvisoModify("Debes comprar productos para poder modificar la cantidad");
-			} else {
-				md.setLblAvisoModify("");
-				if(Integer.parseInt(profit) < 0) {
-					md.setLblAvisoModify("No se permiten valores negativos en el campo \"Porcentaje de Utilidad\"");
-				}else {
-					md.setLblAvisoModify("");
-					if(Integer.parseInt(quantity) < 0) {
-						md.setLblAvisoModify("No se permiten valores negativos en el campo \"Cantidad\"");
-					} else {
-						if ((md.validateWindow("¿Esta seguro de querer guardar los cambios del producto?"))==0) {
-							pd.setName(name);
-							pd.setBrand(brand);
-							pd.setQuantity(Integer.parseInt(quantity));
-							pd.setDescription(description);
-							pd.setProfitPercentage((profit.equals(""))? 25:Integer.parseInt(profit));
-							if(executeModifyProduct(pd)) {
-								md.informationMessage("El producto se ha modificado exitosamente");
-								lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
-								daoProd.actualizarProduct(pd);
-								md.setVisible(false);
-								vr.setVisible(false);
-							}
-						} else {
-							md.setVisible(false);
-							vr.setVisible(false);
-						}
+			jp.showErrorMessage("Por favor rellene todos los campos marcados con (*)");
+		}else if(pd.getQuantity() == 0) {
+			md.setLblAvisoModify("Debes comprar productos para poder modificar la cantidad");
+		}else if(!profit.isBlank() && !isIntPositive(profit)) {
+					jp.showErrorMessage("El porcentaje de utilidad debe ser un entero Positivo");
+		}else if (!rango.isBlank() && !isIntPositive(rango)) {
+			jp.showErrorMessage("El rango de stock debe ser un entero positivo");
+
+		}else if(!quantity.isBlank() && !isIntPositive(quantity)) {
+						jp.showErrorMessage("La cantidad del producto debe ser un entero positivo");
 					}
+
+
+			pd.setName(name);
+			pd.setBrand(brand);
+			pd.setQuantity(Integer.parseInt(quantity));
+			pd.setDescription(description);
+			pd.setProfitPercentage((profit.equals("")) ? 25 : Integer.parseInt(profit));
+			pd.setRangoStock((rango.equals("")) ? 5 : Integer.parseInt(rango));
+
+		if(executeModifyProduct(pd)) {
+			md.informationMessage("El producto se ha modificado exitosamente");
+			lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
+			daoProd.actualizarProduct(pd);
+			md.setVisible(false);
+			vr.setVisible(false);
 				}
-			}
+		 else {
+			md.setVisible(false);
+			vr.setVisible(false);
 		}
+
 	}
 
 
@@ -264,6 +263,7 @@ public class Controller implements ActionListener, WindowListener{
 				p.setDescription(pd.getDescription());
 				p.setQuantity(pd.getQuantity());
 				p.setProfitPercentage(pd.getProfitPercentage());
+				p.setRangoStock(pd.getRangoStock());
 				output = true;
 			}
 		}
@@ -280,6 +280,7 @@ public class Controller implements ActionListener, WindowListener{
 			md.setTextFieldCantidadModify(String.valueOf(pd.getQuantity()));
 			md.setTxtDescripcionModify(pd.getDescription());
 			md.setTextFieldProfit(String.valueOf(pd.getProfitPercentage()));
+			md.setTextFieldRangoModify(String.valueOf(pd.getRangoStock()));
 			md.setActionModify();
 			md.setVisible(true);
 		}else {
@@ -323,9 +324,9 @@ public class Controller implements ActionListener, WindowListener{
 			if(p.getId().equals(pd.getId())) {
 				p.setQuantity(p.getQuantity()- quantity);
 				p.setSaleDate(LocalDate.now());
-				pape.addSoldProduct(new Product(p.getId(), p.getName(),p.getProfitPercentage(), 
+				pape.addSoldProduct(new Product(p.getId(), p.getName(),p.getProfitPercentage(),
 						p.getBrand(), p.getDescription(), quantity, p.getSaleDate(),
-						p.getSalePrice(), p.getPurchasePrice()));
+						p.getSalePrice(), p.getPurchasePrice(),p.getRangoStock()));
 				output = true;
 				daoProd.actualizarSellProduct(p.getId(), p.getQuantity(), p.getSaleDate().toString());
 				daoSold.insertProduct(p, quantity);
@@ -364,7 +365,7 @@ public class Controller implements ActionListener, WindowListener{
 				myProduct = pd;
 		return myProduct;
 	}
-	
+
 	private void seeProduct(String id) {
 		Product myPd = searchProductStock(id);
 		if(myPd != null) {
@@ -381,9 +382,9 @@ public class Controller implements ActionListener, WindowListener{
 			vr.errorMessage("No existe el producto");
 		}
 	}
-	
-	
-	
+
+
+
 	private void buyProduct(String id){
 		Product pd = searchProductStock(id);
 		String cantidad = addP.getAddProd_txt_cant().getText();
@@ -407,7 +408,7 @@ public class Controller implements ActionListener, WindowListener{
     			addP.setAddProd_txt_Price("");
     			addP.setTextFieldCantidad(""+pd.getQuantity());
     			lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
-    			
+
     			daoProd.actualizarBuyProduct(id, Integer.parseInt(cantidad), p + (p * percentage/100));
     			jp.showMessage("Compra registrada.");
     			addP.setVisible(false);
@@ -416,7 +417,7 @@ public class Controller implements ActionListener, WindowListener{
         	jp.showErrorMessage("Los valores ingresados no son validos.");
         }
 	}
-	
+
 	private void showBuyProduct(String id) {
 		Product pd = searchProductStock(id);
 		addP.setTextFieldCodigo(pd.getId());
@@ -433,6 +434,7 @@ public class Controller implements ActionListener, WindowListener{
 		String profitPercentage = cr.getTextFieldUtil().getText();
 		String brand = cr.getTextFieldMarca().getText();
 		String description = cr.getTxtrADesc().getText();
+		String rangoStock = cr.getTextFieldRango().getText();
 		if(name.isBlank()) {
 			jp.showErrorMessage("Por favor rellene todos los campos marcados con (*)");
 		}else if(!codigo.isBlank() && !isIntPositive(codigo)) {
@@ -441,6 +443,8 @@ public class Controller implements ActionListener, WindowListener{
 			jp.showErrorMessage("El porcentaje de utilidad debe ser un entero Positivo");
 		}else if(pape.searchProduct(codigo)!=-1){
 			jp.showErrorMessage("Este codigo ya se encuentra registrado");
+		}else if(!rangoStock.isBlank() && !isIntPositive(rangoStock)) {
+			jp.showErrorMessage("El rango de stock debe ser un entero positivo");
 		}else {
 			int i=1;
 			while(codigo.isBlank()) {
@@ -451,11 +455,13 @@ public class Controller implements ActionListener, WindowListener{
 			}
 			if(profitPercentage.isBlank())
 				profitPercentage=""+25;
-			Product product = new Product(codigo, name, Integer.parseInt(profitPercentage), brand, description, 0, LocalDate.of(2000,1,1), 0.0, 0.0);
+			if(rangoStock.isBlank())
+				rangoStock=""+5;
+			Product product = new Product(codigo, name, Integer.parseInt(profitPercentage), brand, description, 0, LocalDate.of(2000,1,1), 0.0, 0.0, Integer.parseInt(rangoStock));
 			pape.getStockProductList().add(product);
 			lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
 			cr.setVisible(false);
-			
+
 			daoProd.insertProduct(product);
 			jp.showMessage("El producto " + name+ ", con codigo "+codigo+" fue creado correctamente.");
 		}
@@ -472,7 +478,7 @@ public class Controller implements ActionListener, WindowListener{
         }
         return resultado;
 	}
-	
+
 	public boolean isDoublePositive(String cadena) {
         boolean resultado = false;
         try {
@@ -484,7 +490,7 @@ public class Controller implements ActionListener, WindowListener{
         }
         return resultado;
 	}
-	
+
 	private void restorePassword() {
 		if(logIn2.getTextFieldRespuesta().getText().equals(generalUser.getAnswerQuestion())) {
 			logIn.setVisible(true);
@@ -514,7 +520,7 @@ public class Controller implements ActionListener, WindowListener{
 		String confPass = logIn.getTextField_Confirmar().getText();
 		String securityQuestion = logIn.getTextField_Pregunta().getText();
 		String answerQuestion = logIn.getTextField_Respuesta().getText();
-		
+
 		if(username.isBlank() || password.isBlank() || confPass.isBlank() || securityQuestion.isBlank() || answerQuestion.isBlank()) {
 			logIn.setLblBtnConfirm("Por favor, complete todos los campos");
 		}else {
@@ -538,50 +544,50 @@ public class Controller implements ActionListener, WindowListener{
 			}
 		}
 	}
-	
 
-	
+
+
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
+
+
 }
