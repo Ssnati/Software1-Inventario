@@ -47,10 +47,11 @@ public class ChangePasswordFrame extends JFrame {
         double alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
         contentPane.setLayout(new MigLayout("", "[" + ancho * 0.3 + "][768.0,grow][" + ((ancho * 0.3) - 48) + "][48.00]", "[48][" + ((alto * 0.1) - 48) + "][" + alto * 0.8 + ",grow][" + alto * 0.1 + "]"));
 
-        btnClosePanel = new JButton("X");
+        btnClosePanel = new JButton("Cerrar");
         btnClosePanel.setFont(new Font("Verdana", Font.BOLD, 20));
         btnClosePanel.setBackground(new Color(204, 0, 0));
         btnClosePanel.setForeground(Color.WHITE);
+        btnClosePanel.setFocusPainted(false);
         btnClosePanel.addActionListener(listener);
         btnClosePanel.setActionCommand("CloseProgram");
         contentPane.add(btnClosePanel, "cell 3 0");

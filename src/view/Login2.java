@@ -62,7 +62,8 @@ public class Login2 extends JFrame {
     }
 
     private void setupCloseButton(ActionListener listener) {
-        btnNewButton = createButton("X", "Verdana", Font.BOLD, 20, new Color(204, 0, 0), Color.WHITE, "CloseProgram", listener);
+        btnNewButton = createButton("Cerrar", "Verdana", Font.BOLD, 20, new Color(204, 0, 0), Color.WHITE, "CloseProgram", listener);
+        btnNewButton.setFocusPainted(false);
         contentPane.add(btnNewButton, "cell 3 0");
     }
 

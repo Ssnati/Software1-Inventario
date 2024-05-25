@@ -129,10 +129,11 @@ public class ProductList extends JFrame {
         JPanel panel_2 = new JPanel();
         panel_1.add(panel_2, BorderLayout.NORTH);
         panel_2.setLayout(new MigLayout("", "[18.00][grow][33.00][210][]", "[][][][40][]"));
-        JButton btnNewButton = new JButton("X");
+        JButton btnNewButton = new JButton("Cerrar");
         btnNewButton.setFont(new Font("Verdana", Font.BOLD, 20));
         btnNewButton.setBackground(new Color(204, 0, 0));
         btnNewButton.setForeground(Color.WHITE);
+        btnNewButton.setFocusPainted(false);
         btnNewButton.addActionListener(listener);
         btnNewButton.setActionCommand("CloseProgram");
         panel_2.add(btnNewButton, "cell 4 0");
