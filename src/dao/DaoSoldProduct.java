@@ -47,7 +47,7 @@ Connexion cx;
 			ps = cx.connect().prepareStatement("SELECT * FROM SoldProducts");
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Product product = new Product(rs.getString("id"), rs.getString("name"), rs.getInt("profitPercentage"), 
+				Product product = new Product(rs.getString("id"), rs.getString("name"), rs.getDouble("profitPercentage"),
 						rs.getString("brand"), rs.getString("description"), rs.getInt("quantity"), 
 						LocalDate.parse(rs.getString("saleDate")), rs.getDouble("salePrice"), rs.getDouble("purchasePrice"),rs.getInt("rangoStock"));
 				list.add(product);

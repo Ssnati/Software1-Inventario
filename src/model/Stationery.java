@@ -17,7 +17,7 @@ public class Stationery {
 		this.soldProductList = soldProductList;
 	}
 	
-	public void buyProd(String id, String cant, String Unitprice, String pricePortodo, int percentage) {
+	public void buyProd(String id, String cant, String Unitprice, String pricePortodo, double percentage) {
 		int pos = searchProduct(id);
 		Product newProd =  stockProductList.get(pos);
 		newProd.setQuantity(newProd.getQuantity()+Integer.parseInt(cant));

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Product {
 	private String id;
 	private String name;
-	private int profitPercentage;
+	private double profitPercentage;
 	private String brand;
 	private String description;
 	private int quantity;
@@ -14,7 +14,7 @@ public class Product {
 	private double purchasePrice;
 	private int rangoStock;
 	
-	public Product(String id, String name,int profitPercentage, String brand, String description,int quantity, LocalDate saleDate,
+	public Product(String id, String name,double profitPercentage, String brand, String description,int quantity, LocalDate saleDate,
 			double salePrice, double purchasePrice, int rangoStock) {
 		this.id = id;
 		this.name = name;
@@ -40,10 +40,10 @@ public class Product {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getProfitPercentage() {
+	public double getProfitPercentage() {
 		return profitPercentage;
 	}
-	public void setProfitPercentage(int profitPercentage) {
+	public void setProfitPercentage(double profitPercentage) {
 		this.profitPercentage = profitPercentage;
 	}
 	public String getBrand() {
