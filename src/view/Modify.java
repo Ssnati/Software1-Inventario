@@ -125,7 +125,7 @@ public class Modify extends JDialog{
 				char validar = e.getKeyChar();
 				if(Character.isLetter(validar)) {
 					e.consume();
-					lblAvisoModify.setText("Solo puedes ingresar valores numericos en el campo \"Porcentaje de Utilidad (%)\"");
+					lblAvisoModify.setText("Solo puedes ingresar valores numericos. \nPara colocar valores decimales se debe poner (.)");
 				}
 			}
 		});
@@ -152,18 +152,18 @@ public class Modify extends JDialog{
 				char validar = e.getKeyChar();
 				if(Character.isLetter(validar)) {
 					e.consume();
-					lblAvisoModify.setText("Solo puedes ingresar valores numericos en el campo \"Porcentaje de Utilidad (%)\"");
+					lblAvisoModify.setText("Solo puedes ingresar valores numericos en el campo \"(Cantidad)\". Este campo debe ser rellenado obligatoriamentes");
 				}
 			}
 		});
 		textFieldCantidadModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldCantidadModify.setToolTipText("");
+		textFieldCantidadModify.setToolTipText("Ingresa la nueva cantidad de productos que quieres establecer");
 		textFieldCantidadModify.setColumns(10);
 		panelCentral.add(textFieldCantidadModify, "cell 1 8,grow");
 		
 		textFieldMarcaModify = new JTextField();
 		textFieldMarcaModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldMarcaModify.setToolTipText("");
+		textFieldMarcaModify.setToolTipText("Ingrese la marca del producto que quiere ingresar");
 		textFieldMarcaModify.setColumns(10);
 		panelCentral.add(textFieldMarcaModify, "cell 3 7,grow");
 
@@ -172,6 +172,16 @@ public class Modify extends JDialog{
 		textFieldRangoModify.setToolTipText("En caso de no escribirlo el sistema asignará un rango de stock mínimo de 5.");
 		textFieldRangoModify.setColumns(10);
 		panelCentral.add(textFieldRangoModify, "cell 3 7,grow");
+		textFieldRangoModify.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if(Character.isLetter(validar)) {
+					e.consume();
+					lblAvisoModify.setText("Solo puedes ingresar valores numericos en el campo \"(Stock mínimo)\".");
+				}
+			}
+		});
 		
 		JLabel lblNewLabel_1_1_2 = new JLabel("Descripción del producto");
 		lblNewLabel_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -188,6 +198,7 @@ public class Modify extends JDialog{
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		txtDescripcionModify.setWrapStyleWord(true);
 		txtDescripcionModify.setLineWrap(true);
+		txtDescripcionModify.setToolTipText("Ingresa la nueva descripción del producto");
 		
 		panelCentral.add(panel, "cell 1 12 3 1,grow");
 		//panel.setLayout(new MigLayout("", "["+ancho*0.47+"]", "[165.00px]"));
