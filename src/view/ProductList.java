@@ -33,6 +33,7 @@ public class ProductList extends JFrame {
     private JTextField textField;
     private ImageIcon seeIcon;
     private JButton searchProduct;
+    private JButton stockMin;
     private JButton btnSeeProduct;
     private JButton btnSellProduct;
     private JButton btnBuy;
@@ -150,7 +151,14 @@ public class ProductList extends JFrame {
         searchProduct.addActionListener(listener);
         searchProduct.setActionCommand("BuscarProdInvent");
         searchProduct.setBackground(Color.WHITE);
-        panel_2.add(searchProduct, "cell 3 3,grow");
+        panel_2.add(searchProduct, "cell 2 3,grow");
+
+        stockMin = new JButton("Filtrar por stock stock Mínimo");
+        stockMin.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        stockMin.addActionListener(listener);
+        stockMin.setActionCommand("filtroStock");
+        stockMin.setBackground(Color.WHITE);
+        panel_2.add(stockMin, "cell 2 3,grow");
 
         JPanel panel_3 = new JPanel();
         panel_1.add(panel_3, BorderLayout.WEST);

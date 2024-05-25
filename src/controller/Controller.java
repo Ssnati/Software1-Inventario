@@ -114,6 +114,9 @@ public class Controller implements ActionListener, WindowListener {
         if (e.getActionCommand().equals("CreateProduct")) {
             createProduct();
         }
+        if (e.getActionCommand().equals("filtroStock")) {
+            lp.updateTable(this, pape.getStockFiltered());
+        }
         if (e.getActionCommand().equals("BuscarProdInvent")) {
             lp.updateTable(this, pape.getProductFiltered(lp.getTextFromTextField()));
         }
@@ -430,7 +433,9 @@ public class Controller implements ActionListener, WindowListener {
                 jp.showErrorMessage("Precio debe ser un valor numerico mayor a cero.");
             } else if (!isPositiveInteger(cantidad)) {
                 jp.showErrorMessage("Cantidad debe ser un numero entero positivo.");
-            } else {
+            } else if (Integer.parseInt(cantidad)==0) {
+                jp.showErrorMessage("Cantidad debe ser un numero entero mayor que cero.");
+            }else{
                 double p = Integer.parseInt(precio) / Integer.parseInt(cantidad);
                 //double per = percentage/100.0;
                 pape.buyProd(id, cantidad, "" + (Integer.parseInt(precio) / Integer.parseInt(cantidad)), precio, percentage);
