@@ -250,9 +250,11 @@ public class Controller implements ActionListener, WindowListener {
 		String profit = md.getTextFieldProfit().getText();
 		String rango = md.getTextFieldRangoModify().getText();
 		if(name.isBlank() || quantity.isBlank()) {
-			jp.showErrorMessage("Por favor rellene todos los campos marcados con (*)");
-		}else if(!profit.isBlank() && Double.parseDouble(profit)>10000) {
-					jp.showErrorMessage("El porcentaje de utilidad debe ser un numero decimal positivo que no exceda el rango de: " + 10000);
+            jp.showErrorMessage("Por favor rellene todos los campos marcados con (*)");
+        }else if(!profit.isBlank() && !isDoublePositive(profit)){
+            jp.showErrorMessage("El porcentaje de utilidad debe ser un numero entero, o decimal positivo que no exceda el rango de: " + 10000);
+		}else if(!profit.isBlank() && Double.parseDouble(profit)>10000 ) {
+					jp.showErrorMessage("El porcentaje de utilidad debe ser un numero entero, o decimal positivo que no exceda el rango de: " + 10000);
 		}else if (!rango.isBlank() && !isPositiveInteger(rango)) {
 			jp.showErrorMessage("El rango de stock debe ser un número entero positivo que no exceda el rango de: "+maxInt);
         } else if (!rango.isBlank() && !isPositiveInteger(rango)) {
@@ -405,6 +407,7 @@ public class Controller implements ActionListener, WindowListener {
             vr.setTextFieldProfit(String.valueOf(myPd.getProfitPercentage()));
             vr.setTextFieldSalePrice(String.valueOf(myPd.getSalePrice()));
             vr.setTxtDescripcionVer(myPd.getDescription());
+            vr.setTextFieldRango(String.valueOf(myPd.getRangoStock()));
             vr.setActionSee();
             vr.setVisible(true);
         } else {
@@ -458,6 +461,7 @@ public class Controller implements ActionListener, WindowListener {
 
 	private void createProduct() {
 		String codigo = cr.getTextFieldCod().getText();
+
 		String name = cr.getTextFieldNom().getText();
 		String profitPercentage = cr.getTextFieldUtil().getText();
 		String brand = cr.getTextFieldMarca().getText();
@@ -467,12 +471,16 @@ public class Controller implements ActionListener, WindowListener {
 			jp.showErrorMessage("Por favor rellene todos los campos marcados con (*)");
 		}else if(!codigo.isBlank() && !isPositiveInteger(codigo)) {
 			jp.showErrorMessage("El codigo debe ser un entero positivo");
-		}else if(!profitPercentage.isBlank() && Double.parseDouble(profitPercentage)>10000) {
-			jp.showErrorMessage("El porcentaje de utilidad debe ser un double positivo que no exceda el rango de: "+10000);
+        }else if(!profitPercentage.isBlank() && !isDoublePositive(profitPercentage)){
+            jp.showErrorMessage("El porcentaje de utilidad debe ser un numero entero, o decimal positivo que no exceda el rango de: " + 10000);
+        }int codigoI=Integer.parseInt(codigo);
+        codigo= String.valueOf(codigoI);
+        if(!profitPercentage.isBlank() && Double.parseDouble(profitPercentage)>10000) {
+			jp.showErrorMessage("El porcentaje de utilidad debe ser un numero, o decimal positivo, que no exceda el rango de: "+10000);
 		}else if(pape.searchProduct(codigo)!=-1){
 			jp.showErrorMessage("Este codigo ya se encuentra registrado");
 		}else if(!rangoStock.isBlank() && !isPositiveInteger(rangoStock)) {
-			jp.showErrorMessage("El rango de stock debe ser un entero positivo");
+			jp.showErrorMessage("El rango de stock debe ser un entero positivo que no exceda el rango de: "+maxInt);
 		}else {
 			int i=1;
 			while(codigo.isBlank()) {
@@ -485,6 +493,7 @@ public class Controller implements ActionListener, WindowListener {
 				profitPercentage=""+25;
 			if(rangoStock.isBlank())
 				rangoStock=""+5;
+
 			Product product = new Product(codigo, name, Double.parseDouble(profitPercentage), brand, description, 0, LocalDate.of(2000,1,1), 0.0, 0.0, Integer.parseInt(rangoStock));
 			pape.getStockProductList().add(product);
 			lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));

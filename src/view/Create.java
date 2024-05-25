@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Shape;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -31,6 +33,7 @@ public class Create extends JDialog{
 	private JLabel lblAviso;
 	private JTextArea txtrADesc;
 	private JTextField textFieldRango;
+	private JLabel lblAvisoModify;
 
 	public Create(JFrame frame, boolean modal, ActionListener listener) {
 		super(frame,modal);
@@ -86,11 +89,14 @@ public class Create extends JDialog{
 		contentPane.add(panelCentral, BorderLayout.CENTER);
 		//new MigLayout("", "[40.00]["+((ancho*0.5/2)-70)+"][50.00]["+((ancho*0.5/2)-70)+"][40.00]", "[][][][][40.00][][][40.00][][][fill]"));
 		panelCentral.setLayout(new MigLayout("", "[40.00]["+((ancho*0.5/2)-70)+"][50.00]["+((ancho*0.5/2)-70)+"][40.00]", "[][][][][40.00][][][40.00][][][fill]"));
-		
-		JLabel lblNewLabel_2 = new JLabel("Por favor rellene los campos.");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		panelCentral.add(lblNewLabel_2, "cell 1 0 3 1,alignx center");
+
+
+		lblAvisoModify = new JLabel("");
+		lblAvisoModify.setForeground(new Color(204, 0, 0));
+		lblAvisoModify.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblAvisoModify.setHorizontalAlignment(SwingConstants.CENTER);
+		panelCentral.add(lblAvisoModify, "cell 1 0 3 1,alignx center");
+
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Solo aquellos marcados con un * son obligatorios.");
 		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -108,12 +114,24 @@ public class Create extends JDialog{
 		textFieldCod = new JTextField();
 		textFieldCod.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldCod.setToolTipText("En caso de no escribirlo el sistema asignará un codigo, recuerde que una vez creado, el codigo no podrá ser cambiado.");
+		textFieldCod.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if(Character.isLetter(validar)) {
+					e.consume();
+					lblAvisoModify.setText("Debe ingresar numeros enteros positivos.");
+				}
+			}
+		});
 		panelCentral.add(textFieldCod, "cell 1 4,grow");
 		textFieldCod.setColumns(10);
-		
+
+
+
 		textFieldNom = new JTextField();
 		textFieldNom.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldNom.setToolTipText("Ingrese el nombre del producto. Este campo debe ser rellenado obligatoriamente");
+		textFieldNom.setToolTipText("Ingrese el nombre del producto. Este campo debe ser rellenado obligatoriamente.");
 		panelCentral.add(textFieldNom, "cell 3 4,grow");
 		textFieldNom.setColumns(10);
 		
@@ -133,11 +151,22 @@ public class Create extends JDialog{
 		textFieldUtil.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldUtil.setToolTipText("En caso de no escribirlo el sistema asignará un porcentaje de utilidad del 25% al producto.");
 		textFieldUtil.setColumns(10);
+		textFieldUtil.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if(Character.isLetter(validar)) {
+					e.consume();
+					lblAvisoModify.setText("Solo se deben ingresar valores numericos. \nPara colocar valores decimales se debe poner (.)");
+				}
+			}
+		});
 		panelCentral.add(textFieldUtil, "cell 1 7,grow");
+
 		
 		textFieldMarca = new JTextField();
 		textFieldMarca.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldMarca.setToolTipText("En caso de no escribirlo el sistema asignará un codigo, recuerde que una vez creado, el codigo no podrá ser cambiado.");
+		textFieldMarca.setToolTipText("Escriba la marca del producto a crear. En caso de no escribirla no se asignara una marca.");
 		textFieldMarca.setColumns(10);
 		panelCentral.add(textFieldMarca, "cell 3 7,grow");
 
@@ -145,6 +174,16 @@ public class Create extends JDialog{
 		textFieldRango.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldRango.setToolTipText("En caso de no escribirlo el sistema asignará un rango de stock mínimo de 5.");
 		textFieldRango.setColumns(10);
+		textFieldRango.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if(Character.isLetter(validar)) {
+					e.consume();
+					lblAvisoModify.setText("Debe ingresar numeros enteros positivos.");
+				}
+			}
+		});
 		panelCentral.add(textFieldRango, "cell 3 7,grow");
 
 		JLabel lblNewLabelDesc = new JLabel("Descripción del producto");
@@ -156,6 +195,7 @@ public class Create extends JDialog{
 		txtrADesc = new JTextArea();
 		txtrADesc.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		JScrollPane scroll = new JScrollPane(txtrADesc);
+		txtrADesc.setToolTipText("En este campo se puede poner una descripición para el producto a crear.");
 		scroll.setBorder(null);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		txtrADesc.setWrapStyleWord(true);

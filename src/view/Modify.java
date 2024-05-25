@@ -108,7 +108,7 @@ public class Modify extends JDialog{
 		panelCentral.add(lblNewLabel_1_2, "cell 1 4");
 
 		textFieldNombreModify = new JTextField();
-		textFieldNombreModify.setToolTipText("Ingrese el nombre del producto. Este campo debe ser rellenado obligatoriamente");
+		textFieldNombreModify.setToolTipText("Ingrese el nombre del producto. Este campo debe ser rellenado obligatoriamente.");
 		textFieldNombreModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldNombreModify.setColumns(10);
 		panelCentral.add(textFieldNombreModify, "cell 1 5,grow");
@@ -117,7 +117,7 @@ public class Modify extends JDialog{
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelCentral.add(lblNewLabel_1, "cell 3 4");
 
-		
+
 		textFieldProfitModify = new JTextField();
 		textFieldProfitModify.addKeyListener(new KeyAdapter() {
 			@Override
@@ -130,7 +130,7 @@ public class Modify extends JDialog{
 			}
 		});
 		textFieldProfitModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldProfitModify.setToolTipText("Ingresa el valor númerico del procentaje de utilidad. No es necesario digitar el símbolo (%). Si no asignas un valor de utilidad. Nosotros asignaremos un procentaje por defecto de 25%");
+		textFieldProfitModify.setToolTipText("Ingresa el valor númerico del procentaje de utilidad. No es necesario digitar el símbolo (%). Si no asignas un valor de utilidad. Nosotros asignaremos un procentaje por defecto de 25%.");
 		panelCentral.add(textFieldProfitModify, "cell 3 5,grow");
 		textFieldProfitModify.setColumns(10);
 		
@@ -157,13 +157,13 @@ public class Modify extends JDialog{
 			}
 		});
 		textFieldCantidadModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldCantidadModify.setToolTipText("Ingresa la nueva cantidad de productos que quieres establecer");
+		textFieldCantidadModify.setToolTipText("Ingresa la nueva cantidad de productos que quieres establecer.");
 		textFieldCantidadModify.setColumns(10);
 		panelCentral.add(textFieldCantidadModify, "cell 1 8,grow");
 		
 		textFieldMarcaModify = new JTextField();
 		textFieldMarcaModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldMarcaModify.setToolTipText("Ingrese la marca del producto que quiere ingresar");
+		textFieldMarcaModify.setToolTipText("Ingrese la marca del producto que quiere ingresar.");
 		textFieldMarcaModify.setColumns(10);
 		panelCentral.add(textFieldMarcaModify, "cell 3 7,grow");
 
@@ -198,7 +198,7 @@ public class Modify extends JDialog{
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		txtDescripcionModify.setWrapStyleWord(true);
 		txtDescripcionModify.setLineWrap(true);
-		txtDescripcionModify.setToolTipText("Ingresa la nueva descripción del producto");
+		txtDescripcionModify.setToolTipText("En este campo se puede ingresar una nueva descripción para el producto.");
 		
 		panelCentral.add(panel, "cell 1 12 3 1,grow");
 		//panel.setLayout(new MigLayout("", "["+ancho*0.47+"]", "[165.00px]"));

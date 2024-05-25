@@ -40,6 +40,7 @@ public class Ver extends JDialog {
 	private JButton btnCancel;
 	private JTextField textFieldProfit;
 	private JTextField textFieldSalePrice;
+	private JTextField textFieldRango;
 
 	public Ver(JFrame frame, boolean modal,ActionListener listener) {
 		super(frame, modal);
@@ -147,6 +148,11 @@ public class Ver extends JDialog {
 		JLabel lblNewLabel_1_1_4 = new JLabel("Precio de Venta");
 		lblNewLabel_1_1_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelCentral.add(lblNewLabel_1_1_4, "cell 3 7");
+
+		JLabel lblNewLabel_1_1_5 = new JLabel(" Stock mínimo");
+		lblNewLabel_1_1_5.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panelCentral.add(lblNewLabel_1_1_5, "cell 3 7");
+
 		
 		textFieldProfit = new JTextField();
 		textFieldProfit.setToolTipText("");
@@ -163,6 +169,14 @@ public class Ver extends JDialog {
 		textFieldSalePrice.setColumns(10);
 		textFieldSalePrice.setBackground(Color.WHITE);
 		panelCentral.add(textFieldSalePrice, "cell 3 8,growx");
+
+		textFieldRango = new JTextField();
+		textFieldRango.setToolTipText("");
+		textFieldRango.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textFieldRango.setEditable(false);
+		textFieldRango.setColumns(10);
+		textFieldRango.setBackground(Color.WHITE);
+		panelCentral.add(textFieldRango, "cell 3 8,growx");
 		
 		JLabel lblNewLabel_1_1_2 = new JLabel("Descripción del producto");
 		lblNewLabel_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -286,6 +300,14 @@ public class Ver extends JDialog {
 
 	public void setTextFieldProfit(String textFieldProfit) {
 		this.textFieldProfit.setText(textFieldProfit);;
+	}
+
+	public JTextField getTextFieldRango() {
+		return textFieldRango;
+	}
+
+	public void setTextFieldRango(String textFieldRango) {
+		this.textFieldRango.setText(textFieldRango);;
 	}
 
 	public JTextField getTextFieldSalePrice() {
