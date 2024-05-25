@@ -88,11 +88,11 @@ public class AddProduct extends JDialog {
 		lblComprarProductos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panelCentral.add(lblComprarProductos, "cell 1 11 3 1,alignx center,aligny center");
 		
-		JLabel lblIngreseLaCantidad = new JLabel("Ingrese la cantidad de productos a comprar");
+		JLabel lblIngreseLaCantidad = new JLabel("Ingrese la cantidad de productos a comprar *");
 		lblIngreseLaCantidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelCentral.add(lblIngreseLaCantidad, "cell 1 12");
 		
-		JLabel lblIngrese = new JLabel("Ingrese el valor total de la compra");
+		JLabel lblIngrese = new JLabel("Ingrese el valor total de la compra *");
 		lblIngrese.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelCentral.add(lblIngrese, "cell 3 12");
 		

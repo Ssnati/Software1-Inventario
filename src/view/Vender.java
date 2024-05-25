@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -86,7 +88,7 @@ public class Vender extends JDialog {
 		JSeparator separator = new JSeparator();
 		panelCentral.add(separator, "cell 1 0 3 1,growx");
 		
-		lblAviso = new JLabel("");
+		lblAviso = new JLabel("Ingrese la cantidad de productos a vender, colocar números enteros positivos");
 		lblAviso.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblAviso.setForeground(new Color(204, 0, 0));
 		lblAviso.setHorizontalAlignment(SwingConstants.CENTER);
@@ -196,6 +198,8 @@ public class Vender extends JDialog {
 		spinnerCantidad = new JSpinner();
 		spinnerCantidad.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		spinnerCantidad.setModel(new SpinnerNumberModel(0, 0, 1000000, 1));
+		spinnerCantidad.setToolTipText("Ingrese solamente numeros enteros positivos");
+
 		panelCentral.add(spinnerCantidad, "cell 3 14,grow");
 		
 		JButton btnCancel = new JButton("Cancelar");
