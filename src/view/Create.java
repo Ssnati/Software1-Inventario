@@ -30,7 +30,8 @@ public class Create extends JDialog{
 	private JTextField textFieldMarca;
 	private JLabel lblAviso;
 	private JTextArea txtrADesc;
-	
+	private JTextField textFieldRango;
+
 	public Create(JFrame frame, boolean modal, ActionListener listener) {
 		super(frame,modal);
 		initComponents(listener);
@@ -112,21 +113,25 @@ public class Create extends JDialog{
 		
 		textFieldNom = new JTextField();
 		textFieldNom.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldNom.setToolTipText("Ingrese el nombre del procuto");
+		textFieldNom.setToolTipText("Ingrese el nombre del producto. Este campo debe ser rellenado obligatoriamente");
 		panelCentral.add(textFieldNom, "cell 3 4,grow");
 		textFieldNom.setColumns(10);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Porcentaje de Utilidad");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelCentral.add(lblNewLabel_1_1, "cell 1 6");
-		
+
 		JLabel lblNewLabel_1_1_1 = new JLabel("Marca");
 		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelCentral.add(lblNewLabel_1_1_1, "cell 3 6");
+
+		JLabel lblNewLabel_rango = new JLabel("                  Stock mínimo");
+		lblNewLabel_rango.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panelCentral.add(lblNewLabel_rango, "cell  3 6");
 		
 		textFieldUtil = new JTextField();
 		textFieldUtil.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldUtil.setToolTipText("En caso de no escribirlo el sistema asignará un codigo, recuerde que una vez creado, el codigo no podrá ser cambiado.");
+		textFieldUtil.setToolTipText("En caso de no escribirlo el sistema asignará un porcentaje de utilidad del 25% al producto.");
 		textFieldUtil.setColumns(10);
 		panelCentral.add(textFieldUtil, "cell 1 7,grow");
 		
@@ -135,7 +140,13 @@ public class Create extends JDialog{
 		textFieldMarca.setToolTipText("En caso de no escribirlo el sistema asignará un codigo, recuerde que una vez creado, el codigo no podrá ser cambiado.");
 		textFieldMarca.setColumns(10);
 		panelCentral.add(textFieldMarca, "cell 3 7,grow");
-		
+
+		textFieldRango = new JTextField();
+		textFieldRango.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textFieldRango.setToolTipText("En caso de no escribirlo el sistema asignará un rango de stock mínimo de 5.");
+		textFieldRango.setColumns(10);
+		panelCentral.add(textFieldRango, "cell 3 7,grow");
+
 		JLabel lblNewLabelDesc = new JLabel("Descripción del producto");
 		lblNewLabelDesc.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelCentral.add(lblNewLabelDesc, "cell 1 9");
@@ -197,12 +208,19 @@ public class Create extends JDialog{
 		this.lblAviso.setText(lblAviso);
 	}
 
-	public JTextArea getTxtrADesc() {
-		return txtrADesc;
+	public JTextArea getTxtrADesc() { return txtrADesc;
 	}
 
 	public void setTxtrADesc(String txtrADesc) {
 		this.txtrADesc.setText(txtrADesc);
 	}
-	
+	public JTextField getTextFieldRango() {
+		return textFieldRango;
+	}
+
+	public void setTextFieldRango(String textFieldRango) {
+		this.textFieldRango.setText(textFieldRango);
+	}
+
+
 }

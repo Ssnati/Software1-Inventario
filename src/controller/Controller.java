@@ -247,42 +247,39 @@ public class Controller implements ActionListener, WindowListener {
         String quantity = md.getTextFieldCantidadModify().getText();
         String description = md.getTxtDescripcionModify().getText();
         String profit = md.getTextFieldProfit().getText();
+        String rango = md.getTextFieldRangoModify().getText();
         if (name.isBlank() || quantity.isBlank()) {
-            md.setLblAvisoModify("Por favor rellene todos los campos marcados con (*)");
-        } else {
-            md.setLblAvisoModify("");
-            if (pd.getSalePrice() == 0) {
-                md.setLblAvisoModify("Debes comprar productos para poder modificar la cantidad");
-            } else {
-                md.setLblAvisoModify("");
-                if (Integer.parseInt(profit) < 0) {
-                    md.setLblAvisoModify("No se permiten valores negativos en el campo \"Porcentaje de Utilidad\"");
-                } else {
-                    md.setLblAvisoModify("");
-                    if (Integer.parseInt(quantity) < 0) {
-                        md.setLblAvisoModify("No se permiten valores negativos en el campo \"Cantidad\"");
-                    } else {
-                        if ((md.validateWindow("¿Esta seguro de querer guardar los cambios del producto?")) == 0) {
-                            pd.setName(name);
-                            pd.setBrand(brand);
-                            pd.setQuantity(Integer.parseInt(quantity));
-                            pd.setDescription(description);
-                            pd.setProfitPercentage((profit.equals("")) ? 25 : Integer.parseInt(profit));
-                            if (executeModifyProduct(pd)) {
-                                md.informationMessage("El producto se ha modificado exitosamente");
-                                lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
-                                daoProd.actualizarProduct(pd);
-                                md.setVisible(false);
-                                vr.setVisible(false);
-                            }
-                        } else {
-                            md.setVisible(false);
-                            vr.setVisible(false);
-                        }
-                    }
-                }
-            }
+            jp.showErrorMessage("Por favor rellene todos los campos marcados con (*)");
+        } else if (pd.getQuantity() == 0) {
+            md.setLblAvisoModify("Debes comprar productos para poder modificar la cantidad");
+        } else if (!profit.isBlank() && !isPositiveInteger(profit)) {
+            jp.showErrorMessage("El porcentaje de utilidad debe ser un entero Positivo");
+        } else if (!rango.isBlank() && !isPositiveInteger(rango)) {
+            jp.showErrorMessage("El rango de stock debe ser un entero positivo");
+
+        } else if (!quantity.isBlank() && !isPositiveInteger(quantity)) {
+            jp.showErrorMessage("La cantidad del producto debe ser un entero positivo");
         }
+
+
+        pd.setName(name);
+        pd.setBrand(brand);
+        pd.setQuantity(Integer.parseInt(quantity));
+        pd.setDescription(description);
+        pd.setProfitPercentage((profit.equals("")) ? 25 : Integer.parseInt(profit));
+        pd.setRangoStock((rango.equals("")) ? 5 : Integer.parseInt(rango));
+
+        if (executeModifyProduct(pd)) {
+            md.informationMessage("El producto se ha modificado exitosamente");
+            lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
+            daoProd.actualizarProduct(pd);
+            md.setVisible(false);
+            vr.setVisible(false);
+        } else {
+            md.setVisible(false);
+            vr.setVisible(false);
+        }
+
     }
 
 
@@ -295,6 +292,7 @@ public class Controller implements ActionListener, WindowListener {
                 p.setDescription(pd.getDescription());
                 p.setQuantity(pd.getQuantity());
                 p.setProfitPercentage(pd.getProfitPercentage());
+                p.setRangoStock(pd.getRangoStock());
                 output = true;
             }
         }
@@ -311,6 +309,7 @@ public class Controller implements ActionListener, WindowListener {
             md.setTextFieldCantidadModify(String.valueOf(pd.getQuantity()));
             md.setTxtDescripcionModify(pd.getDescription());
             md.setTextFieldProfit(String.valueOf(pd.getProfitPercentage()));
+            md.setTextFieldRangoModify(String.valueOf(pd.getRangoStock()));
             md.setActionModify();
             md.setVisible(true);
         } else {
@@ -354,7 +353,9 @@ public class Controller implements ActionListener, WindowListener {
             if (p.getId().equals(pd.getId())) {
                 p.setQuantity(p.getQuantity() - quantity);
                 p.setSaleDate(LocalDate.now());
-                pape.addSoldProduct(new Product(p.getId(), p.getName(), p.getProfitPercentage(), p.getBrand(), p.getDescription(), quantity, p.getSaleDate(), p.getSalePrice(), p.getPurchasePrice()));
+                pape.addSoldProduct(new Product(p.getId(), p.getName(), p.getProfitPercentage(),
+                        p.getBrand(), p.getDescription(), quantity, p.getSaleDate(),
+                        p.getSalePrice(), p.getPurchasePrice(), p.getRangoStock()));
                 output = true;
                 daoProd.actualizarSellProduct(p.getId(), p.getQuantity(), p.getSaleDate().toString());
                 daoSold.insertProduct(p, quantity);
@@ -389,7 +390,8 @@ public class Controller implements ActionListener, WindowListener {
         Product myProduct = null;
         ArrayList<Product> products = pape.getStockProductList();
         for (Product pd : products)
-            if (pd.getId().equals(idProduct)) myProduct = pd;
+            if (pd.getId().equals(idProduct))
+                myProduct = pd;
         return myProduct;
     }
 
@@ -423,10 +425,11 @@ public class Controller implements ActionListener, WindowListener {
                 jp.showErrorMessage("Los valores ingresados son demasiado altos.");
             } else if (!isDoublePositive(precio)) {
                 jp.showErrorMessage("Precio debe ser un valor numerico mayor a cero.");
-            } else if (isPositiveInteger(cantidad)) {
+            } else if (!isPositiveInteger(cantidad)) {
                 jp.showErrorMessage("Cantidad debe ser un numero entero positivo.");
             } else {
                 double p = Integer.parseInt(precio) / Integer.parseInt(cantidad);
+                //double per = percentage/100.0;
                 pape.buyProd(id, cantidad, "" + (Integer.parseInt(precio) / Integer.parseInt(cantidad)), precio, percentage);
                 addP.setVisible(true);
                 addP.setAddProd_txt_cant("");
@@ -438,7 +441,7 @@ public class Controller implements ActionListener, WindowListener {
                 jp.showMessage("Compra registrada.");
                 addP.setVisible(false);
             }
-        } catch (NumberFormatException exception) {
+        } catch (NumberFormatException excepcion) {
             jp.showErrorMessage("Los valores ingresados no son validos.");
         }
     }
@@ -453,60 +456,39 @@ public class Controller implements ActionListener, WindowListener {
         addP.setVisible(true);
     }
 
-    private void createProduct() {
-        String codigo = cr.getTextFieldCod().getText();
-        String name = cr.getTextFieldNom().getText();
-        String profitPercentage = cr.getTextFieldUtil().getText();
-        String brand = cr.getTextFieldMarca().getText();
-        String description = cr.getTxtrADesc().getText();
+	private void createProduct() {
+		String codigo = cr.getTextFieldCod().getText();
+		String name = cr.getTextFieldNom().getText();
+		String profitPercentage = cr.getTextFieldUtil().getText();
+		String brand = cr.getTextFieldMarca().getText();
+		String description = cr.getTxtrADesc().getText();
+		if(name.isBlank()) {
+			jp.showErrorMessage("Por favor rellene todos los campos marcados con (*)");
+		}else if(!codigo.isBlank() && !isPositiveInteger(codigo)) {
+			jp.showErrorMessage("El codigo debe ser un entero positivo");
+		}else if(!profitPercentage.isBlank() && !isPositiveInteger(profitPercentage)) {
+			jp.showErrorMessage("El porcentaje de utilidad debe ser un entero Positivo");
+		}else if(pape.searchProduct(codigo)!=-1){
+			jp.showErrorMessage("Este codigo ya se encuentra registrado");
+		}else {
+			int i=1;
+			while(codigo.isBlank()) {
+				if(pape.searchProduct(""+i)!=-1)
+					i++;
+				else
+					codigo = ""+i;
+			}
+			if(profitPercentage.isBlank())
+				profitPercentage=""+25;
+			Product product = new Product(codigo, name, Integer.parseInt(profitPercentage), brand, description, 0, LocalDate.of(2000,1,1), 0.0, 0.0);
+			pape.getStockProductList().add(product);
+			lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
+			cr.setVisible(false);
 
-        if (!isValidProduct(codigo, name, profitPercentage)) {
-            return;
-        }
-
-        codigo = generateProductCode(codigo);
-        profitPercentage = profitPercentage.isBlank() ? "25" : profitPercentage;
-
-        Product product = new Product(codigo, name, Integer.parseInt(profitPercentage), brand, description, 0, LocalDate.of(2000, 1, 1), 0.0, 0.0);
-        addProductToList(product);
-    }
-
-    private boolean isValidProduct(String codigo, String name, String profitPercentage) {
-        if (name.isBlank()) {
-            jp.showErrorMessage("Por favor rellene todos los campos marcados con (*)");
-            return false;
-        } else if (!codigo.isBlank() && isPositiveInteger(codigo)) {
-            jp.showErrorMessage("El codigo debe ser un entero positivo");
-            return false;
-        } else if (!profitPercentage.isBlank() && isPositiveInteger(profitPercentage)) {
-            jp.showErrorMessage("El porcentaje de utilidad debe ser un entero Positivo");
-            return false;
-        } else if (pape.searchProduct(codigo) != -1) {
-            jp.showErrorMessage("Este codigo ya se encuentra registrado");
-            return false;
-        }
-        return true;
-    }
-
-    private String generateProductCode(String codigo) {
-        if (codigo.isBlank()) {
-            int i = 1;
-            while (pape.searchProduct("" + i) != -1) {
-                i++;
-            }
-            codigo = "" + i;
-        }
-        return codigo;
-    }
-
-    private void addProductToList(Product product) {
-        pape.getStockProductList().add(product);
-        lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
-        cr.setVisible(false);
-
-        daoProd.insertProduct(product);
-        jp.showMessage("El producto " + product.getName() + ", con codigo " + product.getId() + " fue creado correctamente.");
-    }
+			daoProd.insertProduct(product);
+			jp.showMessage("El producto " + name+ ", con codigo "+codigo+" fue creado correctamente.");
+		}
+	}
 
     public boolean isPositiveInteger(String cadena) {
         try {

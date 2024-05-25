@@ -42,6 +42,16 @@ public class ProductList extends JFrame {
     private JTable table;
     private DefaultTableModel dTable;
 
+    public int getStockMMinimo() {
+        return stockMMinimo;
+    }
+
+    public void setStockMMinimo(int stockMMinimo) {
+        this.stockMMinimo = stockMMinimo;
+    }
+
+    private int stockMMinimo;
+
     public ProductList(ActionListener listener, String[][] dataTable) {
         setUndecorated(true);
         setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -212,13 +222,13 @@ public class ProductList extends JFrame {
         while (dTable.getRowCount() > 0) {
             dTable.removeRow(0);
         }
-        Object[] rowData = new Object[9];
+        Object[] rowData = new Object[10];
         String id = "";
         for (int i = 0; i < dataTable.length; i++) {
             id = dataTable[i][0];
             btnState = new JButton();
             btnState.setBorderPainted(false);
-            if (Integer.parseInt(dataTable[i][5]) <= 5) {
+            if (Integer.parseInt(dataTable[i][5]) <= Integer.parseInt(dataTable[i][9])) {
                 btnState.setBackground(Color.RED);
             } else {
                 btnState.setBackground(Color.GREEN);

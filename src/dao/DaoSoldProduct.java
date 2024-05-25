@@ -19,7 +19,7 @@ Connexion cx;
 	public boolean insertProduct(Product product, int quantity){
 		PreparedStatement ps = null;
 		try {
-			ps=cx.connect().prepareStatement("INSERT INTO SoldProducts VALUES(null,?,?,?,?,?,?,?,?,?)");
+			ps=cx.connect().prepareStatement("INSERT INTO SoldProducts VALUES(null,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, product.getId());
 			ps.setString(2, product.getName());
 			ps.setString(3, ""+product.getProfitPercentage());
@@ -29,6 +29,7 @@ Connexion cx;
 			ps.setString(7, ""+product.getSaleDate());
 			ps.setString(8, ""+product.getSalePrice());
 			ps.setString(9, ""+product.getPurchasePrice());
+			ps.setString(10, ""+product.getRangoStock());
 			ps.executeUpdate();
 			cx.desconectar();
 			return true;
@@ -48,7 +49,7 @@ Connexion cx;
 			while(rs.next()) {
 				Product product = new Product(rs.getString("id"), rs.getString("name"), rs.getInt("profitPercentage"), 
 						rs.getString("brand"), rs.getString("description"), rs.getInt("quantity"), 
-						LocalDate.parse(rs.getString("saleDate")), rs.getDouble("salePrice"), rs.getDouble("purchasePrice"));
+						LocalDate.parse(rs.getString("saleDate")), rs.getDouble("salePrice"), rs.getDouble("purchasePrice"),rs.getInt("rangoStock"));
 				list.add(product);
 			}
 		} catch (SQLException e) {

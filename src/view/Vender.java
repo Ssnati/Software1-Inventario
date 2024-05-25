@@ -277,8 +277,7 @@ public class Vender extends JDialog {
 		this.txtDescripcion.setText(txtDescripcion);
 	}
 
-	public JSpinner getSpinnerCantidad() {
-		return spinnerCantidad;
+	public JSpinner getSpinnerCantidad() {return spinnerCantidad;
 	}
 	
 	public JLabel getLblAviso() {

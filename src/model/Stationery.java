@@ -101,7 +101,7 @@ public class Stationery {
 	
 	public String[][] getMatrix(ArrayList<Product> products){
 		DecimalFormat formato = new DecimalFormat("###,###,###,###.##");
-		String[][] matrix = new String[products.size()][9];
+		String[][] matrix = new String[products.size()][10];
 		Product temp = null;
 		for (int i = 0; i < products.size(); i++) {
 			temp = products.get(i);
@@ -114,6 +114,7 @@ public class Stationery {
 			matrix[i][6] = temp.getSaleDate().toString();
 			matrix[i][7] = " $" + formato.format(temp.getSalePrice());
 			matrix[i][8] = " $" + formato.format(temp.getPurchasePrice());
+			matrix[i][9] = ""+temp.getRangoStock();
 		}return matrix;
 	}
 }
