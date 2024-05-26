@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Shape;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -40,11 +42,13 @@ public class AddProduct extends JDialog {
 	private JTextField AddProd_txt_Price;
 	private JButton AddProd_btnComprar;
 	private JButton AddProd_btnCancel;
+	private JLabel lblAviso;
 
 	public AddProduct(JFrame frame, boolean modal,ActionListener listener) {
 		super(frame,modal);
 		initComponents(listener);
 	}
+
 	
 	public void initComponents(ActionListener listener) {
 		double ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -54,7 +58,7 @@ public class AddProduct extends JDialog {
 		Shape forma = new RoundRectangle2D.Double(0, 0, ancho*0.5, alto*0.6, 30, 30);
 		this.setShape(forma);
 		this.setLocationRelativeTo(null);
-		
+
 		
 		seePane = new JPanel();
 		seePane.setBorder(new RoundBorder(new Color(0, 0, 0), 1, true,30,30));
@@ -72,12 +76,13 @@ public class AddProduct extends JDialog {
 		seePane.add(panelInferior, BorderLayout.SOUTH);
 		//new MigLayout("", "["+(ancho*0.5-445)+"][210][210][25.00]", "[57px][15.00]"));
 		panelInferior.setLayout(new MigLayout("", "[270.0][210][210][270.0]", "[57px]"));
-		
+
+
 		JPanel panelCentral = new JPanel();
 		seePane.add(panelCentral, BorderLayout.CENTER);
 		//new MigLayout("", "[40.00]["+((ancho*0.5/2)-70)+"][50.00]["+((ancho*0.5/2)-70)+"][40.00]", "[][][][][40.00][][][40.00][][][fill]"));
 		panelCentral.setLayout(new MigLayout("", "[40.00]["+((ancho*0.5/2)-70)+"][50.00]["+((ancho*0.5/2)-70)+"][40.00]", "[][][40.00][][][40.00][][][136.00,fill][][][45.00][][40.00][]"));
-		
+
 		JSeparator separator_1 = new JSeparator();
 		panelCentral.add(separator_1, "cell 1 0 3 1,growx");
 		
@@ -95,19 +100,44 @@ public class AddProduct extends JDialog {
 		JLabel lblIngrese = new JLabel("Ingrese el valor total de la compra *");
 		lblIngrese.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelCentral.add(lblIngrese, "cell 3 12");
+		lblAviso = new JLabel("");
+		lblAviso.setForeground(new Color(204, 0, 0));
+		lblAviso.setFont(new Font("Tahoma", Font.PLAIN, 15));
+
+		panelCentral.add(lblAviso, "cell 1 0 3 1,alignx center");
 		
 		AddProd_txt_cant = new JTextField();
-		AddProd_txt_cant.setToolTipText("");
+		AddProd_txt_cant.setToolTipText("Ingrese la cantidad del producto que compro");
 		AddProd_txt_cant.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		AddProd_txt_cant.setColumns(10);
 		AddProd_txt_cant.setBackground(Color.WHITE);
+		AddProd_txt_cant.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if (Character.isLetter(validar)) {
+					e.consume();
+					lblAviso.setText("Debe ingresar numeros enteros positivos.");
+				}
+			}
+		});
 		panelCentral.add(AddProd_txt_cant, "cell 1 13,grow");
 		
 		AddProd_txt_Price = new JTextField();
-		AddProd_txt_Price.setToolTipText("");
+		AddProd_txt_Price.setToolTipText("Agregue el precio total de todos los productos comprados");
 		AddProd_txt_Price.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		AddProd_txt_Price.setColumns(10);
 		AddProd_txt_Price.setBackground(Color.WHITE);
+		AddProd_txt_Price.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if(Character.isLetter(validar)) {
+					e.consume();
+					lblAviso.setText("Solo se deben ingresar valores numericos positivos. \nPara colocar valores decimales se debe poner (.)");
+				}
+			}
+		});
 		panelCentral.add(AddProd_txt_Price, "cell 3 13,grow");
 		
 		JLabel lblNewLabelAviso2 = new JLabel("");
