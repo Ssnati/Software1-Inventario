@@ -88,6 +88,14 @@ public class Stationery {
 			}
 		}return getMatrix(aux);
 	}
+	public String[][] getTodos(){
+		ArrayList<Product> aux = new ArrayList<Product>();
+		Product temp = null;
+		for (int i = 0; i < stockProductList.size(); i++) {
+			temp = stockProductList.get(i);
+				aux.add(temp);
+		}return getMatrix(aux);
+	}
 
 	public void addSoldProduct(Product p) {
 		soldProductList.add(p);
