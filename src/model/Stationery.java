@@ -3,6 +3,7 @@ package model;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Stationery {
 	private ArrayList<Product> stockProductList;
@@ -117,23 +118,37 @@ public class Stationery {
 	public String toString() {
 		return "Inventary [Lista de Productos en Stock=" + stockProductList.toString() + ", Lista de Productos Vendidos=" + soldProductList.toString() + "]";
 	}
-	
-	public String[][] getMatrix(ArrayList<Product> products){
+
+
+	public String[][] getMatrix(ArrayList<Product> products) {
+		// Ordenar la lista de productos por ID numérico
+		products.sort(new Comparator<Product>() {
+			@Override
+			public int compare(Product p1, Product p2) {
+				int id1 = Integer.parseInt(p1.getId());
+				int id2 = Integer.parseInt(p2.getId());
+				return Integer.compare(id1, id2);
+			}
+		});
+
 		DecimalFormat formato = new DecimalFormat("###,###,###,###.##");
 		String[][] matrix = new String[products.size()][10];
-		Product temp = null;
+		Product temp;
+
 		for (int i = 0; i < products.size(); i++) {
 			temp = products.get(i);
 			matrix[i][0] = temp.getId();
 			matrix[i][1] = temp.getName();
-			matrix[i][2] = ""+temp.getProfitPercentage();
+			matrix[i][2] = "" + temp.getProfitPercentage();
 			matrix[i][3] = temp.getBrand();
 			matrix[i][4] = temp.getDescription();
-			matrix[i][5] = ""+temp.getQuantity();
+			matrix[i][5] = "" + temp.getQuantity();
 			matrix[i][6] = temp.getSaleDate().toString();
 			matrix[i][7] = " $" + formato.format(temp.getSalePrice());
 			matrix[i][8] = " $" + formato.format(temp.getPurchasePrice());
-			matrix[i][9] = ""+temp.getRangoStock();
-		}return matrix;
+			matrix[i][9] = "" + temp.getRangoStock();
+		}
+
+		return matrix;
 	}
 }

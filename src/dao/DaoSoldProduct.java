@@ -58,5 +58,17 @@ Connexion cx;
 		
 		return list;
 	}
+	public boolean deleteAllSoldProducts() {
+		PreparedStatement ps = null;
+		try {
+			ps = cx.connect().prepareStatement("DELETE FROM SoldProducts");
+			ps.executeUpdate();
+			cx.desconectar();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 	
 }
