@@ -202,7 +202,7 @@ public class Vender extends JDialog {
 				char validar = e.getKeyChar();
 				if(Character.isLetter(validar)) {
 					e.consume();
-					lblAviso.setText("Solo puedes ingresar valores numericos en el campo \"(Cantidad a vender)\". Este campo debe ser rellenado obligatoriamentes");
+					lblAviso.setText("<html><center>Solo puede ingresar valores numericos en el campo \"(Cantidad a vender)\". <br/>Este campo debe ser rellenado obligatoriamente</center><html>");
 				}
 			}
 		});

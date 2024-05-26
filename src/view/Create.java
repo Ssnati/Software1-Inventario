@@ -157,7 +157,7 @@ public class Create extends JDialog {
                 char validar = e.getKeyChar();
                 if (Character.isLetter(validar)) {
                     e.consume();
-                    lblAvisoModify.setText("Solo se deben ingresar valores numericos positivos. \nPara colocar valores decimales se debe poner (.)");
+                    lblAvisoModify.setText("<html>Solo se deben ingresar valores numericos positivos.<br/>Para colocar valores decimales se debe poner (.)</html>");
                 }
             }
         });
