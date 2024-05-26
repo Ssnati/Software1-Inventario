@@ -1,7 +1,6 @@
 package view;
 
-import java.awt.Dimension;
-import java.awt.Frame;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -11,18 +10,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import net.miginfocom.swing.MigLayout;
+import persistence.PDFHelpReader;
 
 import javax.swing.JLabel;
-import java.awt.Font;
 import javax.swing.JTextField;
 
 public class ProductList extends JFrame {
@@ -42,22 +38,23 @@ public class ProductList extends JFrame {
     private JPanel panel_1;
     private JTable table;
     private DefaultTableModel dTable;
+    private int stockMMinimo;
+    private JPanel panel_2;
+
 
     public int getStockMMinimo() {
         return stockMMinimo;
     }
-
     public void setStockMMinimo(int stockMMinimo) {
         this.stockMMinimo = stockMMinimo;
     }
-
-    private int stockMMinimo;
 
     public ProductList(ActionListener listener, String[][] dataTable) {
         setUndecorated(true);
         setExtendedState(Frame.MAXIMIZED_BOTH);
         getContentPane().setLayout(new BorderLayout(0, 0));
         initComponents(listener, dataTable);
+        initHelpButton();
     }
 
     private void initComponents(ActionListener listener, String[][] dataTable) {
@@ -69,12 +66,12 @@ public class ProductList extends JFrame {
         dim = super.getToolkit().getScreenSize();
         setSize(dim);
 
-        JPanel panel = new JPanel();
-        contentPane.add(panel, BorderLayout.WEST);
-        panel.setLayout(new MigLayout("", "[250.00px,grow]", "[23px,grow]"));
+        JPanel panelMid = new JPanel();
+        contentPane.add(panelMid, BorderLayout.WEST);
+        panelMid.setLayout(new MigLayout("", "[250.00px,grow]", "[23px,grow]"));
 
         JPanel panelMenu = new JPanel();
-        panel.setBackground(new Color(174, 226, 244));
+        panelMid.setBackground(new Color(174, 226, 244));
         panelMenu.setBackground(new Color(174, 226, 244));
         panelMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -121,13 +118,13 @@ public class ProductList extends JFrame {
         btnCerrarSesion.setBackground(Color.WHITE);
         panelMenu.add(btnCerrarSesion, "cell 1 9,grow");
 
-        panel.add(panelMenu, "cell 0 0,grow");
+        panelMid.add(panelMenu, "cell 0 0,grow");
 
         panel_1 = new JPanel();
         contentPane.add(panel_1, BorderLayout.CENTER);
         panel_1.setLayout(new BorderLayout(0, 0));
 
-        JPanel panel_2 = new JPanel();
+        panel_2 = new JPanel();
         panel_1.add(panel_2, BorderLayout.NORTH);
         panel_2.setLayout(new MigLayout("", "[18.00][grow][33.00][210][]", "[][][][40][]"));
         JButton btnNewButton = new JButton("Cerrar");
@@ -218,6 +215,19 @@ public class ProductList extends JFrame {
         updateTable(listener, dataTable);
     }
 
+    private void initHelpButton() {
+        JButton helpButton = new JButton("Ayuda");
+        helpButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        helpButton.setBackground(Color.WHITE);
+        helpButton.addActionListener(e -> showHelpPDF());
+        panel_2.add(helpButton, "cell 1 0");
+    }
+
+    public void showHelpPDF() {
+        PDFHelpReader frameHelp = new PDFHelpReader("Manual-Usuario.pdf", 1, this);
+        frameHelp.setVisible(true);
+        this.setVisible(false);
+    }
 
     public String getTextFromTextField() {
         return textField.getText();
