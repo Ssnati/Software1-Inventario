@@ -145,24 +145,24 @@ public class Create extends JDialog {
         panelCentral.add(lblNewLabel_1_1_1, "cell 3 6");
 
         JLabel lblNewLabel_rango = new JLabel("                         Stock mínimo");
-        lblNewLabel_rango.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        panelCentral.add(lblNewLabel_rango, "cell  3 6");
-
-        textFieldUtil = new JTextField();
-        textFieldUtil.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        textFieldUtil.setToolTipText("En caso de no escribirlo el sistema asignará un porcentaje de utilidad del 25% al producto.");
-        textFieldUtil.setColumns(10);
-        textFieldUtil.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char validar = e.getKeyChar();
-                if (Character.isLetter(validar)) {
-                    e.consume();
-                    lblAvisoModify.setText("Solo se deben ingresar valores numericos. \nPara colocar valores decimales se debe poner (.)");
-                }
-            }
-        });
-        panelCentral.add(textFieldUtil, "cell 1 7,grow");
+		lblNewLabel_rango.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panelCentral.add(lblNewLabel_rango, "cell  3 6");
+		
+		textFieldUtil = new JTextField();
+		textFieldUtil.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textFieldUtil.setToolTipText("En caso de no escribirlo el sistema asignará un porcentaje de utilidad del 25% al producto.");
+		textFieldUtil.setColumns(10);
+		textFieldUtil.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if(Character.isLetter(validar)) {
+					e.consume();
+					lblAvisoModify.setText("Solo se deben ingresar valores numericos positivos. \nPara colocar valores decimales se debe poner (.)");
+				}
+			}
+		});
+		panelCentral.add(textFieldUtil, "cell 1 7,grow");
 
 
         textFieldMarca = new JTextField();
