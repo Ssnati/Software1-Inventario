@@ -44,6 +44,7 @@ public class AddProduct extends JDialog {
     private JButton AddProd_btnComprar;
     private JButton AddProd_btnCancel;
     private JLabel lblAviso;
+    private JFrame jf;
 
     public AddProduct(JFrame frame, boolean modal, ActionListener listener) {
         super(frame, modal);
@@ -52,6 +53,8 @@ public class AddProduct extends JDialog {
 
 
     public void initComponents(ActionListener listener) {
+        jf = new JFrame();
+        jf.setAlwaysOnTop(true);
         double ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         double alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
 
@@ -297,6 +300,14 @@ public class AddProduct extends JDialog {
 
     public JTextField getAddProd_txt_Price() {
         return AddProd_txt_Price;
+    }
+
+    public int validateWindow(String msg) {
+        return JOptionPane.showOptionDialog(jf, msg, "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Si", "No"}, "Si");
+    }
+
+    public void informationMessage(String msg) {
+        JOptionPane.showMessageDialog(jf, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void setAddProd_txt_Price(String addProd_txt_Price) {

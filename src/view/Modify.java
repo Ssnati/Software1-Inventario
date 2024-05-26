@@ -143,18 +143,10 @@ public class Modify extends JDialog {
         panelCentral.add(lblNewLabel_rango, "cell  3 6");
 
         textFieldCantidadModify = new JTextField();
-        textFieldCantidadModify.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char validar = e.getKeyChar();
-                if (Character.isLetter(validar)) {
-                    e.consume();
-                    lblAvisoModify.setText("<html><center>Solo puede ingresar valores numericos positivos en el campo \"(Cantidad)\".<br/>Este campo debe ser rellenado obligatoriamente<html><center>");
-                }
-            }
-        });
+
         textFieldCantidadModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        textFieldCantidadModify.setToolTipText("Ingrese la nueva cantidad de productos que quiera establecer.");
+        textFieldCantidadModify.setToolTipText("La cantidad no puede ser modificada.");
+        textFieldCantidadModify.setEditable(false);
         textFieldCantidadModify.setColumns(10);
         panelCentral.add(textFieldCantidadModify, "cell 1 8,grow");
 

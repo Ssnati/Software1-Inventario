@@ -15,7 +15,6 @@ import java.awt.event.WindowListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Controller implements ActionListener, WindowListener {
     private final ProductList lp;
@@ -251,6 +250,7 @@ public class Controller implements ActionListener, WindowListener {
     }
 
     int maxInt = Integer.MAX_VALUE;
+    Double maxDouble = Double.MAX_VALUE;
 
     private void modifyProduct(String id) {
 
@@ -265,11 +265,13 @@ public class Controller implements ActionListener, WindowListener {
             jp.showErrorMessage("Por favor rellene todos los campos marcados con (*)");
         } else if (!profit.isBlank() && !isDoublePositive(profit)) {
             jp.showErrorMessage("El porcentaje de utilidad debe ser un numero entero, o decimal positivo que no exceda el rango de: " + 10000);
+        } else if (!profit.isBlank() && Double.parseDouble(profit) <= 0.0) {
+            jp.showErrorMessage("El porcentaje de utilidad debe ser un numero entero, o decimal positivo que no exceda el rango de: " + 10000);
         } else if (!profit.isBlank() && Double.parseDouble(profit) > 10000) {
             jp.showErrorMessage("El porcentaje de utilidad debe ser un numero entero, o decimal positivo que no exceda el rango de: " + 10000);
         } else if (!rango.isBlank() && !isPositiveInteger(rango)) {
             jp.showErrorMessage("El rango de stock debe ser un número entero positivo que no exceda el rango de: " + maxInt);
-        } else if (!rango.isBlank() && !isPositiveInteger(rango)) {
+        } else if (!rango.isBlank() && Integer.parseInt(rango) <= 0) {
             jp.showErrorMessage("El rango de stock debe ser un número entero positivo que no exceda el rango de: " + maxInt);
 
         } else if (!quantity.isBlank() && !isPositiveInteger(quantity)) {
@@ -339,13 +341,13 @@ public class Controller implements ActionListener, WindowListener {
 
         if (!quantity.isBlank() && !isPositiveInteger(quantity)) {
             jp.showErrorMessage("La cantidad del producto debe ser un número entero positivo que no exceda el rango de: " + maxInt);
-        }
-
-        if (pd.getQuantity() < Integer.parseInt(quantity)) {
+        } else if (pd.getQuantity() < Integer.parseInt(quantity)) {
+            jp.showErrorMessage("La cantidad que intentas vender supera la cantidad disponible del producto");
             vnd.setLblAviso("La cantidad que intentas vender supera la cantidad disponible del producto");
         } else {
             vnd.setLblAviso("");
             if (Integer.parseInt(quantity) == 0) {
+                jp.showErrorMessage("La cantidad que intentas vender debe ser mayor a cero");
                 vnd.setLblAviso("La cantidad que intentas vender debe ser mayor a cero");
             } else {
                 vnd.setLblAviso("");
@@ -435,25 +437,35 @@ public class Controller implements ActionListener, WindowListener {
         try {
             if (cantidad.isBlank() || precio.isBlank()) {
                 jp.showErrorMessage("Por favor, complete todos los campos.");
-            } else if (Integer.parseInt(precio) > maxInt || Integer.parseInt(cantidad) > maxInt) {
-                jp.showErrorMessage("Los valores ingresados son demasiado altos. debe ingresar un valor que no supere: "+ maxInt);
+            } else if (Double.parseDouble(precio) > maxDouble) {
+                jp.showErrorMessage("Los valores ingresados para el precio son demasiado altos. debe ingresar un valor que no supere: " + maxDouble);
+            } else if (Integer.parseInt(cantidad) > maxInt) {
+                jp.showErrorMessage("Los valores ingresados para la cantidad son demasiado altos. debe ingresar un valor que no supere: " + maxInt);
             } else if (!isDoublePositive(precio)) {
                 jp.showErrorMessage("Precio debe ser un valor numerico mayor a cero.");
             } else if (!isPositiveInteger(cantidad)) {
                 jp.showErrorMessage("Cantidad debe ser un numero entero positivo.");
-            } else if (Integer.parseInt(cantidad) == 0) {
+            } else if (Integer.parseInt(cantidad) <= 0) {
                 jp.showErrorMessage("Cantidad debe ser un numero entero mayor que cero.");
+            } else if (Double.parseDouble(precio) <= 0.0) {
+                jp.showErrorMessage("Precio debe ser un valor numerico mayor a cero.");
             } else {
-                double p = Integer.parseInt(precio) / Integer.parseInt(cantidad);
-                //double per = percentage/100.0;
-                pape.buyProd(id, cantidad, "" + (Integer.parseInt(precio) / Integer.parseInt(cantidad)), precio, percentage);
-                addP.setVisible(true);
-                addP.setTextFieldCantidad("" + pd.getQuantity());
-                lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
-                daoProd.actualizarBuyProduct(id, Integer.parseInt(cantidad), p + (p * percentage / 100));
-                jp.showMessage("Compra registrada.");
-                addP.setVisible(false);
-                addP.resetWindow();
+                if (addP.validateWindow("¿Esta seguro de comprar " + Integer.parseInt(cantidad) + " unidad(es) del producto " + pd.getName() + "?") == 0) {
+                    int total = pd.getQuantity() + Integer.parseInt(cantidad);
+                    addP.informationMessage("Se compro " + Integer.parseInt(cantidad) + " unidad(es) del producto " + pd.getName() + "   \n\nUnidades totales: " + total + "\n\n");
+
+                    double p = Double.parseDouble(precio) / Integer.parseInt(cantidad);
+                    //double per = percentage/100.0;
+                    pape.buyProd(id, cantidad, "" + (Double.parseDouble(precio) / Integer.parseInt(cantidad)), precio, percentage);
+                    addP.setVisible(true);
+                    addP.setTextFieldCantidad("" + pd.getQuantity());
+                    lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
+                    daoProd.actualizarBuyProduct(id, Integer.parseInt(cantidad), p + (p * percentage / 100));
+                    jp.showMessage("Compra registrada.");
+                    addP.setVisible(false);
+                    addP.resetWindow();
+                }
+
             }
         } catch (NumberFormatException excepcion) {
             jp.showErrorMessage("Los valores ingresados no son validos.");
@@ -484,15 +496,29 @@ public class Controller implements ActionListener, WindowListener {
             jp.showErrorMessage("El codigo debe ser un entero positivo");
         } else if (!profitPercentage.isBlank() && !isDoublePositive(profitPercentage)) {
             jp.showErrorMessage("El porcentaje de utilidad debe ser un numero entero, o decimal positivo que no exceda el rango de: " + 10000);
+        } else if (!profitPercentage.isBlank() && Double.parseDouble(profitPercentage) <= 0.0) {
+            jp.showErrorMessage("El porcentaje de utilidad debe ser un numero entero, o decimal positivo que no exceda el rango de: " + 10000);
         }
         int codigoI = Integer.parseInt(codigo);
         codigo = String.valueOf(codigoI);
-        if (!profitPercentage.isBlank() && Double.parseDouble(profitPercentage) > 10000) {
+        if (name.isBlank()) {
+
+        } else if (!codigo.isBlank() && !isPositiveInteger(codigo)) {
+
+        } else if (!profitPercentage.isBlank() && !isDoublePositive(profitPercentage)) {
+
+        } else if (!profitPercentage.isBlank() && Double.parseDouble(profitPercentage) <= 0.0) {
+
+        } else if (!profitPercentage.isBlank() && Double.parseDouble(profitPercentage) > 10000) {
             jp.showErrorMessage("El porcentaje de utilidad debe ser un numero, o decimal positivo, que no exceda el rango de: " + 10000);
         } else if (pape.searchProduct(codigo) != -1) {
             jp.showErrorMessage("Este codigo ya se encuentra registrado");
         } else if (!rangoStock.isBlank() && !isPositiveInteger(rangoStock)) {
             jp.showErrorMessage("El rango de stock debe ser un entero positivo que no exceda el rango de: " + maxInt);
+        } else if (!rangoStock.isBlank() && Integer.parseInt(rangoStock) <= 0) {
+            jp.showErrorMessage("El rango de stock debe ser un entero positivo que no exceda el rango de: " + maxInt);
+
+
         } else {
             int i = 1;
             while (codigo.isBlank()) {
