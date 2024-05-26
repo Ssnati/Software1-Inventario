@@ -284,6 +284,7 @@ public class Controller implements ActionListener, WindowListener {
             pd.setBrand(brand);
             pd.setQuantity(Integer.parseInt(quantity));
             pd.setDescription(description);
+            setNewPrice(pd, profit);
             pd.setProfitPercentage((profit.equals("")) ? 25 : Double.parseDouble(profit));
             pd.setRangoStock((rango.equals("")) ? 5 : Integer.parseInt(rango));
             if (executeModifyProduct(pd)) {
@@ -299,6 +300,12 @@ public class Controller implements ActionListener, WindowListener {
         }
 
 
+    }
+
+    private void setNewPrice(Product pd, String profit) {
+        double p = pd.getPurchasePrice();
+        double per = Double.parseDouble(profit) / 100.0;
+        pd.setSalePrice(p + (p * per));
     }
 
     private boolean executeModifyProduct(Product pd) {
@@ -499,8 +506,10 @@ public class Controller implements ActionListener, WindowListener {
         } else if (!profitPercentage.isBlank() && Double.parseDouble(profitPercentage) <= 0.0) {
             jp.showErrorMessage("El porcentaje de utilidad debe ser un numero entero, o decimal positivo que no exceda el rango de: " + 10000);
         }
-        int codigoI = Integer.parseInt(codigo);
-        codigo = String.valueOf(codigoI);
+        if (codigo.startsWith("0")) {
+            int codigoI = Integer.parseInt(codigo);
+            codigo = String.valueOf(codigoI);
+        }
         if (name.isBlank()) {
 
         } else if (!codigo.isBlank() && !isPositiveInteger(codigo)) {
@@ -517,8 +526,6 @@ public class Controller implements ActionListener, WindowListener {
             jp.showErrorMessage("El rango de stock debe ser un entero positivo que no exceda el rango de: " + maxInt);
         } else if (!rangoStock.isBlank() && Integer.parseInt(rangoStock) <= 0) {
             jp.showErrorMessage("El rango de stock debe ser un entero positivo que no exceda el rango de: " + maxInt);
-
-
         } else {
             int i = 1;
             while (codigo.isBlank()) {
