@@ -2,6 +2,7 @@ package persistence;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
+import view.Create;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +25,36 @@ public class PDFHelpReader extends JFrame {
         btnClosePanel.setFocusPainted(false);
         btnClosePanel.addActionListener(e -> {
             parentFrame.setVisible(true);
+            dispose();
+        });
+        add(btnClosePanel, BorderLayout.NORTH);
+        try {
+            PDDocument document = PDDocument.load(new File(pdfPath));
+            JScrollPane scrollPane = getjScrollPane(document, pageIndex);
+            scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+            add(scrollPane);
+            document.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar el PDF: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public PDFHelpReader(String pdfPath, int pageIndex, JFrame parentFrame, JDialog dialog) {
+        setTitle("PDF Viewer");
+        setExtendedState(Frame.MAXIMIZED_BOTH);
+        setUndecorated(true);
+        setAlwaysOnTop(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JButton btnClosePanel = new JButton("Atras");
+        btnClosePanel.setFont(new Font("Verdana", Font.BOLD, 20));
+        btnClosePanel.setBackground(new Color(136, 136, 136));
+        btnClosePanel.setForeground(Color.WHITE);
+        btnClosePanel.setFocusPainted(false);
+        btnClosePanel.addActionListener(e -> {
+            parentFrame.setVisible(true);
+            dialog.setVisible(true);
             dispose();
         });
         add(btnClosePanel, BorderLayout.NORTH);

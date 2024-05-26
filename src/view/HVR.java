@@ -282,10 +282,10 @@ public class HVR extends JFrame {
 
     private void initHelpButton() {
         JButton helpButton = new JButton("Ayuda");
-        helpButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        helpButton.setBackground(Color.WHITE);
+        helpButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        helpButton.setBackground(new Color(215, 215, 215));
         helpButton.addActionListener(e -> showHelpPDF());
-        panelMid.add(helpButton, "cell 0 0");
+        panelMid.add(helpButton, "cell 8 3,grow");
     }
 
     public void showHelpPDF() {

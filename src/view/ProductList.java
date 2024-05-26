@@ -46,6 +46,7 @@ public class ProductList extends JFrame {
     public int getStockMMinimo() {
         return stockMMinimo;
     }
+
     public void setStockMMinimo(int stockMMinimo) {
         this.stockMMinimo = stockMMinimo;
     }
@@ -225,10 +226,10 @@ public class ProductList extends JFrame {
 
     private void initHelpButton() {
         JButton helpButton = new JButton("Ayuda");
-        helpButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        helpButton.setBackground(Color.WHITE);
+        helpButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        helpButton.setBackground(new Color(215, 215, 215));
         helpButton.addActionListener(e -> showHelpPDF());
-        panel_2.add(helpButton, "cell 3 3,grow");
+        panel_2.add(helpButton, "cell 4 3, grow");
     }
 
     public void showHelpPDF() {
