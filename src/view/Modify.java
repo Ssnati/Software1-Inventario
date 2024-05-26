@@ -125,7 +125,7 @@ public class Modify extends JDialog{
 				char validar = e.getKeyChar();
 				if(Character.isLetter(validar)) {
 					e.consume();
-					lblAvisoModify.setText("Solo puedes ingresar valores numericos. \nPara colocar valores decimales se debe poner (.)");
+					lblAvisoModify.setText("Solo puedes ingresar valores numericos positivos. \nPara colocar valores decimales se debe poner (.)");
 				}
 			}
 		});
@@ -152,7 +152,7 @@ public class Modify extends JDialog{
 				char validar = e.getKeyChar();
 				if(Character.isLetter(validar)) {
 					e.consume();
-					lblAvisoModify.setText("Solo puedes ingresar valores numericos en el campo \"(Cantidad)\". Este campo debe ser rellenado obligatoriamentes");
+					lblAvisoModify.setText("Solo puedes ingresar valores numericos positivos en el campo \"(Cantidad)\". Este campo debe ser rellenado obligatoriamentes");
 				}
 			}
 		});
@@ -178,7 +178,7 @@ public class Modify extends JDialog{
 				char validar = e.getKeyChar();
 				if(Character.isLetter(validar)) {
 					e.consume();
-					lblAvisoModify.setText("Solo puedes ingresar valores numericos en el campo \"(Stock mínimo)\".");
+					lblAvisoModify.setText("Solo puedes ingresar valores numericos positivos en el campo \"(Stock mínimo)\".");
 				}
 			}
 		});

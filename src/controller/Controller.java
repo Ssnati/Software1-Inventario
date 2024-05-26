@@ -367,7 +367,7 @@ public class Controller implements ActionListener, WindowListener {
                     }
                 }
             }
-       
+
     }
 
     private boolean executeSell(Product pd, int quantity) {
