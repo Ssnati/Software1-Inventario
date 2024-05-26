@@ -144,7 +144,7 @@ public class Create extends JDialog {
         lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
         panelCentral.add(lblNewLabel_1_1_1, "cell 3 6");
 
-        JLabel lblNewLabel_rango = new JLabel("                  Stock mínimo");
+        JLabel lblNewLabel_rango = new JLabel("                         Stock mínimo");
         lblNewLabel_rango.setFont(new Font("Tahoma", Font.PLAIN, 18));
         panelCentral.add(lblNewLabel_rango, "cell  3 6");
 

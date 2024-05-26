@@ -149,7 +149,7 @@ public class Ver extends JDialog {
 		lblNewLabel_1_1_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelCentral.add(lblNewLabel_1_1_4, "cell 3 7");
 
-		JLabel lblNewLabel_1_1_5 = new JLabel(" Stock mínimo");
+		JLabel lblNewLabel_1_1_5 = new JLabel("           Stock mínimo");
 		lblNewLabel_1_1_5.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelCentral.add(lblNewLabel_1_1_5, "cell 3 7");
 
