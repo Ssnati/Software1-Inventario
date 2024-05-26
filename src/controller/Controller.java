@@ -182,8 +182,7 @@ public class Controller implements ActionListener, WindowListener {
         }
         if (e.getActionCommand().contains("CancelBuy")) {
             addP.setVisible(false);
-            addP.setAddProd_txt_cant("");
-            addP.setAddProd_txt_Price("");
+            addP.resetWindow();
         }
         if (e.getActionCommand().contains("FiltrarPorFecha")) {
             try {
@@ -449,14 +448,12 @@ public class Controller implements ActionListener, WindowListener {
                 //double per = percentage/100.0;
                 pape.buyProd(id, cantidad, "" + (Integer.parseInt(precio) / Integer.parseInt(cantidad)), precio, percentage);
                 addP.setVisible(true);
-                addP.setAddProd_txt_cant("");
-                addP.setAddProd_txt_Price("");
                 addP.setTextFieldCantidad("" + pd.getQuantity());
                 lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
-
                 daoProd.actualizarBuyProduct(id, Integer.parseInt(cantidad), p + (p * percentage / 100));
                 jp.showMessage("Compra registrada.");
                 addP.setVisible(false);
+                addP.resetWindow();
             }
         } catch (NumberFormatException excepcion) {
             jp.showErrorMessage("Los valores ingresados no son validos.");
