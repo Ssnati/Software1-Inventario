@@ -146,7 +146,8 @@ public class HVR extends JFrame {
         Calendar calendar = Calendar.getInstance();
         Date currentDate = calendar.getTime();
         fechaInicio = new JDateChooser();
-        fechaInicio.setDate(currentDate);
+        calendar.add(Calendar.MONTH, -1);
+        fechaInicio.setDate(calendar.getTime());
         panelMid.add(fechaInicio, "cell 2 3,grow");
 
         JLabel lblNewLabel_2 = new JLabel("Fecha Fin");
