@@ -442,8 +442,8 @@ public class Controller implements ActionListener, WindowListener {
         try {
             if (cantidad.isBlank() || precio.isBlank()) {
                 jp.showErrorMessage("Por favor, complete todos los campos.");
-            } else if (Integer.parseInt(precio) > 900000000 || Integer.parseInt(cantidad) > 900000000) {
-                jp.showErrorMessage("Los valores ingresados son demasiado altos.");
+            } else if (Integer.parseInt(precio) > maxInt || Integer.parseInt(cantidad) > maxInt) {
+                jp.showErrorMessage("Los valores ingresados son demasiado altos. debe ingresar un valor que no supere: "+ maxInt);
             } else if (!isDoublePositive(precio)) {
                 jp.showErrorMessage("Precio debe ser un valor numerico mayor a cero.");
             } else if (!isPositiveInteger(cantidad)) {
