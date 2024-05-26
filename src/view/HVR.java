@@ -34,7 +34,6 @@ import java.awt.Label;
 import javax.swing.JTextField;
 
 public class HVR extends JFrame {
-
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private Dimension dim;

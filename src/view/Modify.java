@@ -21,279 +21,281 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import net.miginfocom.swing.MigLayout;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class Modify extends JDialog{
+public class Modify extends JDialog {
+    private static final long serialVersionUID = 1L;
+    private JPanel modifyPane;
+    private JTextField textFieldNombreModify;
+    private JTextField textFieldCodigoModify;
+    private JTextField textFieldProfitModify;
+    private JTextField textFieldCantidadModify;
+    private JTextField textFieldMarcaModify;
+    private JTextField textFieldRangoModify;
+    private JTextArea txtDescripcionModify;
+    private JLabel lblAvisoModify;
+    private JButton btnAccept;
+    private JFrame jf;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private JPanel modifyPane;
-	private JTextField textFieldNombreModify;
-	private JTextField textFieldCodigoModify;
-	private JTextField textFieldProfitModify;
-	private JTextField textFieldCantidadModify;
-	private JTextField textFieldMarcaModify;
-	private JTextField textFieldRangoModify;
-	private JTextArea txtDescripcionModify;
-	private JLabel lblAvisoModify;
-	private JButton btnAccept;
-	private JFrame jf;
+    public Modify(JFrame frame, boolean modal, ActionListener listener) {
+        super(frame, modal);
+        initComponents(listener);
+    }
 
-	public Modify(JFrame frame, boolean modal,ActionListener listener) {
-		super(frame, modal);
-		initComponents(listener);
-	}
+    private void initComponents(ActionListener listener) {
+        jf = new JFrame();
+        jf.setAlwaysOnTop(true);
+        setAlwaysOnTop(true);
+        double ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+        double alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
 
-	private void initComponents(ActionListener listener) {
-		jf=new JFrame();
-		jf.setAlwaysOnTop(true);
-		setAlwaysOnTop(true);
-		double ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
-		double alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+        setUndecorated(true);
+        Shape forma = new RoundRectangle2D.Double(0, 0, ancho * 0.5, alto * 0.6, 30, 30);
+        this.setShape(forma);
+        this.setLocationRelativeTo(null);
 
-		setUndecorated(true);
-		Shape forma = new RoundRectangle2D.Double(0, 0, ancho*0.5, alto*0.6, 30, 30);
-		this.setShape(forma);
-		this.setLocationRelativeTo(null);
-		
-		modifyPane = new JPanel();
-		modifyPane.setBorder(new RoundBorder(new Color(0, 0, 0), 1, true,30,30));
-		setBounds((int)(ancho/2-(ancho*0.5)/2), (int)(alto/2-(alto*0.6)/2),(int)(ancho*0.5),(int)(alto*0.6));
-		setContentPane(modifyPane);
-		modifyPane.setLayout(new BorderLayout(0, 0));
-		
-		JLabel lblSuperior = new JLabel("MODIFICAR PRODUCTO");
-		lblSuperior.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-		lblSuperior.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSuperior.setFont(new Font("Tahoma", Font.PLAIN, 40));
-		modifyPane.add(lblSuperior, BorderLayout.NORTH);
-		
-		JPanel panelInferior = new JPanel();
-		modifyPane.add(panelInferior, BorderLayout.SOUTH);
-		panelInferior.setLayout(new MigLayout("", "["+(ancho*0.25-210)+"][210][210]["+(ancho*0.25-210)+"]", "[57px][15.00]"));
-		
-		JPanel panelCentral = new JPanel();
-		modifyPane.add(panelCentral, BorderLayout.CENTER);
-		panelCentral.setLayout(new MigLayout("", "[20.00][271.5,grow][50.00][271.5,grow][20.00]", "[][][40.00][][][40.00][][][fill]"));
+        modifyPane = new JPanel();
+        modifyPane.setBorder(new RoundBorder(new Color(0, 0, 0), 1, true, 30, 30));
+        setBounds((int) (ancho / 2 - (ancho * 0.5) / 2), (int) (alto / 2 - (alto * 0.6) / 2), (int) (ancho * 0.5), (int) (alto * 0.6));
+        setContentPane(modifyPane);
+        modifyPane.setLayout(new BorderLayout(0, 0));
 
-		lblAvisoModify = new JLabel("");
-		lblAvisoModify.setForeground(new Color(204, 0, 0));
-		lblAvisoModify.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblAvisoModify.setHorizontalAlignment(SwingConstants.CENTER);
-		panelCentral.add(lblAvisoModify, "cell 1 0 3 1,alignx center");
+        JLabel lblSuperior = new JLabel("MODIFICAR PRODUCTO");
+        lblSuperior.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        lblSuperior.setHorizontalAlignment(SwingConstants.CENTER);
+        lblSuperior.setFont(new Font("Tahoma", Font.PLAIN, 40));
+        modifyPane.add(lblSuperior, BorderLayout.NORTH);
 
-		JLabel lblNewLabelAviso2 = new JLabel("");
-		lblNewLabelAviso2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabelAviso2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panelCentral.add(lblNewLabelAviso2, "cell 1 3 3 1,alignx center");
-		
-		JLabel lblNewLabel = new JLabel("Código");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panelCentral.add(lblNewLabel, "cell 1 1");
+        JPanel panelInferior = new JPanel();
+        modifyPane.add(panelInferior, BorderLayout.SOUTH);
+        panelInferior.setLayout(new MigLayout("", "[" + (ancho * 0.25 - 210) + "][210][210][" + (ancho * 0.25 - 210) + "]", "[57px][15.00]"));
+
+        JPanel panelCentral = new JPanel();
+        modifyPane.add(panelCentral, BorderLayout.CENTER);
+        panelCentral.setLayout(new MigLayout("", "[20.00][271.5,grow][50.00][271.5,grow][20.00]", "[][][40.00][][][40.00][][][fill]"));
+
+        lblAvisoModify = new JLabel("");
+        lblAvisoModify.setForeground(new Color(204, 0, 0));
+        lblAvisoModify.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        lblAvisoModify.setHorizontalAlignment(SwingConstants.CENTER);
+        panelCentral.add(lblAvisoModify, "cell 1 0 3 1,alignx center");
+
+        JLabel lblNewLabelAviso2 = new JLabel("");
+        lblNewLabelAviso2.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabelAviso2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        panelCentral.add(lblNewLabelAviso2, "cell 1 3 3 1,alignx center");
+
+        JLabel lblNewLabel = new JLabel("Código");
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        panelCentral.add(lblNewLabel, "cell 1 1");
 
 
-		textFieldCodigoModify = new JTextField();
-		textFieldCodigoModify.setEditable(false);
-		textFieldCodigoModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldCodigoModify.setToolTipText("El código no puede ser cambiado.");
-		panelCentral.add(textFieldCodigoModify, "cell 1 2,grow");
-		textFieldCodigoModify.setColumns(10);
-		
-
-		JLabel lblNewLabel_1_2 = new JLabel("Nombre*");
-		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panelCentral.add(lblNewLabel_1_2, "cell 1 4");
-
-		textFieldNombreModify = new JTextField();
-		textFieldNombreModify.setToolTipText("Ingrese el nombre del producto. Este campo debe ser rellenado obligatoriamente.");
-		textFieldNombreModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldNombreModify.setColumns(10);
-		panelCentral.add(textFieldNombreModify, "cell 1 5,grow");
-		
-		JLabel lblNewLabel_1 = new JLabel("Porcentaje de Utilidad (%)");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panelCentral.add(lblNewLabel_1, "cell 3 4");
+        textFieldCodigoModify = new JTextField();
+        textFieldCodigoModify.setEditable(false);
+        textFieldCodigoModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        textFieldCodigoModify.setToolTipText("El código no puede ser cambiado.");
+        panelCentral.add(textFieldCodigoModify, "cell 1 2,grow");
+        textFieldCodigoModify.setColumns(10);
 
 
-		textFieldProfitModify = new JTextField();
-		textFieldProfitModify.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char validar = e.getKeyChar();
-				if(Character.isLetter(validar)) {
-					e.consume();
-					lblAvisoModify.setText("Solo puedes ingresar valores numericos positivos. \nPara colocar valores decimales se debe poner (.)");
-				}
-			}
-		});
-		textFieldProfitModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldProfitModify.setToolTipText("Ingresa el valor númerico del procentaje de utilidad. No es necesario digitar el símbolo (%). Si no asignas un valor de utilidad. Nosotros asignaremos un procentaje por defecto de 25%.");
-		panelCentral.add(textFieldProfitModify, "cell 3 5,grow");
-		textFieldProfitModify.setColumns(10);
-		
-		JLabel lblNewLabel_1_1 = new JLabel("Cantidad*");
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panelCentral.add(lblNewLabel_1_1, "cell 1 7");
-		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Marca");
-		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panelCentral.add(lblNewLabel_1_1_1, "cell 3 6");
-		JLabel lblNewLabel_rango = new JLabel("                     Stock mínimo");
-		lblNewLabel_rango.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panelCentral.add(lblNewLabel_rango, "cell  3 6");
-		
-		textFieldCantidadModify = new JTextField();
-		textFieldCantidadModify.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char validar = e.getKeyChar();
-				if(Character.isLetter(validar)) {
-					e.consume();
-					lblAvisoModify.setText("Solo puedes ingresar valores numericos positivos en el campo \"(Cantidad)\". Este campo debe ser rellenado obligatoriamentes");
-				}
-			}
-		});
-		textFieldCantidadModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldCantidadModify.setToolTipText("Ingresa la nueva cantidad de productos que quieres establecer.");
-		textFieldCantidadModify.setColumns(10);
-		panelCentral.add(textFieldCantidadModify, "cell 1 8,grow");
-		
-		textFieldMarcaModify = new JTextField();
-		textFieldMarcaModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldMarcaModify.setToolTipText("Ingrese la marca del producto que quiere ingresar.");
-		textFieldMarcaModify.setColumns(10);
-		panelCentral.add(textFieldMarcaModify, "cell 3 7,grow");
+        JLabel lblNewLabel_1_2 = new JLabel("Nombre*");
+        lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        panelCentral.add(lblNewLabel_1_2, "cell 1 4");
 
-		textFieldRangoModify = new JTextField();
-		textFieldRangoModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldRangoModify.setToolTipText("En caso de no escribirlo el sistema asignará un rango de stock mínimo de 5.");
-		textFieldRangoModify.setColumns(10);
-		panelCentral.add(textFieldRangoModify, "cell 3 7,grow");
-		textFieldRangoModify.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char validar = e.getKeyChar();
-				if(Character.isLetter(validar)) {
-					e.consume();
-					lblAvisoModify.setText("Solo puedes ingresar valores numericos positivos en el campo \"(Stock mínimo)\".");
-				}
-			}
-		});
-		
-		JLabel lblNewLabel_1_1_2 = new JLabel("Descripción del producto");
-		lblNewLabel_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panelCentral.add(lblNewLabel_1_1_2, "cell 1 11");
-		
-		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		txtDescripcionModify = new JTextArea();
-		txtDescripcionModify.setDisabledTextColor(Color.WHITE);
-		txtDescripcionModify.setBackground(Color.WHITE);
-		txtDescripcionModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		JScrollPane scroll = new JScrollPane(txtDescripcionModify);
-		scroll.setBorder(null);
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		txtDescripcionModify.setWrapStyleWord(true);
-		txtDescripcionModify.setLineWrap(true);
-		txtDescripcionModify.setToolTipText("En este campo se puede ingresar una nueva descripción para el producto.");
-		
-		panelCentral.add(panel, "cell 1 12 3 1,grow");
-		//panel.setLayout(new MigLayout("", "["+ancho*0.47+"]", "[165.00px]"));
-		panel.setLayout(new MigLayout("", "["+ancho*0.47+"]", "[165.00px]"));
-		panel.add(scroll, "cell 0 0,grow");
-		
-		btnAccept = new JButton("Aceptar");
-		btnAccept.addActionListener(listener);
-		btnAccept.setActionCommand(getTextFieldCodigoModify().getText()+"_saveModification");
-		btnAccept.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		panelInferior.add(btnAccept, "cell 1 0,grow");
-		
-		JButton btnCancel = new JButton("Cancelar");
-		btnCancel.addActionListener(listener);
-		btnCancel.setActionCommand("cancelarModificar");
-		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		panelInferior.add(btnCancel, "cell 2 0,grow");
-	}
-	
-	public void setActionModify() {
-		btnAccept.setActionCommand(getTextFieldCodigoModify().getText()+"_saveModification");
-	}
-	
-	public void errorMessage(String msg) {
-		JOptionPane.showMessageDialog(jf, msg, "Error", JOptionPane.ERROR_MESSAGE);	
-	}
-	public void warningMessage(String msg) {
-		JOptionPane.showMessageDialog(jf, msg, "Atencion", JOptionPane.WARNING_MESSAGE);	
-	}
-	public void informationMessage(String msg) {
-		JOptionPane.showMessageDialog(jf, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);	
-	}
-	public int validateWindow(String msg) {
-		return JOptionPane.showOptionDialog(jf, msg,"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Si", "No"}, "No");
-	}
-	
-	public JTextField getTextFieldCodigoModify() {
-		return textFieldCodigoModify;
-	}
+        textFieldNombreModify = new JTextField();
+        textFieldNombreModify.setToolTipText("Ingrese el nombre del producto. Este campo debe ser rellenado obligatoriamente.");
+        textFieldNombreModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        textFieldNombreModify.setColumns(10);
+        panelCentral.add(textFieldNombreModify, "cell 1 5,grow");
 
-	public void setTextFieldCodigoModify(String textFieldCodigoModify) {
-		this.textFieldCodigoModify.setText(textFieldCodigoModify);
-	}
+        JLabel lblNewLabel_1 = new JLabel("Porcentaje de Utilidad (%)");
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        panelCentral.add(lblNewLabel_1, "cell 3 4");
 
-	public JTextField getTextFieldNombreModify() {
-		return textFieldNombreModify;
-	}
 
-	public void setTextFieldNombreModify(String textFieldNombreModify) {
-		this.textFieldNombreModify.setText(textFieldNombreModify);
-	}
+        textFieldProfitModify = new JTextField();
+        textFieldProfitModify.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char validar = e.getKeyChar();
+                if (Character.isLetter(validar)) {
+                    e.consume();
+                    lblAvisoModify.setText("Solo puedes ingresar valores numericos positivos. \nPara colocar valores decimales se debe poner (.)");
+                }
+            }
+        });
+        textFieldProfitModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        textFieldProfitModify.setToolTipText("Ingresa el valor númerico del procentaje de utilidad. No es necesario digitar el símbolo (%). Si no asignas un valor de utilidad. Nosotros asignaremos un procentaje por defecto de 25%.");
+        panelCentral.add(textFieldProfitModify, "cell 3 5,grow");
+        textFieldProfitModify.setColumns(10);
 
-	public JTextField getTextFieldCantidadModify() {
-		return textFieldCantidadModify;
-	}
+        JLabel lblNewLabel_1_1 = new JLabel("Cantidad*");
+        lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        panelCentral.add(lblNewLabel_1_1, "cell 1 7");
 
-	public void setTextFieldCantidadModify(String textFieldCantidadModify) {
-		this.textFieldCantidadModify.setText(textFieldCantidadModify);
-	}
+        JLabel lblNewLabel_1_1_1 = new JLabel("Marca");
+        lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        panelCentral.add(lblNewLabel_1_1_1, "cell 3 6");
+        JLabel lblNewLabel_rango = new JLabel("                     Stock mínimo");
+        lblNewLabel_rango.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        panelCentral.add(lblNewLabel_rango, "cell  3 6");
 
-	public JTextField getTextFieldMarcaModify() {
-		return textFieldMarcaModify;
-	}
+        textFieldCantidadModify = new JTextField();
+        textFieldCantidadModify.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char validar = e.getKeyChar();
+                if (Character.isLetter(validar)) {
+                    e.consume();
+                    lblAvisoModify.setText("Solo puedes ingresar valores numericos positivos en el campo \"(Cantidad)\". Este campo debe ser rellenado obligatoriamentes");
+                }
+            }
+        });
+        textFieldCantidadModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        textFieldCantidadModify.setToolTipText("Ingresa la nueva cantidad de productos que quieres establecer.");
+        textFieldCantidadModify.setColumns(10);
+        panelCentral.add(textFieldCantidadModify, "cell 1 8,grow");
 
-	public void setTextFieldMarcaModify(String textFieldMarcaModify) {
-		this.textFieldMarcaModify.setText(textFieldMarcaModify);
-	}
+        textFieldMarcaModify = new JTextField();
+        textFieldMarcaModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        textFieldMarcaModify.setToolTipText("Ingrese la marca del producto que quiere ingresar.");
+        textFieldMarcaModify.setColumns(10);
+        panelCentral.add(textFieldMarcaModify, "cell 3 7,grow");
 
-	public JTextArea getTxtDescripcionModify() {
-		return txtDescripcionModify;
-	}
+        textFieldRangoModify = new JTextField();
+        textFieldRangoModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        textFieldRangoModify.setToolTipText("En caso de no escribirlo el sistema asignará un rango de stock mínimo de 5.");
+        textFieldRangoModify.setColumns(10);
+        panelCentral.add(textFieldRangoModify, "cell 3 7,grow");
+        textFieldRangoModify.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char validar = e.getKeyChar();
+                if (Character.isLetter(validar)) {
+                    e.consume();
+                    lblAvisoModify.setText("Solo puedes ingresar valores numericos positivos en el campo \"(Stock mínimo)\".");
+                }
+            }
+        });
 
-	public void setTxtDescripcionModify(String txtDescripcionModify) {
-		this.txtDescripcionModify.setText(txtDescripcionModify);
-	}
-	
-	public JLabel getLblAvisoModify() {
-		return lblAvisoModify;
-	}
+        JLabel lblNewLabel_1_1_2 = new JLabel("Descripción del producto");
+        lblNewLabel_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        panelCentral.add(lblNewLabel_1_1_2, "cell 1 11");
 
-	public void setLblAvisoModify(String lblAvisoModify) {
-		this.lblAvisoModify.setText(lblAvisoModify);
-	}
-	public JTextField getTextFieldRangoModify() {
-		return textFieldRangoModify;
-	}
+        JPanel panel = new JPanel();
+        panel.setBorder(new LineBorder(Color.LIGHT_GRAY));
+        txtDescripcionModify = new JTextArea();
+        txtDescripcionModify.setDisabledTextColor(Color.WHITE);
+        txtDescripcionModify.setBackground(Color.WHITE);
+        txtDescripcionModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        JScrollPane scroll = new JScrollPane(txtDescripcionModify);
+        scroll.setBorder(null);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        txtDescripcionModify.setWrapStyleWord(true);
+        txtDescripcionModify.setLineWrap(true);
+        txtDescripcionModify.setToolTipText("En este campo se puede ingresar una nueva descripción para el producto.");
 
-	public void setTextFieldRangoModify(String textFieldRango) {
-		this.textFieldRangoModify.setText(textFieldRango);
-	}
-	public JTextField getTextFieldProfit() {
-		return textFieldProfitModify;
-	}
+        panelCentral.add(panel, "cell 1 12 3 1,grow");
+        //panel.setLayout(new MigLayout("", "["+ancho*0.47+"]", "[165.00px]"));
+        panel.setLayout(new MigLayout("", "[" + ancho * 0.47 + "]", "[165.00px]"));
+        panel.add(scroll, "cell 0 0,grow");
 
-	public void setTextFieldProfit(String textFieldProfit) {
-		this.textFieldProfitModify.setText(textFieldProfit);
-	}
+        btnAccept = new JButton("Aceptar");
+        btnAccept.addActionListener(listener);
+        btnAccept.setActionCommand(getTextFieldCodigoModify().getText() + "_saveModification");
+        btnAccept.setFont(new Font("Tahoma", Font.PLAIN, 25));
+        panelInferior.add(btnAccept, "cell 1 0,grow");
+
+        JButton btnCancel = new JButton("Cancelar");
+        btnCancel.addActionListener(listener);
+        btnCancel.setActionCommand("cancelarModificar");
+        btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 25));
+        panelInferior.add(btnCancel, "cell 2 0,grow");
+    }
+
+    public void setActionModify() {
+        btnAccept.setActionCommand(getTextFieldCodigoModify().getText() + "_saveModification");
+    }
+
+    public void errorMessage(String msg) {
+        JOptionPane.showMessageDialog(jf, msg, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void warningMessage(String msg) {
+        JOptionPane.showMessageDialog(jf, msg, "Atencion", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void informationMessage(String msg) {
+        JOptionPane.showMessageDialog(jf, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public int validateWindow(String msg) {
+        return JOptionPane.showOptionDialog(jf, msg, "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Si", "No"}, "No");
+    }
+
+    public JTextField getTextFieldCodigoModify() {
+        return textFieldCodigoModify;
+    }
+
+    public void setTextFieldCodigoModify(String textFieldCodigoModify) {
+        this.textFieldCodigoModify.setText(textFieldCodigoModify);
+    }
+
+    public JTextField getTextFieldNombreModify() {
+        return textFieldNombreModify;
+    }
+
+    public void setTextFieldNombreModify(String textFieldNombreModify) {
+        this.textFieldNombreModify.setText(textFieldNombreModify);
+    }
+
+    public JTextField getTextFieldCantidadModify() {
+        return textFieldCantidadModify;
+    }
+
+    public void setTextFieldCantidadModify(String textFieldCantidadModify) {
+        this.textFieldCantidadModify.setText(textFieldCantidadModify);
+    }
+
+    public JTextField getTextFieldMarcaModify() {
+        return textFieldMarcaModify;
+    }
+
+    public void setTextFieldMarcaModify(String textFieldMarcaModify) {
+        this.textFieldMarcaModify.setText(textFieldMarcaModify);
+    }
+
+    public JTextArea getTxtDescripcionModify() {
+        return txtDescripcionModify;
+    }
+
+    public void setTxtDescripcionModify(String txtDescripcionModify) {
+        this.txtDescripcionModify.setText(txtDescripcionModify);
+    }
+
+    public JLabel getLblAvisoModify() {
+        return lblAvisoModify;
+    }
+
+    public void setLblAvisoModify(String lblAvisoModify) {
+        this.lblAvisoModify.setText(lblAvisoModify);
+    }
+
+    public JTextField getTextFieldRangoModify() {
+        return textFieldRangoModify;
+    }
+
+    public void setTextFieldRangoModify(String textFieldRango) {
+        this.textFieldRangoModify.setText(textFieldRango);
+    }
+
+    public JTextField getTextFieldProfit() {
+        return textFieldProfitModify;
+    }
+
+    public void setTextFieldProfit(String textFieldProfit) {
+        this.textFieldProfitModify.setText(textFieldProfit);
+    }
 }
