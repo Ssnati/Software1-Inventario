@@ -127,6 +127,9 @@ public class Controller implements ActionListener, WindowListener {
         if (e.getActionCommand().equals("BuscarProdInvent")) {
             lp.updateTable(this, pape.getProductFiltered(lp.getTextFromTextField()));
         }
+        if (e.getActionCommand().equals("verTodos")) {
+            lp.updateTable(this, pape.getTodos());
+        }
         if (e.getActionCommand().contains("_TableBuy")) {
             id_buy = e.getActionCommand().split("_")[0];
             showBuyProduct(e.getActionCommand());

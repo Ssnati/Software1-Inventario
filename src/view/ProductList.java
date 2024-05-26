@@ -30,6 +30,7 @@ public class ProductList extends JFrame {
     private ImageIcon seeIcon;
     private JButton searchProduct;
     private JButton stockMin;
+    private JButton verTodos;
     private JButton btnSeeProduct;
     private JButton btnSellProduct;
     private JButton btnBuy;
@@ -152,11 +153,18 @@ public class ProductList extends JFrame {
         panel_2.add(searchProduct, "cell 2 3,grow");
 
         stockMin = new JButton("Ver productos con stock bajo");
-        stockMin.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        stockMin.setFont(new Font("Tahoma", Font.PLAIN, 15));
         stockMin.addActionListener(listener);
         stockMin.setActionCommand("filtroStock");
         stockMin.setBackground(Color.WHITE);
         panel_2.add(stockMin, "cell 3 3,grow");
+
+        verTodos = new JButton("Ver todos los productos");
+        verTodos.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        verTodos.addActionListener(listener);
+        verTodos.setActionCommand("verTodos");
+        verTodos.setBackground(Color.WHITE);
+        panel_2.add(verTodos, "cell 3 3,grow");
 
         JPanel panel_3 = new JPanel();
         panel_1.add(panel_3, BorderLayout.WEST);
