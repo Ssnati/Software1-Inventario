@@ -225,10 +225,10 @@ public class ProductList extends JFrame {
 
     private void initHelpButton() {
         JButton helpButton = new JButton("Ayuda");
-        helpButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        helpButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
         helpButton.setBackground(Color.WHITE);
         helpButton.addActionListener(e -> showHelpPDF());
-        panel_2.add(helpButton, "cell 1 0");
+        panel_2.add(helpButton, "cell 3 3,grow");
     }
 
     public void showHelpPDF() {

@@ -38,7 +38,7 @@ public class Vender extends JDialog {
 	private JTextField textFieldCantidadEnStock;
 	private JTextField textFieldMarca;
 	private JTextArea txtDescripcion;
-	private JSpinner spinnerCantidad;
+	private JTextField cantidad;
 	private JLabel lblAviso;
 	private JButton btnSell;
 	private JTextField textFieldProfit;
@@ -194,13 +194,23 @@ public class Vender extends JDialog {
 		JLabel lblCantidadVender = new JLabel("Cantidad a vender");
 		lblCantidadVender.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelCentral.add(lblCantidadVender, "cell 1 14");
-		
-		spinnerCantidad = new JSpinner();
-		spinnerCantidad.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		spinnerCantidad.setModel(new SpinnerNumberModel(0, 0, 1000000, 1));
-		spinnerCantidad.setToolTipText("Ingrese solamente numeros enteros positivos");
 
-		panelCentral.add(spinnerCantidad, "cell 3 14,grow");
+		cantidad = new JTextField();
+		cantidad.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if(Character.isLetter(validar)) {
+					e.consume();
+					lblAviso.setText("Solo puedes ingresar valores numericos en el campo \"(Cantidad a vender)\". Este campo debe ser rellenado obligatoriamentes");
+				}
+			}
+		});
+		cantidad.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		cantidad.setToolTipText("Ingresa la nueva cantidad de productos que quieres establecer.");
+		cantidad.setColumns(10);
+
+		panelCentral.add(cantidad, "cell 3 14,grow");
 		
 		JButton btnCancel = new JButton("Cancelar");
 		btnCancel.addActionListener(listener);
@@ -281,8 +291,11 @@ public class Vender extends JDialog {
 		this.txtDescripcion.setText(txtDescripcion);
 	}
 
-	public JSpinner getSpinnerCantidad() {return spinnerCantidad;
+	public JTextField getCantidad() {
+		return cantidad;
 	}
+	public void setCantidad(String cantidad) {
+		this.cantidad.setText(cantidad);}
 	
 	public JLabel getLblAviso() {
 		return lblAviso;
@@ -307,6 +320,6 @@ public class Vender extends JDialog {
 		textFieldCantidadEnStock.setText("");
 		textFieldMarca.setText("");
 		txtDescripcion.setText("");
-		spinnerCantidad.setValue(0);
+		cantidad.setText("0");
 	}
 }

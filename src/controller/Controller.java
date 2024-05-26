@@ -341,20 +341,23 @@ public class Controller implements ActionListener, WindowListener {
 
     private void sellProduct(String id) {
         Product pd = searchProductStock(id);
-        try {
+        String quantity = vnd.getCantidad().getText();
 
-            int quantitySpinner = Integer.parseInt(vnd.getSpinnerCantidad().getValue().toString());
-            if (pd.getQuantity() < quantitySpinner) {
+         if (!quantity.isBlank() && !isPositiveInteger(quantity)) {
+             jp.showErrorMessage("La cantidad del producto debe ser un número entero positivo que no exceda el rango de: " + maxInt);
+         }
+
+            if (pd.getQuantity() < Integer.parseInt(quantity)) {
                 vnd.setLblAviso("La cantidad que intentas vender supera la cantidad disponible del producto");
             } else {
                 vnd.setLblAviso("");
-                if (quantitySpinner == 0) {
+                if (Integer.parseInt(quantity) == 0) {
                     vnd.setLblAviso("La cantidad que intentas vender debe ser mayor a cero");
                 } else {
                     vnd.setLblAviso("");
-                    if (vnd.validateWindow("¿Esta seguro de vender " + quantitySpinner + " unidad(es) del producto " + pd.getName() + "?") == 0) {
-                        if (executeSell(pd, quantitySpinner)) {
-                            vnd.informationMessage("Se vendio " + quantitySpinner + " unidad(es) del producto " + pd.getName() + "   \n\nUnidades restantes: " + pd.getQuantity() + "\n\n");
+                    if (vnd.validateWindow("¿Esta seguro de vender " + Integer.parseInt(quantity) + " unidad(es) del producto " + pd.getName() + "?") == 0) {
+                        if (executeSell(pd, Integer.parseInt(quantity))) {
+                            vnd.informationMessage("Se vendio " + Integer.parseInt(quantity) + " unidad(es) del producto " + pd.getName() + "   \n\nUnidades restantes: " + pd.getQuantity() + "\n\n");
                             vnd.resetWindow();
                             lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
                             ArrayList<Product> products = pape.getProductsWithinDate(hv.getFechaIni(), hv.getFechaFin());
@@ -364,9 +367,7 @@ public class Controller implements ActionListener, WindowListener {
                     }
                 }
             }
-        } catch (NumberFormatException excepcion) {
-            jp.showErrorMessage("Los datos ingresados no son validos");
-        }
+       
     }
 
     private boolean executeSell(Product pd, int quantity) {
