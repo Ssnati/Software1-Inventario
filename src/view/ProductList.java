@@ -27,7 +27,7 @@ public class ProductList extends JFrame {
     private JPanel contentPane;
     private Dimension dim;
     private JTextField textField;
-    private ImageIcon seeIcon;
+    //    private ImageIcon seeIcon;
     private JButton searchProduct;
     private JButton stockMin;
     private JButton verTodos;
@@ -245,7 +245,7 @@ public class ProductList extends JFrame {
     public void updateTable(ActionListener listener, String[][] dataTable) {
 
 
-        seeIcon = new ImageIcon(getClass().getResource("/iconos/ico_ver_prod.png"));
+//        seeIcon = new ImageIcon(getClass().getResource("/iconos/ico_ver_prod.png"));
 
         while (dTable.getRowCount() > 0) {
             dTable.removeRow(0);
@@ -263,9 +263,9 @@ public class ProductList extends JFrame {
             }
             btnBuy = new JButton("Comprar");
             btnSellProduct = new JButton("Vender");
-            btnSeeProduct = new JButton();
+            btnSeeProduct = new JButton("Ver producto");
 
-            btnSeeProduct.setIcon(seeIcon);
+//            btnSeeProduct.setIcon(seeIcon);
             btnBuy.addActionListener(listener);
             btnBuy.setActionCommand(id + "_TableBuy");
             btnSeeProduct.addActionListener(listener);
@@ -287,10 +287,10 @@ public class ProductList extends JFrame {
 
         table.getColumnModel().getColumn(0).setPreferredWidth(10);
         table.getColumnModel().getColumn(1).setPreferredWidth(150);
-        table.getColumnModel().getColumn(2).setPreferredWidth(350);
+        table.getColumnModel().getColumn(2).setPreferredWidth(340);
         table.getColumnModel().getColumn(3).setPreferredWidth(80);
-        table.getColumnModel().getColumn(4).setPreferredWidth(50);
-        table.getColumnModel().getColumn(5).setPreferredWidth(30);
+        table.getColumnModel().getColumn(4).setPreferredWidth(20);
+        table.getColumnModel().getColumn(5).setPreferredWidth(10);
         table.getColumnModel().getColumn(0).setResizable(false);
         table.getColumnModel().getColumn(1).setResizable(false);
         table.getColumnModel().getColumn(2).setResizable(false);
