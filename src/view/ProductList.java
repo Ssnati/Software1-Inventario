@@ -22,7 +22,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class ProductList extends JFrame {
-
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private Dimension dim;

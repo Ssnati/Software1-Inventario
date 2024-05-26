@@ -22,7 +22,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 
 public class ChangePasswordFrame extends JFrame {
-
     private JPanel contentPane;
     private Dimension dim;
     private JTextField txtOldPassword, txtNewPassword, txtConfirmPassword;

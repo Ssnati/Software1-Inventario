@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Controller implements ActionListener, WindowListener {
-
     private final ProductList lp;
     private final HVR hv;
     private Ver vr;
@@ -35,7 +34,6 @@ public class Controller implements ActionListener, WindowListener {
     private final DaoSoldProduct daoSold;
     private final DaoUser daoUser;
     private final jOptionPane jp;
-
 
     public Controller() {
         jp = new jOptionPane();
@@ -103,10 +101,8 @@ public class Controller implements ActionListener, WindowListener {
             md.setVisible(false);
         }
         if (e.getActionCommand().contains("CloseChangePasswordPanel")) {
-            if (changePasswordFrame.getComeFrom().equals("HVR"))
-                hv.setVisible(true);
-            else if (changePasswordFrame.getComeFrom().equals("ProductList"))
-                lp.setVisible(true);
+            if (changePasswordFrame.getComeFrom().equals("HVR")) hv.setVisible(true);
+            else if (changePasswordFrame.getComeFrom().equals("ProductList")) lp.setVisible(true);
             changePasswordFrame.setVisible(false);
         }
         if (e.getActionCommand().contains("logAccept")) {
@@ -304,7 +300,6 @@ public class Controller implements ActionListener, WindowListener {
 
     }
 
-
     private boolean executeModifyProduct(Product pd) {
         boolean output = false;
         for (Product p : pape.getStockProductList()) {
@@ -343,30 +338,30 @@ public class Controller implements ActionListener, WindowListener {
         Product pd = searchProductStock(id);
         String quantity = vnd.getCantidad().getText();
 
-         if (!quantity.isBlank() && !isPositiveInteger(quantity)) {
-             jp.showErrorMessage("La cantidad del producto debe ser un número entero positivo que no exceda el rango de: " + maxInt);
-         }
+        if (!quantity.isBlank() && !isPositiveInteger(quantity)) {
+            jp.showErrorMessage("La cantidad del producto debe ser un número entero positivo que no exceda el rango de: " + maxInt);
+        }
 
-            if (pd.getQuantity() < Integer.parseInt(quantity)) {
-                vnd.setLblAviso("La cantidad que intentas vender supera la cantidad disponible del producto");
+        if (pd.getQuantity() < Integer.parseInt(quantity)) {
+            vnd.setLblAviso("La cantidad que intentas vender supera la cantidad disponible del producto");
+        } else {
+            vnd.setLblAviso("");
+            if (Integer.parseInt(quantity) == 0) {
+                vnd.setLblAviso("La cantidad que intentas vender debe ser mayor a cero");
             } else {
                 vnd.setLblAviso("");
-                if (Integer.parseInt(quantity) == 0) {
-                    vnd.setLblAviso("La cantidad que intentas vender debe ser mayor a cero");
-                } else {
-                    vnd.setLblAviso("");
-                    if (vnd.validateWindow("¿Esta seguro de vender " + Integer.parseInt(quantity) + " unidad(es) del producto " + pd.getName() + "?") == 0) {
-                        if (executeSell(pd, Integer.parseInt(quantity))) {
-                            vnd.informationMessage("Se vendio " + Integer.parseInt(quantity) + " unidad(es) del producto " + pd.getName() + "   \n\nUnidades restantes: " + pd.getQuantity() + "\n\n");
-                            vnd.resetWindow();
-                            lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
-                            ArrayList<Product> products = pape.getProductsWithinDate(hv.getFechaIni(), hv.getFechaFin());
-                            hv.updateTable(this, pape.getProductsWithinDateMatrix(products), "" + pape.calculateUtility(products), "" + pape.calculateTotalSold(products));
-                            vnd.setVisible(false);
-                        }
+                if (vnd.validateWindow("¿Esta seguro de vender " + Integer.parseInt(quantity) + " unidad(es) del producto " + pd.getName() + "?") == 0) {
+                    if (executeSell(pd, Integer.parseInt(quantity))) {
+                        vnd.informationMessage("Se vendio " + Integer.parseInt(quantity) + " unidad(es) del producto " + pd.getName() + "   \n\nUnidades restantes: " + pd.getQuantity() + "\n\n");
+                        vnd.resetWindow();
+                        lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
+                        ArrayList<Product> products = pape.getProductsWithinDate(hv.getFechaIni(), hv.getFechaFin());
+                        hv.updateTable(this, pape.getProductsWithinDateMatrix(products), "" + pape.calculateUtility(products), "" + pape.calculateTotalSold(products));
+                        vnd.setVisible(false);
                     }
                 }
             }
+        }
 
     }
 
@@ -433,7 +428,6 @@ public class Controller implements ActionListener, WindowListener {
         }
     }
 
-
     private void buyProduct(String id) {
         Product pd = searchProductStock(id);
         String cantidad = addP.getAddProd_txt_cant().getText();
@@ -448,9 +442,9 @@ public class Controller implements ActionListener, WindowListener {
                 jp.showErrorMessage("Precio debe ser un valor numerico mayor a cero.");
             } else if (!isPositiveInteger(cantidad)) {
                 jp.showErrorMessage("Cantidad debe ser un numero entero positivo.");
-            } else if (Integer.parseInt(cantidad)==0) {
+            } else if (Integer.parseInt(cantidad) == 0) {
                 jp.showErrorMessage("Cantidad debe ser un numero entero mayor que cero.");
-            }else{
+            } else {
                 double p = Integer.parseInt(precio) / Integer.parseInt(cantidad);
                 //double per = percentage/100.0;
                 pape.buyProd(id, cantidad, "" + (Integer.parseInt(precio) / Integer.parseInt(cantidad)), precio, percentage);
@@ -505,15 +499,11 @@ public class Controller implements ActionListener, WindowListener {
         } else {
             int i = 1;
             while (codigo.isBlank()) {
-                if (pape.searchProduct("" + i) != -1)
-                    i++;
-                else
-                    codigo = "" + i;
+                if (pape.searchProduct("" + i) != -1) i++;
+                else codigo = "" + i;
             }
-            if (profitPercentage.isBlank())
-                profitPercentage = "" + 25;
-            if (rangoStock.isBlank())
-                rangoStock = "" + 5;
+            if (profitPercentage.isBlank()) profitPercentage = "" + 25;
+            if (rangoStock.isBlank()) rangoStock = "" + 5;
 
             Product product = new Product(codigo, name, Double.parseDouble(profitPercentage), brand, description, 0, LocalDate.of(2000, 1, 1), 0.0, 0.0, Integer.parseInt(rangoStock));
             pape.getStockProductList().add(product);
