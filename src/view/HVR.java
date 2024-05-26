@@ -121,11 +121,12 @@ public class HVR extends JFrame {
 		panelCentral.add(panel, BorderLayout.NORTH);
 		panel.setLayout(new MigLayout("", "[85][200.00][250.00][70.00,grow][200.00][250.00][25.00][210px][]", "[][][][40px][]"));
 		
-		JButton btnNewButton = new JButton("X");
+		JButton btnNewButton = new JButton("Cerrar");
 		btnNewButton.setBackground(new Color(204, 0, 0));
 		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 20));
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.addActionListener(listener);
+		btnNewButton.setFocusPainted(false);
 		btnNewButton.setActionCommand("CloseProgram");
 		panel.add(btnNewButton, "cell 8 0");
 		

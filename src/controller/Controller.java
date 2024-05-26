@@ -102,6 +102,13 @@ public class Controller implements ActionListener, WindowListener {
         if (e.getActionCommand().contains("cancelarModificar")) {
             md.setVisible(false);
         }
+        if (e.getActionCommand().contains("CloseChangePasswordPanel")) {
+            if (changePasswordFrame.getComeFrom().equals("HVR"))
+                hv.setVisible(true);
+            else if (changePasswordFrame.getComeFrom().equals("ProductList"))
+                lp.setVisible(true);
+            changePasswordFrame.setVisible(false);
+        }
         if (e.getActionCommand().contains("logAccept")) {
             addUser();
         }
@@ -152,9 +159,11 @@ public class Controller implements ActionListener, WindowListener {
             if (hv.isActive()) {
                 changePasswordFrame.setVisible(true);
                 hv.setVisible(false);
+                changePasswordFrame.setComeFrom("HVR");
             } else if (lp.isActive()) {
                 changePasswordFrame.setVisible(true);
                 lp.setVisible(false);
+                changePasswordFrame.setComeFrom("ProductList");
             }
         }
         if (e.getActionCommand().contains("acept_cambiar_contrasena")) {
@@ -223,46 +232,48 @@ public class Controller implements ActionListener, WindowListener {
         }
     }
 
-	private void deleteProduct(String id) {
-		Product pd = searchProductStock(id);
-		ArrayList<Product> auxList = pape.getStockProductList();
-		if(vr.validateWindow("¿Esta seguro de querer eliminar el producto "+pd.getName()+"?\n\nRecuerde que esta accion es irreversible.") == 0) {
-			if(executeDelete(pd, auxList)) {
-				lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
-				vr.informationMessage("Se ha borrado el producto exitosamente");
-				daoProd.eliminarProducto(Integer.parseInt(pd.getId()));
-				vr.setVisible(false);
-			}
-		}
-	}
+    private void deleteProduct(String id) {
+        Product pd = searchProductStock(id);
+        ArrayList<Product> auxList = pape.getStockProductList();
+        if (vr.validateWindow("¿Esta seguro de querer eliminar el producto " + pd.getName() + "?\n\nRecuerde que esta accion es irreversible.") == 0) {
+            if (executeDelete(pd, auxList)) {
+                lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
+                vr.informationMessage("Se ha borrado el producto exitosamente");
+                daoProd.eliminarProducto(Integer.parseInt(pd.getId()));
+                vr.setVisible(false);
+            }
+        }
+    }
 
-	private boolean executeDelete(Product pd, ArrayList<Product> auxList) {
-		boolean output = false;
-		for (int i = 0; i < auxList.size(); i++)
-			if(auxList.get(i).getId().equals(pd.getId())) {
-				auxList.remove(i);
-				output = true;
-			}
-		return output;
-	}
-	int maxInt = Integer.MAX_VALUE;
-	private void modifyProduct(String id) {
+    private boolean executeDelete(Product pd, ArrayList<Product> auxList) {
+        boolean output = false;
+        for (int i = 0; i < auxList.size(); i++)
+            if (auxList.get(i).getId().equals(pd.getId())) {
+                auxList.remove(i);
+                output = true;
+            }
+        return output;
+    }
 
-		Product pd = searchProductStock(id);
-		String name = md.getTextFieldNombreModify().getText();
-		String brand = md.getTextFieldMarcaModify().getText();
-		String quantity = md.getTextFieldCantidadModify().getText();
-		String description = md.getTxtDescripcionModify().getText();
-		String profit = md.getTextFieldProfit().getText();
-		String rango = md.getTextFieldRangoModify().getText();
-		if(name.isBlank() || quantity.isBlank()) {
+    int maxInt = Integer.MAX_VALUE;
+
+    private void modifyProduct(String id) {
+
+        Product pd = searchProductStock(id);
+        String name = md.getTextFieldNombreModify().getText();
+        String brand = md.getTextFieldMarcaModify().getText();
+        String quantity = md.getTextFieldCantidadModify().getText();
+        String description = md.getTxtDescripcionModify().getText();
+        String profit = md.getTextFieldProfit().getText();
+        String rango = md.getTextFieldRangoModify().getText();
+        if (name.isBlank() || quantity.isBlank()) {
             jp.showErrorMessage("Por favor rellene todos los campos marcados con (*)");
-        }else if(!profit.isBlank() && !isDoublePositive(profit)){
+        } else if (!profit.isBlank() && !isDoublePositive(profit)) {
             jp.showErrorMessage("El porcentaje de utilidad debe ser un numero entero, o decimal positivo que no exceda el rango de: " + 10000);
-		}else if(!profit.isBlank() && Double.parseDouble(profit)>10000 ) {
-					jp.showErrorMessage("El porcentaje de utilidad debe ser un numero entero, o decimal positivo que no exceda el rango de: " + 10000);
-		}else if (!rango.isBlank() && !isPositiveInteger(rango)) {
-			jp.showErrorMessage("El rango de stock debe ser un número entero positivo que no exceda el rango de: "+maxInt);
+        } else if (!profit.isBlank() && Double.parseDouble(profit) > 10000) {
+            jp.showErrorMessage("El porcentaje de utilidad debe ser un numero entero, o decimal positivo que no exceda el rango de: " + 10000);
+        } else if (!rango.isBlank() && !isPositiveInteger(rango)) {
+            jp.showErrorMessage("El rango de stock debe ser un número entero positivo que no exceda el rango de: " + maxInt);
         } else if (!rango.isBlank() && !isPositiveInteger(rango)) {
             jp.showErrorMessage("El rango de stock debe ser un número entero positivo que no exceda el rango de: " + maxInt);
 
@@ -467,45 +478,46 @@ public class Controller implements ActionListener, WindowListener {
         addP.setVisible(true);
     }
 
-	private void createProduct() {
-		String codigo = cr.getTextFieldCod().getText();
+    private void createProduct() {
+        String codigo = cr.getTextFieldCod().getText();
 
-		String name = cr.getTextFieldNom().getText();
-		String profitPercentage = cr.getTextFieldUtil().getText();
-		String brand = cr.getTextFieldMarca().getText();
-		String description = cr.getTxtrADesc().getText();
-		String rangoStock = cr.getTextFieldRango().getText();
-		if(name.isBlank()) {
-			jp.showErrorMessage("Por favor rellene todos los campos marcados con (*)");
-		}else if(!codigo.isBlank() && !isPositiveInteger(codigo)) {
-			jp.showErrorMessage("El codigo debe ser un entero positivo");
-        }else if(!profitPercentage.isBlank() && !isDoublePositive(profitPercentage)){
+        String name = cr.getTextFieldNom().getText();
+        String profitPercentage = cr.getTextFieldUtil().getText();
+        String brand = cr.getTextFieldMarca().getText();
+        String description = cr.getTxtrADesc().getText();
+        String rangoStock = cr.getTextFieldRango().getText();
+        if (name.isBlank()) {
+            jp.showErrorMessage("Por favor rellene todos los campos marcados con (*)");
+        } else if (!codigo.isBlank() && !isPositiveInteger(codigo)) {
+            jp.showErrorMessage("El codigo debe ser un entero positivo");
+        } else if (!profitPercentage.isBlank() && !isDoublePositive(profitPercentage)) {
             jp.showErrorMessage("El porcentaje de utilidad debe ser un numero entero, o decimal positivo que no exceda el rango de: " + 10000);
-        }int codigoI=Integer.parseInt(codigo);
-        codigo= String.valueOf(codigoI);
-        if(!profitPercentage.isBlank() && Double.parseDouble(profitPercentage)>10000) {
-			jp.showErrorMessage("El porcentaje de utilidad debe ser un numero, o decimal positivo, que no exceda el rango de: "+10000);
-		}else if(pape.searchProduct(codigo)!=-1){
-			jp.showErrorMessage("Este codigo ya se encuentra registrado");
-		}else if(!rangoStock.isBlank() && !isPositiveInteger(rangoStock)) {
-			jp.showErrorMessage("El rango de stock debe ser un entero positivo que no exceda el rango de: "+maxInt);
-		}else {
-			int i=1;
-			while(codigo.isBlank()) {
-				if(pape.searchProduct(""+i)!=-1)
-					i++;
-				else
-					codigo = ""+i;
-			}
-			if(profitPercentage.isBlank())
-				profitPercentage=""+25;
-			if(rangoStock.isBlank())
-				rangoStock=""+5;
+        }
+        int codigoI = Integer.parseInt(codigo);
+        codigo = String.valueOf(codigoI);
+        if (!profitPercentage.isBlank() && Double.parseDouble(profitPercentage) > 10000) {
+            jp.showErrorMessage("El porcentaje de utilidad debe ser un numero, o decimal positivo, que no exceda el rango de: " + 10000);
+        } else if (pape.searchProduct(codigo) != -1) {
+            jp.showErrorMessage("Este codigo ya se encuentra registrado");
+        } else if (!rangoStock.isBlank() && !isPositiveInteger(rangoStock)) {
+            jp.showErrorMessage("El rango de stock debe ser un entero positivo que no exceda el rango de: " + maxInt);
+        } else {
+            int i = 1;
+            while (codigo.isBlank()) {
+                if (pape.searchProduct("" + i) != -1)
+                    i++;
+                else
+                    codigo = "" + i;
+            }
+            if (profitPercentage.isBlank())
+                profitPercentage = "" + 25;
+            if (rangoStock.isBlank())
+                rangoStock = "" + 5;
 
-			Product product = new Product(codigo, name, Double.parseDouble(profitPercentage), brand, description, 0, LocalDate.of(2000,1,1), 0.0, 0.0, Integer.parseInt(rangoStock));
-			pape.getStockProductList().add(product);
-			lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
-			cr.setVisible(false);
+            Product product = new Product(codigo, name, Double.parseDouble(profitPercentage), brand, description, 0, LocalDate.of(2000, 1, 1), 0.0, 0.0, Integer.parseInt(rangoStock));
+            pape.getStockProductList().add(product);
+            lp.updateTable(this, pape.getMatrix(pape.getStockProductList()));
+            cr.setVisible(false);
 
             daoProd.insertProduct(product);
             jp.showMessage("El producto" + "Con código: " + codigo + " Fue creado correctamente.");
