@@ -122,12 +122,12 @@ public class Modify extends JDialog {
                 char validar = e.getKeyChar();
                 if (Character.isLetter(validar)) {
                     e.consume();
-                    lblAvisoModify.setText("Solo puedes ingresar valores numericos positivos. \nPara colocar valores decimales se debe poner (.)");
+                    lblAvisoModify.setText("<html><center>Solo puede ingresar valores numericos positivos. <br/>Para colocar valores decimales se debe poner (.)<html><center>");
                 }
             }
         });
         textFieldProfitModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        textFieldProfitModify.setToolTipText("Ingresa el valor númerico del procentaje de utilidad. No es necesario digitar el símbolo (%). Si no asignas un valor de utilidad. Nosotros asignaremos un procentaje por defecto de 25%.");
+        textFieldProfitModify.setToolTipText("Ingrese el valor numérico del porcentaje de utilidad. No es necesario digitar el símbolo (%). Si no asigna un valor de utilidad, el sistema asignara un porcentaje de 25%.");
         panelCentral.add(textFieldProfitModify, "cell 3 5,grow");
         textFieldProfitModify.setColumns(10);
 
@@ -149,18 +149,18 @@ public class Modify extends JDialog {
                 char validar = e.getKeyChar();
                 if (Character.isLetter(validar)) {
                     e.consume();
-                    lblAvisoModify.setText("Solo puedes ingresar valores numericos positivos en el campo \"(Cantidad)\". Este campo debe ser rellenado obligatoriamentes");
+                    lblAvisoModify.setText("<html><center>Solo puede ingresar valores numericos positivos en el campo \"(Cantidad)\".<br/>Este campo debe ser rellenado obligatoriamente<html><center>");
                 }
             }
         });
         textFieldCantidadModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        textFieldCantidadModify.setToolTipText("Ingresa la nueva cantidad de productos que quieres establecer.");
+        textFieldCantidadModify.setToolTipText("Ingrese la nueva cantidad de productos que quiera establecer.");
         textFieldCantidadModify.setColumns(10);
         panelCentral.add(textFieldCantidadModify, "cell 1 8,grow");
 
         textFieldMarcaModify = new JTextField();
         textFieldMarcaModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        textFieldMarcaModify.setToolTipText("Ingrese la marca del producto que quiere ingresar.");
+        textFieldMarcaModify.setToolTipText("Escriba la marca del producto que quiere ingresar.");
         textFieldMarcaModify.setColumns(10);
         panelCentral.add(textFieldMarcaModify, "cell 3 7,grow");
 
@@ -175,7 +175,7 @@ public class Modify extends JDialog {
                 char validar = e.getKeyChar();
                 if (Character.isLetter(validar)) {
                     e.consume();
-                    lblAvisoModify.setText("Solo puedes ingresar valores numericos positivos en el campo \"(Stock mínimo)\".");
+                    lblAvisoModify.setText("<html><center>Solo puede ingresar valores numericos positivos en el campo \"(Stock mínimo)\".<html><center>");
                 }
             }
         });
