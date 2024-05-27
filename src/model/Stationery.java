@@ -14,10 +14,17 @@ public class Stationery {
 	}
 
 	public Stationery(ArrayList<Product> productList, ArrayList<Product> soldProductList) {
+		verifyProducts(productList);
 		this.stockProductList = productList;
 		this.soldProductList = soldProductList;
 	}
-	
+
+	private void verifyProducts(ArrayList<Product> productList) {
+		for (Product product : productList) {
+			product.setSalePrice(product.getPurchasePrice() + (product.getPurchasePrice() * product.getProfitPercentage() / 100));
+		}
+	}
+
 	public void buyProd(String id, String cant, String Unitprice, String pricePortodo, double percentage) {
 		int pos = searchProduct(id);
 		Product newProd =  stockProductList.get(pos);
