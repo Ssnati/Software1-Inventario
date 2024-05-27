@@ -1,0 +1,26 @@
+<component name="libraryTable">
+  <library name="lib1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/lib/java-json.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/jgoodies-looks-2.4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/miglayout15-swing.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/sqlite-jdbc-3.44.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/jgoodies-common-1.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/commons-logging-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/miglayout-src.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/jgoodies-forms-1.8.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/pdfbox-2.0.31.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/jcalendar-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/junit-4.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/jgoodies-forms-1.8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/pdfbox-tools-2.0.31.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/fontbox-2.0.31.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/slf4j-api-1.7.36.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/jgoodies-common-1.8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/gson-2.8.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/jgoodies-common-1.8.0-sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
