@@ -69,7 +69,6 @@ public class Controller implements ActionListener, WindowListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Usuario: " + generalUser.getUsername() + " Contraseña: " + generalUser.getPassword());
         if (e.getActionCommand().contains("_TableSell")) {
             vnd = new Vender(lp, true, this);
             seeSellProduct(e.getActionCommand());
@@ -132,14 +131,14 @@ public class Controller implements ActionListener, WindowListener {
         }
         if (e.getActionCommand().contains("menu_inventario")) {
             if (!lp.isActive()) {
-                hv.setVisible(false);
                 lp.setVisible(true);
+                hv.setVisible(false);
             }
         }
         if (e.getActionCommand().contains("menu_historial")) {
             if (!hv.isActive()) {
-                lp.setVisible(false);
                 hv.setVisible(true);
+                lp.setVisible(false);
             }
         }
         if (e.getActionCommand().contains("menu_crear")) {
@@ -200,7 +199,6 @@ public class Controller implements ActionListener, WindowListener {
                 jp.showErrorMessage("Formato de fecha no válido. ");
             }
         }
-        System.out.println("ActionCommand: " + e.getActionCommand());
     }
 
     private void changePassword() {
@@ -610,8 +608,8 @@ public class Controller implements ActionListener, WindowListener {
                     generalUser.setPassword(password);
                     changePasswordFrame.resetPanel();
                     daoUser.updateUser(generalUser);
-                    changePasswordFrame.setVisible(false);
                     logIn2.setVisible(true);
+                    changePasswordFrame.setVisible(false);
                 }
             }
         }

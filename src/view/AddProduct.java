@@ -85,7 +85,6 @@ public class AddProduct extends JDialog {
         seePane.add(panelCentral, BorderLayout.CENTER);
         panelCentral.setLayout(new MigLayout("", "[40.00][" + ((ancho * 0.5 / 2) - 70) + "][50.00][" + ((ancho * 0.5 / 2) - 70) + "][40.00]", "[][][40.00][][][40.00][][][136.00,fill][][][45.00][][40.00][]"));
         // 5 columnas, 13 filas
-        System.out.println(panelCentral.getPreferredSize());
 
         JSeparator separator_1 = new JSeparator();
         panelCentral.add(separator_1, "cell 1 0 3 1,growx");
