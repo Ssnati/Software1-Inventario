@@ -417,6 +417,7 @@ public class Controller implements ActionListener, WindowListener {
                 vnd.setTextFieldMarca(pd.getBrand());
                 vnd.setTxtDescripcion(pd.getDescription());
                 vnd.setTextFieldPrecioVenta(String.valueOf(pd.getSalePrice()));
+                vnd.setTextFieldPrecioCompra(String.valueOf(pd.getPurchasePrice()));
                 vnd.setActionSell();
                 vnd.setVisible(true);
             }

@@ -43,6 +43,7 @@ public class Vender extends JDialog {
 	private JButton btnSell;
 	private JTextField textFieldProfit;
 	private JFrame jf;
+	private JTextField textFieldPrecioCompra;
 
 	public Vender(JFrame frame, boolean modal,ActionListener listener) {
 		super(frame, modal);
@@ -164,7 +165,11 @@ public class Vender extends JDialog {
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Cantidad disponible");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panelCentral.add(lblNewLabel_1_1, "cell 1 11");
+		panelCentral.add(lblNewLabel_1_1, "cell 1 13");
+
+		JLabel lblPrecioCompra = new JLabel("Precio de Compra");
+		lblPrecioCompra.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panelCentral.add(lblPrecioCompra, "cell 1 11");
 		
 		JLabel lblPrecioVenta = new JLabel("Precio de Venta");
 		lblPrecioVenta.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -175,8 +180,16 @@ public class Vender extends JDialog {
 		textFieldCantidadEnStock.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldCantidadEnStock.setToolTipText("Este campo no puede ser editado");
 		textFieldCantidadEnStock.setColumns(10);
-		panelCentral.add(textFieldCantidadEnStock, "cell 1 12,grow");
-		
+		panelCentral.add(textFieldCantidadEnStock, "cell 3 13,grow");
+
+		textFieldPrecioCompra = new JTextField();
+		textFieldPrecioCompra.setToolTipText("Este campo no puede ser editado");
+		textFieldPrecioCompra.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textFieldPrecioCompra.setEditable(false);
+		textFieldPrecioCompra.setColumns(10);
+		panelCentral.add(textFieldPrecioCompra, "cell 1 12,grow");
+
+
 		textFieldPrecioVenta = new JTextField();
 		textFieldPrecioVenta.setToolTipText("Este campo no puede ser editado");
 		textFieldPrecioVenta.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -307,6 +320,10 @@ public class Vender extends JDialog {
 		this.textFieldProfit.setText(textFieldProfit);
 	}
 
+	public void setTextFieldPrecioCompra(String textFieldPrecioCompra) {
+		this.textFieldPrecioCompra.setText(textFieldPrecioCompra);
+	}
+
 	public void resetWindow() {
 		textFieldPrecioVenta.setText("");
 		textFieldCodigo.setText("");
@@ -314,6 +331,7 @@ public class Vender extends JDialog {
 		textFieldCantidadEnStock.setText("");
 		textFieldMarca.setText("");
 		txtDescripcion.setText("");
+		textFieldPrecioCompra.setText("");
 		cantidad.setText("0");
 	}
 }
