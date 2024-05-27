@@ -72,8 +72,8 @@ public class ProductList extends JFrame {
         panelMid.setLayout(new MigLayout("", "[250.00px,grow]", "[23px,grow]"));
 
         JPanel panelMenu = new JPanel();
-        panelMid.setBackground(new Color(174, 226, 244));
-        panelMenu.setBackground(new Color(174, 226, 244));
+        panelMid.setBackground(new Color(74, 74, 74));
+        panelMenu.setBackground(new Color(74, 74, 74));
         panelMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         panelMenu.setLayout(new MigLayout("", "[20][210][20]", "[69.00][][57.00][][57.00][][57.00][][grow][57.00][]"));

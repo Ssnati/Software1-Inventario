@@ -70,8 +70,8 @@ public class HVR extends JFrame {
         panelIzq.setLayout(new MigLayout("", "[250px,grow]", "[23px,grow]"));
 
         JPanel panelMenu = new JPanel();
-        panelIzq.setBackground(new Color(174, 226, 244));
-        panelMenu.setBackground(new Color(174, 226, 244));
+        panelIzq.setBackground(new Color(74, 74, 74));
+        panelMenu.setBackground(new Color(74, 74, 74));
         panelMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
         panelIzq.add(panelMenu, "cell 0 0,grow");
         panelMenu.setLayout(new MigLayout("", "[20][210][20]", "[69.00][][57.00][][57.00][][57.00][][grow][57.00][]"));
@@ -79,7 +79,7 @@ public class HVR extends JFrame {
         JLabel lblimage_Menu = new JLabel("");
         ImageIcon iconMaxiCopias = new ImageIcon(getClass().getResource("/iconos/Logo.png"));
         lblimage_Menu.setIcon(iconMaxiCopias);
-        panelMenu.add(lblimage_Menu, "cell 1 0,alignx center");
+        panelMenu.add(lblimage_Menu, "cell 1 0");
 
         JButton btnInventario_Menu = new JButton("INVENTARIO");
         btnInventario_Menu.setFont(new Font("Tahoma", Font.PLAIN, 18));
