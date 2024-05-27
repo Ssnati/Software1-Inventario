@@ -15,6 +15,7 @@ import java.awt.event.WindowListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Controller implements ActionListener, WindowListener {
     private final ProductList lp;
@@ -189,8 +190,12 @@ public class Controller implements ActionListener, WindowListener {
                 sdf.parse(hv.getFechaIniString());
                 new SimpleDateFormat(hv.getFechaFormatFinString());
                 sdf.parse(hv.getFechaIniString());
-                ArrayList<Product> products = pape.getProductsWithinDate(hv.getFechaIni(), hv.getFechaFin());
-                hv.updateTable(this, pape.getProductsWithinDateMatrix(products), "" + pape.calculateUtility(products), "" + pape.calculateTotalSold(products));
+                if (hv.getFechaIni().isAfter(hv.getFechaFin())) {
+                    jp.showErrorMessage("La fecha de inicio no puede ser mayor a la fecha final");
+                } else {
+                    ArrayList<Product> products = pape.getProductsWithinDate(hv.getFechaIni(), hv.getFechaFin());
+                    hv.updateTable(this, pape.getProductsWithinDateMatrix(products), "" + pape.calculateUtility(products), "" + pape.calculateTotalSold(products));
+                }
             } catch (Exception z) {
                 jp.showErrorMessage("Formato de fecha no válido. ");
             }
@@ -279,15 +284,11 @@ public class Controller implements ActionListener, WindowListener {
 
         } else if (!quantity.isBlank() && !isPositiveInteger(quantity)) {
             jp.showErrorMessage("La cantidad del producto debe ser un número entero positivo que no exceda el rango de: " + maxInt);
-        }
-        else if (profit.isBlank() ) {
-            jp.showErrorMessage("Complete todos los campos marcados con (*)" );
-        }
-        else if (rango.isBlank() ) {
-            jp.showErrorMessage("Complete todos los campos marcados con (*)" );
-        }
-
-        else {
+        } else if (profit.isBlank()) {
+            jp.showErrorMessage("Complete todos los campos marcados con (*)");
+        } else if (rango.isBlank()) {
+            jp.showErrorMessage("Complete todos los campos marcados con (*)");
+        } else {
             pd.setName(name);
             pd.setBrand(brand);
             pd.setQuantity(Integer.parseInt(quantity));
@@ -343,6 +344,7 @@ public class Controller implements ActionListener, WindowListener {
             md.setTxtDescripcionModify(pd.getDescription());
             md.setTextFieldProfit(String.valueOf(pd.getProfitPercentage()));
             md.setTextFieldRangoModify(String.valueOf(pd.getRangoStock()));
+            md.setTextFieldPrecioCompra(String.valueOf(pd.getPurchasePrice()));
             md.setActionModify();
             md.setVisible(true);
         } else {
@@ -361,12 +363,12 @@ public class Controller implements ActionListener, WindowListener {
             vnd.setLblAviso("La cantidad que intentas vender supera la cantidad disponible del producto");
         } else {
             vnd.setLblAviso("");
-            if (!quantity.isBlank()&&Integer.parseInt(quantity) == 0) {
+            if (!quantity.isBlank() && Integer.parseInt(quantity) == 0) {
                 jp.showErrorMessage("La cantidad que intentas vender debe ser mayor a cero");
                 vnd.setLblAviso("La cantidad que intentas vender debe ser mayor a cero");
             } else {
                 vnd.setLblAviso("");
-                if (!quantity.isBlank()&&vnd.validateWindow("¿Esta seguro de vender " + Integer.parseInt(quantity) + " unidad(es) del producto " + pd.getName() + "?") == 0) {
+                if (!quantity.isBlank() && vnd.validateWindow("¿Esta seguro de vender " + Integer.parseInt(quantity) + " unidad(es) del producto " + pd.getName() + "?") == 0) {
                     if (executeSell(pd, Integer.parseInt(quantity))) {
                         vnd.informationMessage("Se vendio " + Integer.parseInt(quantity) + " unidad(es) del producto " + pd.getName() + "   \n\nUnidades restantes: " + pd.getQuantity() + "\n\n");
                         vnd.resetWindow();
@@ -375,8 +377,9 @@ public class Controller implements ActionListener, WindowListener {
                         hv.updateTable(this, pape.getProductsWithinDateMatrix(products), "" + pape.calculateUtility(products), "" + pape.calculateTotalSold(products));
                         vnd.setVisible(false);
                     }
-                } if (quantity.isBlank()) {
-                    jp.showErrorMessage("Complete todos los campos" );
+                }
+                if (quantity.isBlank()) {
+                    jp.showErrorMessage("Complete todos los campos");
                 }
             }
 
@@ -440,6 +443,7 @@ public class Controller implements ActionListener, WindowListener {
             vr.setTextFieldSalePrice(String.valueOf(myPd.getSalePrice()));
             vr.setTxtDescripcionVer(myPd.getDescription());
             vr.setTextFieldRango(String.valueOf(myPd.getRangoStock()));
+            vr.setTextFieldPrecioCompra(String.valueOf(myPd.getPurchasePrice()));
             vr.setActionSee();
             vr.setVisible(true);
         } else {
@@ -510,7 +514,7 @@ public class Controller implements ActionListener, WindowListener {
         if (name.isBlank()) {
             jp.showErrorMessage("Por favor complete todos los campos marcados con (*)");
         } else if (!codigo.isBlank() && !isPositiveInteger(codigo)) {
-            jp.showErrorMessage("El codigo debe ser un entero positivo que no exceda el rango de: "+maxInt);
+            jp.showErrorMessage("El codigo debe ser un entero positivo que no exceda el rango de: " + maxInt);
         } else if (!profitPercentage.isBlank() && !isDoublePositive(profitPercentage)) {
             jp.showErrorMessage("El porcentaje de utilidad debe ser un numero entero, o decimal positivo que no exceda el rango de: " + 10000);
         } else if (!profitPercentage.isBlank() && Double.parseDouble(profitPercentage) <= 0.0) {

@@ -238,8 +238,22 @@ public class HVR extends JFrame {
     }
 
     public void updateTable(ActionListener listener, String[][] dataTable, String ganado, String vendido) {
+        if (dataTable.length > 0) {
+            String[][] temp = new String[dataTable[0].length][dataTable[0].length];
+            for (int i = 0; i < dataTable.length; i++) {
+                for (int j = 0; j < dataTable.length - 1; j++) {
+                    if (dataTable[j][6].compareTo(dataTable[j + 1][6]) < 0) {
+                        temp[0] = dataTable[j];
+                        dataTable[j] = dataTable[j + 1];
+                        dataTable[j + 1] = temp[0];
+                    }
+                }
+            }
+        } else {
+            dataTable = new String[0][0];
+        }
 
-        new ImageIcon(getClass().getResource("/iconos/ico_ver_prod.png"));
+//        new ImageIcon(getClass().getResource("/iconos/ico_ver_prod.png"));
 
         while (dTable.getRowCount() > 0) {
             dTable.removeRow(0);
