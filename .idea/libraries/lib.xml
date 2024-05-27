@@ -1,13 +1,22 @@
 <component name="libraryTable">
   <library name="lib">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/src/lib" />
+      <root url="jar://$PROJECT_DIR$/out/production/Software1-Inventario/lib/jgoodies-common-1.8.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Software1-Inventario/lib/jgoodies-forms-1.8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Software1-Inventario/lib/slf4j-api-1.7.36.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Software1-Inventario/lib/sqlite-jdbc-3.44.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Software1-Inventario/lib/jgoodies-forms-1.8.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Software1-Inventario/lib/junit-4.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Software1-Inventario/lib/gson-2.8.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Software1-Inventario/lib/miglayout15-swing.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Software1-Inventario/lib/jcalendar-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Software1-Inventario/lib/jgoodies-common-1.8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Software1-Inventario/lib/java-json.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Software1-Inventario/lib/jgoodies-looks-2.4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Software1-Inventario/lib/miglayout-src.zip!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Software1-Inventario/lib/jgoodies-common-1.2.0.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="file://$PROJECT_DIR$/src/lib" />
-    </SOURCES>
-    <jarDirectory url="file://$PROJECT_DIR$/src/lib" recursive="false" />
-    <jarDirectory url="file://$PROJECT_DIR$/src/lib" recursive="false" type="SOURCES" />
+    <SOURCES />
   </library>
 </component>
