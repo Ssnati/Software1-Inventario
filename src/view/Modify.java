@@ -110,7 +110,7 @@ public class Modify extends JDialog {
         textFieldNombreModify.setColumns(10);
         panelCentral.add(textFieldNombreModify, "cell 1 5,grow");
 
-        JLabel lblNewLabel_1 = new JLabel("Porcentaje de Utilidad (%)");
+        JLabel lblNewLabel_1 = new JLabel("Porcentaje de Utilidad (%) *");
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
         panelCentral.add(lblNewLabel_1, "cell 3 4");
 
@@ -138,7 +138,7 @@ public class Modify extends JDialog {
         JLabel lblNewLabel_1_1_1 = new JLabel("Marca");
         lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
         panelCentral.add(lblNewLabel_1_1_1, "cell 3 6");
-        JLabel lblNewLabel_rango = new JLabel("                     Stock mínimo");
+        JLabel lblNewLabel_rango = new JLabel("                     Stock mínimo *");
         lblNewLabel_rango.setFont(new Font("Tahoma", Font.PLAIN, 18));
         panelCentral.add(lblNewLabel_rango, "cell  3 6");
 
