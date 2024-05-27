@@ -197,7 +197,7 @@ public class Ver extends JDialog {
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         txtDescripcionVer.setWrapStyleWord(true);
         txtDescripcionVer.setLineWrap(true);
-        txtDescripcionVer.setBackground(Color.LIGHT_GRAY);
+        txtDescripcionVer.setBackground(new Color(233,233,233));
 
         panelCentral.add(panel, "cell 1 13 3 1,grow");
         //panel.setLayout(new MigLayout("", "["+ancho*0.47+"]", "[165.00px]"));

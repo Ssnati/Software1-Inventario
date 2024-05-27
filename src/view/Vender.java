@@ -155,7 +155,7 @@ public class Vender extends JDialog {
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		txtDescripcion.setWrapStyleWord(true);
 		txtDescripcion.setLineWrap(true);
-		txtDescripcion.setBackground(Color.LIGHT_GRAY);
+		txtDescripcion.setBackground(new Color(233,233,233));
 		
 			panelCentral.add(panel, "cell 1 9 3 1,grow");
 			//panel.setLayout(new MigLayout("", "["+ancho*0.47+"]", "[165.00px]"));
