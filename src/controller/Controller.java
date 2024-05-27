@@ -344,6 +344,7 @@ public class Controller implements ActionListener, WindowListener {
             md.setTxtDescripcionModify(pd.getDescription());
             md.setTextFieldProfit(String.valueOf(pd.getProfitPercentage()));
             md.setTextFieldRangoModify(String.valueOf(pd.getRangoStock()));
+            md.setTextFieldPrecioCompra(String.valueOf(pd.getPurchasePrice()));
             md.setActionModify();
             md.setVisible(true);
         } else {
@@ -442,6 +443,7 @@ public class Controller implements ActionListener, WindowListener {
             vr.setTextFieldSalePrice(String.valueOf(myPd.getSalePrice()));
             vr.setTxtDescripcionVer(myPd.getDescription());
             vr.setTextFieldRango(String.valueOf(myPd.getRangoStock()));
+            vr.setTextFieldPrecioCompra(String.valueOf(myPd.getPurchasePrice()));
             vr.setActionSee();
             vr.setVisible(true);
         } else {

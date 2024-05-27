@@ -327,4 +327,8 @@ public class Ver extends JDialog {
     public void setTextFieldSalePrice(String textFieldSalePrice) {
         this.textFieldSalePrice.setText(textFieldSalePrice);
     }
+
+    public void setTextFieldPrecioCompra(String textFieldPrecioCompra) {
+        this.textFieldPrecioCompra.setText(textFieldPrecioCompra);
+    }
 }

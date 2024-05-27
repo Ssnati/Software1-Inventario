@@ -303,4 +303,8 @@ public class Modify extends JDialog {
     public void setTextFieldProfit(String textFieldProfit) {
         this.textFieldProfitModify.setText(textFieldProfit);
     }
+
+    public void setTextFieldPrecioCompra(String textFieldPrecioCompra) {
+        this.textFieldPrecioCompra.setText(textFieldPrecioCompra);
+    }
 }
