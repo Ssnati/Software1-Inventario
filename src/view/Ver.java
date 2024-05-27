@@ -41,6 +41,7 @@ public class Ver extends JDialog {
     private JTextField textFieldProfit;
     private JTextField textFieldSalePrice;
     private JTextField textFieldRango;
+    private JTextField textFieldPrecioCompra;
 
     public Ver(JFrame frame, boolean modal, ActionListener listener) {
         super(frame, modal);
@@ -117,37 +118,41 @@ public class Ver extends JDialog {
 
         JLabel lblNewLabel_1_1 = new JLabel("Cantidad");
         lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        panelCentral.add(lblNewLabel_1_1, "cell 1 4");
+        panelCentral.add(lblNewLabel_1_1, "cell 3 4");
 
         JLabel lblNewLabel_1_1_1 = new JLabel("Marca");
         lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        panelCentral.add(lblNewLabel_1_1_1, "cell 3 4");
+        panelCentral.add(lblNewLabel_1_1_1, "cell 1 4");
 
         textFieldCantidadVer = new JTextField();
         textFieldCantidadVer.setEditable(false);
         textFieldCantidadVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
         textFieldCantidadVer.setToolTipText("Estos campos no pueden ser editados");
         textFieldCantidadVer.setColumns(10);
-        panelCentral.add(textFieldCantidadVer, "cell 1 5,grow");
+        panelCentral.add(textFieldCantidadVer, "cell 3 5,grow");
 
         textFieldMarcaVer = new JTextField();
         textFieldMarcaVer.setEditable(false);
         textFieldMarcaVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
         textFieldMarcaVer.setToolTipText("Estos campos no pueden ser editados");
         textFieldMarcaVer.setColumns(10);
-        panelCentral.add(textFieldMarcaVer, "cell 3 5,grow");
+        panelCentral.add(textFieldMarcaVer, "cell 1 5,grow");
 
-        JLabel lblNewLabel_1_1_3 = new JLabel("Procentaje de Utilidad");
+        JLabel lblNewLabel_1_1_3 = new JLabel("Porcentaje de Utilidad");
         lblNewLabel_1_1_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
         panelCentral.add(lblNewLabel_1_1_3, "cell 1 7");
 
         JLabel lblNewLabel_1_1_4 = new JLabel("Precio de Venta");
         lblNewLabel_1_1_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        panelCentral.add(lblNewLabel_1_1_4, "cell 3 7");
+        panelCentral.add(lblNewLabel_1_1_4, "cell 3 9");
 
-        JLabel lblNewLabel_1_1_5 = new JLabel("           Stock mínimo");
+        JLabel lblNewLabel_1_1_5 = new JLabel("Stock mínimo");
         lblNewLabel_1_1_5.setFont(new Font("Tahoma", Font.PLAIN, 18));
         panelCentral.add(lblNewLabel_1_1_5, "cell 3 7");
+
+        JLabel lblPrecioCompra = new JLabel("Precio de Compra");
+        lblPrecioCompra.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        panelCentral.add(lblPrecioCompra, "cell 1 9");
 
 
         textFieldProfit = new JTextField();
@@ -162,7 +167,7 @@ public class Ver extends JDialog {
         textFieldSalePrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         textFieldSalePrice.setEditable(false);
         textFieldSalePrice.setColumns(10);
-        panelCentral.add(textFieldSalePrice, "cell 3 8,growx");
+        panelCentral.add(textFieldSalePrice, "cell 3 10,growx");
 
         textFieldRango = new JTextField();
         textFieldRango.setToolTipText("Estos campos no pueden ser editados");
@@ -170,6 +175,13 @@ public class Ver extends JDialog {
         textFieldRango.setEditable(false);
         textFieldRango.setColumns(10);
         panelCentral.add(textFieldRango, "cell 3 8,growx");
+
+        textFieldPrecioCompra = new JTextField();
+        textFieldPrecioCompra.setToolTipText("Estos campos no pueden ser editados");
+        textFieldPrecioCompra.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        textFieldPrecioCompra.setEditable(false);
+        textFieldPrecioCompra.setColumns(10);
+        panelCentral.add(textFieldPrecioCompra, "cell 1 10,growx");
 
         JLabel lblNewLabel_1_1_2 = new JLabel("Descripción del producto");
         lblNewLabel_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 18));

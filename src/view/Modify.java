@@ -38,6 +38,8 @@ public class Modify extends JDialog {
     private JLabel lblAvisoModify;
     private JButton btnAccept;
     private JFrame jf;
+    private JLabel lblPrecioCompra;
+    private JTextField textFieldPrecioCompra;
 
     public Modify(JFrame frame, boolean modal, ActionListener listener) {
         super(frame, modal);
@@ -127,20 +129,20 @@ public class Modify extends JDialog {
             }
         });
         textFieldProfitModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        textFieldProfitModify.setToolTipText("Ingrese el valor numérico del porcentaje de utilidad. No es necesario digitar el símbolo (%). Si no asigna un valor de utilidad, el sistema asignara un porcentaje de 25%.");
+        textFieldProfitModify.setToolTipText("Ingrese el valor numérico del porcentaje de utilidad. No es necesario digitar el símbolo (%). Este campo debe ser rellenado obligatoriamente.");
         panelCentral.add(textFieldProfitModify, "cell 3 5,grow");
         textFieldProfitModify.setColumns(10);
 
         JLabel lblNewLabel_1_1 = new JLabel("Cantidad*");
         lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        panelCentral.add(lblNewLabel_1_1, "cell 1 7");
+        panelCentral.add(lblNewLabel_1_1, "cell 1 8");
 
         JLabel lblNewLabel_1_1_1 = new JLabel("Marca");
         lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
         panelCentral.add(lblNewLabel_1_1_1, "cell 3 6");
-        JLabel lblNewLabel_rango = new JLabel("                     Stock mínimo *");
+        JLabel lblNewLabel_rango = new JLabel("Stock mínimo *");
         lblNewLabel_rango.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        panelCentral.add(lblNewLabel_rango, "cell  3 6");
+        panelCentral.add(lblNewLabel_rango, "cell  3 8");
 
         textFieldCantidadModify = new JTextField();
 
@@ -148,7 +150,7 @@ public class Modify extends JDialog {
         textFieldCantidadModify.setToolTipText("La cantidad no puede ser modificada.");
         textFieldCantidadModify.setEditable(false);
         textFieldCantidadModify.setColumns(10);
-        panelCentral.add(textFieldCantidadModify, "cell 1 8,grow");
+        panelCentral.add(textFieldCantidadModify, "cell 1 9,grow");
 
         textFieldMarcaModify = new JTextField();
         textFieldMarcaModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -158,9 +160,9 @@ public class Modify extends JDialog {
 
         textFieldRangoModify = new JTextField();
         textFieldRangoModify.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        textFieldRangoModify.setToolTipText("En caso de no escribirlo el sistema asignará un rango de stock mínimo de 5.");
+        textFieldRangoModify.setToolTipText("Colocar el stock mínimo del producto. Este campo debe ser rellenado obligatoriamente.");
         textFieldRangoModify.setColumns(10);
-        panelCentral.add(textFieldRangoModify, "cell 3 7,grow");
+        panelCentral.add(textFieldRangoModify, "cell 3 9,grow");
         textFieldRangoModify.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -171,6 +173,17 @@ public class Modify extends JDialog {
                 }
             }
         });
+
+        lblPrecioCompra = new JLabel("Precio de Compra");
+        lblPrecioCompra.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        panelCentral.add(lblPrecioCompra, "cell 1 6");
+
+        textFieldPrecioCompra = new JTextField();
+        textFieldPrecioCompra.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        textFieldPrecioCompra.setToolTipText("Este campo no puede ser modificado.");
+        textFieldPrecioCompra.setColumns(10);
+        textFieldPrecioCompra.setEditable(false);
+        panelCentral.add(textFieldPrecioCompra, "cell 1 7,grow");
 
         JLabel lblNewLabel_1_1_2 = new JLabel("Descripción del producto");
         lblNewLabel_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
