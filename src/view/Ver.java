@@ -82,8 +82,8 @@ public class Ver extends JDialog {
         //new MigLayout("", "[40.00]["+((ancho*0.5/2)-70)+"][50.00]["+((ancho*0.5/2)-70)+"][40.00]", "[][][][][40.00][][][40.00][][][fill]"));
         panelCentral.setLayout(new MigLayout("", "[40.00][271.5,grow][50.00][271.5,grow][40.00]", "[][][][][][][][][][][40.00][][][][][40.00][][][fill]"));
 
-        lblAvisoVer = new JLabel("");
-        lblAvisoVer.setForeground(new Color(204, 0, 0));
+        lblAvisoVer = new JLabel("Solo para visualización. Para modificar los datos, el botón se encuentra en la parte inferior");
+        lblAvisoVer.setForeground(new Color(0, 204, 0));
         lblAvisoVer.setFont(new Font("Tahoma", Font.PLAIN, 18));
         lblAvisoVer.setHorizontalAlignment(SwingConstants.CENTER);
         panelCentral.add(lblAvisoVer, "cell 1 0 3 1,alignx center");
@@ -97,7 +97,6 @@ public class Ver extends JDialog {
         panelCentral.add(lblNewLabel_1, "cell 3 1");
 
         textFieldCodigoVer = new JTextField();
-        textFieldCodigoVer.setBackground(Color.WHITE);
         textFieldCodigoVer.setEditable(false);
         textFieldCodigoVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
         textFieldCodigoVer.setToolTipText("");
@@ -105,7 +104,6 @@ public class Ver extends JDialog {
         textFieldCodigoVer.setColumns(10);
 
         textFieldNombreVer = new JTextField();
-        textFieldNombreVer.setBackground(Color.WHITE);
         textFieldNombreVer.setEditable(false);
         textFieldNombreVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
         textFieldNombreVer.setToolTipText("");
@@ -126,7 +124,6 @@ public class Ver extends JDialog {
         panelCentral.add(lblNewLabel_1_1_1, "cell 3 4");
 
         textFieldCantidadVer = new JTextField();
-        textFieldCantidadVer.setBackground(Color.WHITE);
         textFieldCantidadVer.setEditable(false);
         textFieldCantidadVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
         textFieldCantidadVer.setToolTipText("");
@@ -134,7 +131,6 @@ public class Ver extends JDialog {
         panelCentral.add(textFieldCantidadVer, "cell 1 5,grow");
 
         textFieldMarcaVer = new JTextField();
-        textFieldMarcaVer.setBackground(Color.WHITE);
         textFieldMarcaVer.setEditable(false);
         textFieldMarcaVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
         textFieldMarcaVer.setToolTipText("");
@@ -159,7 +155,6 @@ public class Ver extends JDialog {
         textFieldProfit.setFont(new Font("Tahoma", Font.PLAIN, 15));
         textFieldProfit.setEditable(false);
         textFieldProfit.setColumns(10);
-        textFieldProfit.setBackground(Color.WHITE);
         panelCentral.add(textFieldProfit, "cell 1 8,growx");
 
         textFieldSalePrice = new JTextField();
@@ -167,7 +162,6 @@ public class Ver extends JDialog {
         textFieldSalePrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         textFieldSalePrice.setEditable(false);
         textFieldSalePrice.setColumns(10);
-        textFieldSalePrice.setBackground(Color.WHITE);
         panelCentral.add(textFieldSalePrice, "cell 3 8,growx");
 
         textFieldRango = new JTextField();
@@ -175,7 +169,6 @@ public class Ver extends JDialog {
         textFieldRango.setFont(new Font("Tahoma", Font.PLAIN, 15));
         textFieldRango.setEditable(false);
         textFieldRango.setColumns(10);
-        textFieldRango.setBackground(Color.WHITE);
         panelCentral.add(textFieldRango, "cell 3 8,growx");
 
         JLabel lblNewLabel_1_1_2 = new JLabel("Descripción del producto");
