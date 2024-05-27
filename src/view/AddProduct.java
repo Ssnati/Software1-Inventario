@@ -104,7 +104,7 @@ public class AddProduct extends JDialog {
         JLabel lblIngrese = new JLabel("Ingrese el valor total de la compra *");
         lblIngrese.setFont(new Font("Tahoma", Font.PLAIN, 18));
         panelCentral.add(lblIngrese, "cell 3 12");
-        lblAviso = new JLabel("");
+        lblAviso = new JLabel("Complete los campos marcados con (*)");
         lblAviso.setForeground(new Color(204, 0, 0));
         lblAviso.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
@@ -114,7 +114,6 @@ public class AddProduct extends JDialog {
         AddProd_txt_cant.setToolTipText("Ingrese la cantidad del producto que compro");
         AddProd_txt_cant.setFont(new Font("Tahoma", Font.PLAIN, 15));
         AddProd_txt_cant.setColumns(10);
-        AddProd_txt_cant.setBackground(Color.WHITE);
         AddProd_txt_cant.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -158,19 +157,17 @@ public class AddProduct extends JDialog {
         panelCentral.add(lblNewLabel_1, "cell 3 2");
 
         textFieldCodigoVer = new JTextField();
-        textFieldCodigoVer.setBackground(Color.WHITE);
         textFieldCodigoVer.setEditable(false);
         textFieldCodigoVer.setText("12345");
         textFieldCodigoVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        textFieldCodigoVer.setToolTipText("");
+        textFieldCodigoVer.setToolTipText("Este campo no puede ser editado");
         panelCentral.add(textFieldCodigoVer, "cell 1 3,grow");
         textFieldCodigoVer.setColumns(10);
 
         textFieldNombreVer = new JTextField();
-        textFieldNombreVer.setBackground(Color.WHITE);
         textFieldNombreVer.setEditable(false);
         textFieldNombreVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        textFieldNombreVer.setToolTipText("");
+        textFieldNombreVer.setToolTipText("Este campo no puede ser editado");
         panelCentral.add(textFieldNombreVer, "cell 3 3,grow");
         textFieldNombreVer.setColumns(10);
 
@@ -183,18 +180,16 @@ public class AddProduct extends JDialog {
         panelCentral.add(lblNewLabel_1_1_1, "cell 3 4");
 
         textFieldCantidadVer = new JTextField();
-        textFieldCantidadVer.setBackground(Color.WHITE);
         textFieldCantidadVer.setEditable(false);
         textFieldCantidadVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        textFieldCantidadVer.setToolTipText("");
+        textFieldCantidadVer.setToolTipText("Este campo no puede ser editado");
         textFieldCantidadVer.setColumns(10);
         panelCentral.add(textFieldCantidadVer, "cell 1 5,grow");
 
         textFieldMarcaVer = new JTextField();
-        textFieldMarcaVer.setBackground(Color.WHITE);
         textFieldMarcaVer.setEditable(false);
         textFieldMarcaVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        textFieldMarcaVer.setToolTipText("");
+        textFieldMarcaVer.setToolTipText("Este campo no puede ser editado");
         textFieldMarcaVer.setColumns(10);
         panelCentral.add(textFieldMarcaVer, "cell 3 5,grow");
 
@@ -205,7 +200,7 @@ public class AddProduct extends JDialog {
         JPanel panel = new JPanel();
         panel.setBorder(new LineBorder(Color.LIGHT_GRAY));
         txtDescripcionVer = new JTextArea();
-        txtDescripcionVer.setBackground(Color.WHITE);
+        txtDescripcionVer.setBackground(Color.GRAY);
         txtDescripcionVer.setEditable(false);
         txtDescripcionVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
         JScrollPane scroll = new JScrollPane(txtDescripcionVer);
