@@ -200,7 +200,7 @@ public class AddProduct extends JDialog {
         JPanel panel = new JPanel();
         panel.setBorder(new LineBorder(Color.LIGHT_GRAY));
         txtDescripcionVer = new JTextArea();
-        txtDescripcionVer.setBackground(Color.GRAY);
+        txtDescripcionVer.setBackground(new Color(233,233,233));
         txtDescripcionVer.setEditable(false);
         txtDescripcionVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
         JScrollPane scroll = new JScrollPane(txtDescripcionVer);
