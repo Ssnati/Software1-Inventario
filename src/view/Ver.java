@@ -99,14 +99,14 @@ public class Ver extends JDialog {
         textFieldCodigoVer = new JTextField();
         textFieldCodigoVer.setEditable(false);
         textFieldCodigoVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        textFieldCodigoVer.setToolTipText("");
+        textFieldCodigoVer.setToolTipText("Esto campos no pueden ser editados");
         panelCentral.add(textFieldCodigoVer, "cell 1 2,grow");
         textFieldCodigoVer.setColumns(10);
 
         textFieldNombreVer = new JTextField();
         textFieldNombreVer.setEditable(false);
         textFieldNombreVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        textFieldNombreVer.setToolTipText("");
+        textFieldNombreVer.setToolTipText("Estos campos no pueden ser editados");
         panelCentral.add(textFieldNombreVer, "cell 3 2,grow");
         textFieldNombreVer.setColumns(10);
 
@@ -126,14 +126,14 @@ public class Ver extends JDialog {
         textFieldCantidadVer = new JTextField();
         textFieldCantidadVer.setEditable(false);
         textFieldCantidadVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        textFieldCantidadVer.setToolTipText("");
+        textFieldCantidadVer.setToolTipText("Estos campos no pueden ser editados");
         textFieldCantidadVer.setColumns(10);
         panelCentral.add(textFieldCantidadVer, "cell 1 5,grow");
 
         textFieldMarcaVer = new JTextField();
         textFieldMarcaVer.setEditable(false);
         textFieldMarcaVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        textFieldMarcaVer.setToolTipText("");
+        textFieldMarcaVer.setToolTipText("Estos campos no pueden ser editados");
         textFieldMarcaVer.setColumns(10);
         panelCentral.add(textFieldMarcaVer, "cell 3 5,grow");
 
@@ -151,21 +151,21 @@ public class Ver extends JDialog {
 
 
         textFieldProfit = new JTextField();
-        textFieldProfit.setToolTipText("");
+        textFieldProfit.setToolTipText("Estos campos no pueden ser editados");
         textFieldProfit.setFont(new Font("Tahoma", Font.PLAIN, 15));
         textFieldProfit.setEditable(false);
         textFieldProfit.setColumns(10);
         panelCentral.add(textFieldProfit, "cell 1 8,growx");
 
         textFieldSalePrice = new JTextField();
-        textFieldSalePrice.setToolTipText("");
+        textFieldSalePrice.setToolTipText("Estos campos no pueden ser editados");
         textFieldSalePrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         textFieldSalePrice.setEditable(false);
         textFieldSalePrice.setColumns(10);
         panelCentral.add(textFieldSalePrice, "cell 3 8,growx");
 
         textFieldRango = new JTextField();
-        textFieldRango.setToolTipText("");
+        textFieldRango.setToolTipText("Estos campos no pueden ser editados");
         textFieldRango.setFont(new Font("Tahoma", Font.PLAIN, 15));
         textFieldRango.setEditable(false);
         textFieldRango.setColumns(10);
@@ -178,7 +178,6 @@ public class Ver extends JDialog {
         JPanel panel = new JPanel();
         panel.setBorder(new LineBorder(Color.LIGHT_GRAY));
         txtDescripcionVer = new JTextArea();
-        txtDescripcionVer.setBackground(Color.WHITE);
         txtDescripcionVer.setEditable(false);
         txtDescripcionVer.setFont(new Font("Tahoma", Font.PLAIN, 15));
         JScrollPane scroll = new JScrollPane(txtDescripcionVer);
@@ -186,6 +185,7 @@ public class Ver extends JDialog {
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         txtDescripcionVer.setWrapStyleWord(true);
         txtDescripcionVer.setLineWrap(true);
+        txtDescripcionVer.setBackground(Color.LIGHT_GRAY);
 
         panelCentral.add(panel, "cell 1 13 3 1,grow");
         //panel.setLayout(new MigLayout("", "["+ancho*0.47+"]", "[165.00px]"));
