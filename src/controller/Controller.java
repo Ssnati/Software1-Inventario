@@ -502,7 +502,6 @@ public class Controller implements ActionListener, WindowListener {
 
     private void createProduct() {
         String codigo = cr.getTextFieldCod().getText();
-
         String name = cr.getTextFieldNom().getText();
         String profitPercentage = cr.getTextFieldUtil().getText();
         String brand = cr.getTextFieldMarca().getText();
@@ -511,7 +510,7 @@ public class Controller implements ActionListener, WindowListener {
         if (name.isBlank()) {
             jp.showErrorMessage("Por favor complete todos los campos marcados con (*)");
         } else if (!codigo.isBlank() && !isPositiveInteger(codigo)) {
-            jp.showErrorMessage("El codigo debe ser un entero positivo");
+            jp.showErrorMessage("El codigo debe ser un entero positivo que no exceda el rango de: "+maxInt);
         } else if (!profitPercentage.isBlank() && !isDoublePositive(profitPercentage)) {
             jp.showErrorMessage("El porcentaje de utilidad debe ser un numero entero, o decimal positivo que no exceda el rango de: " + 10000);
         } else if (!profitPercentage.isBlank() && Double.parseDouble(profitPercentage) <= 0.0) {
